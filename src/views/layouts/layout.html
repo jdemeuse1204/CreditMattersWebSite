@@ -9,18 +9,18 @@
                 <i class="fa fa-exclamation-triangle fa-2x" title="Test"></i>
                 <span>Profile Incomplete</span>
             </div>
-            <ul>
-                <li route="#!/Management/ManageCreditItems">Manage Credit Items</li>
-                <li route="#!/Management/LinkedProfessional">Linked Professional</li>
-                <li route="#!/Management/StallLetters">Stall Letters</li>
-                <li route="#!/Management/CreditCards">Credit Cards</li>
-                <li route="#!/Management/HelpfulVideos">Helpful Videos</li>
-                <li route="#!/Management/EstablishAccounts">Establish Accounts</li>
-                <li route="#!/Management/ResolvingCDS">Resolving CDS</li>
-                <li route="#!/Management/TrackingDisputeActivity">Tracking Dispute Activity</li>
+            <ul name="drawer-nav-items">
+                <li click.delegate="drawerNavigate()">Manage Credit Items</li>
+                <li click.trigger="drawerNavigate()">Linked Professional</li>
+                <li click.trigger="drawerNavigate($event)">Stall Letters</li>
+                <li click.trigger="drawerNavigate($event)">Credit Cards</li>
+                <li click.trigger="drawerNavigate($event)">Helpful Videos</li>
+                <li click.trigger="drawerNavigate($event)">Establish Accounts</li>
+                <li click.trigger="drawerNavigate($event)">Resolving CDS</li>
+                <li click.trigger="drawerNavigate($event)">Tracking Dispute Activity</li>
             </ul>
             <div class="text-center">
-                <button class="btn btn-danger log-out" data-bind="click: logoutClick">Log Out</button>
+                <button class="btn btn-danger log-out" click.trigger="logout()">Log Out</button>
             </div>
         </div>
 
@@ -33,17 +33,17 @@
                 <span>Profile Incomplete</span>
             </div>
             <ul>
-                <li route="#!/Management/ManageCreditItems">Manage Credit Items</li>
-                <li route="#!/Management/LinkedProfessional">Linked Professional</li>
-                <li route="#!/Management/StallLetters">Stall Letters</li>
-                <li route="#!/Management/CreditCards">Credit Cards</li>
-                <li route="#!/Management/HelpfulVideos">Helpful Videos</li>
-                <li route="#!/Management/EstablishAccounts">Establish Accounts</li>
-                <li route="#!/Management/ResolvingCDS">Resolving CDS</li>
-                <li route="#!/Management/TrackingDisputeActivity">Tracking Dispute Activity</li>
+                <li li.call="drawerNavigate($event)">Manage Credit Items</li>
+                <li click.trigger="drawerNavigate($event)">Linked Professional</li>
+                <li click.trigger="drawerNavigate($event)">Stall Letters</li>
+                <li click.trigger="drawerNavigate($event)">Credit Cards</li>
+                <li click.trigger="drawerNavigate($event)">Helpful Videos</li>
+                <li click.trigger="drawerNavigate($event)">Establish Accounts</li>
+                <li click.trigger="drawerNavigate($event)">Resolving CDS</li>
+                <li click.trigger="drawerNavigate($event)">Tracking Dispute Activity</li>
             </ul>
             <div class="text-center">
-                <button class="btn btn-danger log-out" data-bind="click: logoutClick">Log Out</button>
+                <button class="btn btn-danger log-out" click.trigger="logout()">Log Out</button>
             </div>
         </div>
 
@@ -56,12 +56,12 @@
             <!--Desktop-->
             <div class="page-header-row-desktop hidden-sm hidden-xs">
 
-                <div class="user-profile-desktop" id="user-profile-desktop" data-bind="click:userProfileClick">
+                <div class="user-profile-desktop" id="user-profile-desktop">
                     <div>
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="text-center">
-                        <div class="username" data-bind="html:userLoggedInMessage"></div>
+                        <div class="username"></div>
                         <div class="profile-and-settings">Profile & Settings</div>
                     </div>
                 </div>
@@ -73,20 +73,21 @@
                 <a class="header-button-no-border" href="/#!">
                     <img alt="Credit Matters" src="/Content/images/CM-Green-Circles.png" width="43" height="43" />
                 </a>
-                <div class="text-center header-button-mobile" data-bind="click:userProfileClick">
+                <div class="text-center header-button-mobile">
                     <i class="fa fa-user fa-3x"></i>
                 </div>
                 <div id="layout-admin-options"></div>
 
             </div>
             <!--End Mobile-->
-            <div class="page-content-row container-full" id="main-window">
-
+            <div class="page-content-row container-full">
+                <slot name="page-content"></slot>
             </div>
         </div>
 
     </div>
 
+    <slot name="scripts"></slot>
 
     <!-- Templates -->
     <script type="text/x-kendo-template" id="mobile-notification">

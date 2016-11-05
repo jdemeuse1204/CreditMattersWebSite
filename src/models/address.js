@@ -1,4 +1,6 @@
 // Module require
+import {core, data} from 'kendo-ui-core';
+
 import * as _ from "lodash";
 import state from "./state";
 

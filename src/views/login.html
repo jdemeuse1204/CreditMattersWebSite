@@ -1,0 +1,45 @@
+<template>
+    <div id="login-window" class="container-full main-background window">
+
+        <div class="row text-center">
+            <div class="brand"></div>
+        </div>
+        <div class="row text-center">
+            <div class="row login-card">
+                <div class="login-card-header">Log In</div>
+                <div class="login-message" css.bind="{display: loginMessageDisplay}">${loginMessage}</div>
+                <div class="login-card-contents">
+                    <div class="form-group has-feedback" id="login-username">
+                        <input type="text" class="form-control" placeholder="Email Address" value.bind="username"/>
+                    </div>
+                    <div class="form-group has-feedback" id="login-password">
+                        <input type="password" class="form-control" placeholder="Password" value.bind="password"/>
+                    </div>
+                    <div class="form-group has-feedback" id="login-pin" css.bind="{display:pinDisplay}">
+                        <input type="password" class="form-control" placeholder="Verification Code" value.bind="pin"/>
+                    </div>
+                    <div class="row login-options">
+                        <div class="col-xs-6 login-options-remember-me">
+                            <input type="checkbox" id="login-remember-me" class="form-control checkbox" checked.bind="rememberMe"/><label for="login-remember-me">&nbsp;&nbsp;Remember Me</label>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" click.trigger="submit()" css.bind="{display: loginDisplay}">Submit</a>
+                    <a class="btn btn-primary" click.trigger="verifyPin()" css.bind="{display: pinDisplay}">Verify Device</a>
+                </div>
+            </div>
+            <div class="row login-help">
+                <div class="col-xs-6">
+                    <div class="login-help-left">
+                        <a href="#/ForgotUsername">Forgot Username</a>
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+                    <div class="login-help-right">
+                        <a href="#/ForgotPassword">Forgot Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

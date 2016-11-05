@@ -1,6 +1,7 @@
 // Module require
 import * as _ from "lodash";
 import loginFunctions from "./loginFunctions";
+import * as environment from '../environment';
 
 
 export default function (core) {

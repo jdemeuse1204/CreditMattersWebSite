@@ -1,11 +1,12 @@
 // Module require
-import q from "lodash";
+import q from "q";
 import aspnet_user from "../models/aspnet_user";
 import creditBureauEntry from "../models/creditBureauEntry";
 import states from "../models/state";
 import creditBureau from "../models/creditBureau";
 import creditBureauStatus from "../models/creditBureauStatus";
 import * as constants from "../constants";
+import * as environment from '../environment';
 
 const LOOKUP_CONTROLLER = "Lookup";
 const ACCOUNT_CONTROLLER = "Account";
@@ -15,18 +16,18 @@ const REGISTER_CONTROLLER = "Register";
 let _post = function(url, payload) {
 
         if (payload) {
-            return $.post(url, payload);
+            return $.post(`${environment.repositoryUrl}${url}`, payload);
         }
 
-        return $.post(url);
+        return $.post(`${environment.repositoryUrl}${url}`);
     },
     _get = function(url, payload) {
 
         if (payload) {
-            return $.getJSON(url, payload);
+            return $.getJSON(`${environment.repositoryUrl}${url}`, payload);
         }
 
-        return $.getJSON(url);
+        return $.getJSON(`${environment.repositoryUrl}${url}`);
     },
     _getUrl = (controllerName, endPoint) => {
         return `api/${controllerName}/${endPoint}`;
