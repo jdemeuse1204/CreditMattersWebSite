@@ -1,0 +1,566 @@
+<template>
+    <div id="main-layout-page">
+        <div class="drawer hidden-lg hidden-md" id="mobile-drawer">
+            <div class="drawer-header">
+
+            </div>
+
+            <div class="profile-message">
+                <i class="fa fa-exclamation-triangle fa-2x" title="Test"></i>
+                <span>Profile Incomplete</span>
+            </div>
+            <ul>
+                <li route="#!/Management/ManageCreditItems">Manage Credit Items</li>
+                <li route="#!/Management/LinkedProfessional">Linked Professional</li>
+                <li route="#!/Management/StallLetters">Stall Letters</li>
+                <li route="#!/Management/CreditCards">Credit Cards</li>
+                <li route="#!/Management/HelpfulVideos">Helpful Videos</li>
+                <li route="#!/Management/EstablishAccounts">Establish Accounts</li>
+                <li route="#!/Management/ResolvingCDS">Resolving CDS</li>
+                <li route="#!/Management/TrackingDisputeActivity">Tracking Dispute Activity</li>
+            </ul>
+            <div class="text-center">
+                <button class="btn btn-danger log-out" data-bind="click: logoutClick">Log Out</button>
+            </div>
+        </div>
+
+        <div class="drawer hidden-sm hidden-xs" id="desktop-drawer">
+            <div class="drawer-header">
+
+            </div>
+            <div class="profile-message">
+                <i class="fa fa-exclamation-triangle fa-2x" title="Test"></i>
+                <span>Profile Incomplete</span>
+            </div>
+            <ul>
+                <li route="#!/Management/ManageCreditItems">Manage Credit Items</li>
+                <li route="#!/Management/LinkedProfessional">Linked Professional</li>
+                <li route="#!/Management/StallLetters">Stall Letters</li>
+                <li route="#!/Management/CreditCards">Credit Cards</li>
+                <li route="#!/Management/HelpfulVideos">Helpful Videos</li>
+                <li route="#!/Management/EstablishAccounts">Establish Accounts</li>
+                <li route="#!/Management/ResolvingCDS">Resolving CDS</li>
+                <li route="#!/Management/TrackingDisputeActivity">Tracking Dispute Activity</li>
+            </ul>
+            <div class="text-center">
+                <button class="btn btn-danger log-out" data-bind="click: logoutClick">Log Out</button>
+            </div>
+        </div>
+
+        <div class="container-full" id="main-layout-content">
+            <div id="drawer-trigger" class="hidden-lg hidden-md">
+                <div class="drawer-line"></div>
+                <div class="drawer-line"></div>
+                <div class="drawer-line"></div>
+            </div>
+            <!--Desktop-->
+            <div class="page-header-row-desktop hidden-sm hidden-xs">
+
+                <div class="user-profile-desktop" id="user-profile-desktop" data-bind="click:userProfileClick">
+                    <div>
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="text-center">
+                        <div class="username" data-bind="html:userLoggedInMessage"></div>
+                        <div class="profile-and-settings">Profile & Settings</div>
+                    </div>
+                </div>
+            </div>
+            <!--End Desktop-->
+            <!--Mobile-->
+            <div class="page-header-row-mobile hidden-lg hidden-md">
+
+                <a class="header-button-no-border" href="/#!">
+                    <img alt="Credit Matters" src="/Content/images/CM-Green-Circles.png" width="43" height="43" />
+                </a>
+                <div class="text-center header-button-mobile" data-bind="click:userProfileClick">
+                    <i class="fa fa-user fa-3x"></i>
+                </div>
+                <div id="layout-admin-options"></div>
+
+            </div>
+            <!--End Mobile-->
+            <div class="page-content-row container-full" id="main-window">
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Templates -->
+    <script type="text/x-kendo-template" id="mobile-notification">
+    <div class="notification hidden-lg hidden-md text-center">
+        <span class="notification-message">#= message #</span>
+    </div>
+</script>
+
+    <script type="text/x-kendo-template" id="profile-message">
+    <div class="profile-message">
+        <i class="fa fa-exclamation-triangle fa-2x" title="#=title#"></i>
+        <span>#=message#</span>
+    </div>
+</script>
+
+    <script type="text/x-kendo-template" id="layout-header-desktop">
+
+    <div class="user-profile-desktop" id="user-profile-desktop" data-bind="click:userProfileClick">
+        <div>
+            <i class="fa fa-user fa-5x"></i>
+        </div>
+        <div class="text-center">
+            <div class="username" data-bind="html:userLoggedInMessage"></div>
+            <div class="profile-and-settings">Profile & Settings</div>
+        </div>
+    </div>
+
+</script>
+
+    <script type="text/x-kendo-template" id="layout-header-mobile-admin-options">
+
+    <a class="text-center header-button-mobile" href="#:url#">
+        <i class="fa fa-shield fa-3x"></i>
+    </a>
+
+</script>
+
+    <script type="text/x-kendo-template" id="manage-credit-items-response-row-action">
+    <div class="manage-credit-items-response-row-action">
+        <span action="delete" data-id="#=dataId#"><i class="fa fa-trash"></i></span>
+    </div>
+</script>
+
+
+    <!-- Manage Credit Items Modal -->
+    <div class="modal fade" id="manage-credit-items-item-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="close-modal" data-dismiss="modal"></div>
+                    <h4 class="modal-title" data-bind="text:header"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Account Number</label>
+                            <div class="input-group input-group-flat" id="manage-credit-items-validate-account-number" data-validate-lite="input-empty">
+                                <input type="text" class="form-control" data-bind="value:creditItem.AccountNumber" aria-describedby="manage-credit-items-account-number">
+                                <span class="input-group-addon" id="manage-credit-items-account-number"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 kendo-autocomplete">
+                            <label>Creditor</label>
+                            <div class="input-group input-group-flat" id="manage-credit-items-validate-creditor" data-validate-lite="input-empty">
+                                <input class="form-control" style="width: 100%;" data-placeholder="Type to find..." data-role="autocomplete" data-text-field="Name"
+                                    data-min-length="2" data-virtual="true" data-virtual-item-height="28" data-page-size="10"
+                                    data-bind="source:creditors,value:creditItem.Creditor.Name,events:{select:selectCreditor}"
+                                    aria-describedby="manage-credit-items-creditor" />
+                                <span class="input-group-addon" id="manage-credit-items-creditor"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Balance</label>
+                            <div class="input-group input-group-flat" id="manage-credit-items-validate-balance" data-validate-lite="input-empty-numeric">
+                                <input type="text" class="form-control" data-bind="value:creditItem.Balance" aria-describedby="manage-credit-items-balance">
+                                <span class="input-group-addon" id="manage-credit-items-balance"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 kendo-dropdown">
+                            <label>Type</label>
+                            <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type" data-validate-lite="dropdown">
+                                <input style="width: 100%;" data-validate="kendoDropDownList" data-option-label="Select Type..." data-role="dropdownlist"
+                                    data-text-field="Type" data-value-field="Id" data-bind="source:adverseTypes,value:creditItem.AdverseTypeId"
+                                    aria-describedby="manage-credit-items-adverse-type">
+                                <span class="input-group-addon" id="manage-credit-items-adverse-type"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 kendo-combobox dispute-reason">
+                            <div class="row">
+                                <label>Dispute Reason</label>
+                                <div>
+                                    <label>Customize It?</label>&nbsp;<input id="manage-credit-items-dispute-reason-user-custom-reason"
+                                        type="checkbox" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-default" data-validate-lite="input-empty"
+                                    data-bind="style: { display: defaultDisputeReasonDisplay }">
+                                    <select id="manage-credit-items-dispute-reason-default" class="form-control" data-bind="value:creditItem.DisputeReason.Reason"
+                                        aria-describedby="manage-credit-items-dispute-reason-default-addon" data-bind="style: { display: defaultDisputeReasonDisplay }"
+                                    />
+                                    <span class="input-group-addon" id="manage-credit-items-dispute-reason-default-addon" data-bind="style: { display: defaultDisputeReasonDisplay }"><i class="fa fa-asterisk"></i></span>
+                                </div>
+
+                                <div class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom" data-validate-lite="input-empty"
+                                    data-bind="style: { display: customDisputeReasonDisplay }">
+                                    <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" data-bind="value:creditItem.DisputeReason.Reason"
+                                        aria-describedby="manage-credit-items-dispute-reason-custom-addon" data-bind="style: { display: customDisputeReasonDisplay }"
+                                        placeholder="Custom Reason" />
+                                    <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon" data-bind="style: { display: customDisputeReasonDisplay }"><i class="fa fa-asterisk"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-bind="style:{ display:display.add }">
+                        <h4>Credit Bureau Initial Status</h4>
+                        <div class="row">
+                            <div class="col-md-4 mcr-radio-group">
+                                <label>TransUnion</label>
+                                <input type="radio" name="mcr-transunion-initial-bureau-status" value="1" data-bind="checked: creditItem.TransUnionInitialStatusId"
+                                    default="true">&nbsp;<span>Not Reporting</span>
+                                <input type="radio" name="mcr-transunion-initial-bureau-status" value="2" data-bind="checked: creditItem.TransUnionInitialStatusId">&nbsp;<span>Negative</span>
+                            </div>
+                            <div class="col-md-4 mcr-radio-group">
+                                <label>Equifax</label>
+                                <input type="radio" name="mcr-equifax-initial-bureau-status" value="1" data-bind="checked: creditItem.EquifaxInitialStatusId"
+                                    default="true">&nbsp;<span>Not Reporting</span>
+                                <input type="radio" name="mcr-equifax-initial-bureau-status" value="2" data-bind="checked: creditItem.EquifaxInitialStatusId">&nbsp;<span>Negative</span>
+                            </div>
+                            <div class="col-md-4 mcr-radio-group">
+                                <label>Experian</label>&emsp;
+                                <input type="radio" name="mcr-experian-initial-bureau-status" value="1" data-bind="checked: creditItem.ExperianInitialStatusId"
+                                    default="true">&nbsp;<span>Not Reporting</span>
+                                <input type="radio" name="mcr-experian-initial-bureau-status" value="2" data-bind="checked: creditItem.ExperianInitialStatusId">&nbsp;<span>Negative</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div data-bind="style:{ display:display.edit }">
+                        <h4>Credit Bureau Response Status</h4>
+                        <div class="row">
+                            <div class="col-md-4 mcr-radio-group">
+                                <label>TransUnion</label>
+                                <input type="radio" name="mcr-transunion-response-bureau-status" value="3" data-bind="checked: creditItem.TransUnionResponseStatusId">&nbsp;<span>Positive</span>
+                                <input type="radio" name="mcr-transunion-response-bureau-status" value="4" data-bind="checked: creditItem.TransUnionResponseStatusId">&nbsp;<span>Deleted</span>
+                                <input type="radio" name="mcr-transunion-response-bureau-status" default="true">&nbsp;<span>No Response</span>
+                            </div>
+                            <div class="col-md-4 mcr-radio-group">
+                                <label>Equifax</label>
+                                <input type="radio" name="mcr-equifax-response-bureau-status" value="3" data-bind="checked: creditItem.EquifaxResponseStatusId">&nbsp;<span>Positive</span>
+                                <input type="radio" name="mcr-equifax-response-bureau-status" value="4" data-bind="checked: creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
+                                <input type="radio" name="mcr-equifax-response-bureau-status" default="true">&nbsp;<span>No Response</span>
+                            </div>
+                            <div class="col-md-4 mcr-radio-group">
+                                <label>Experian</label>
+                                <input type="radio" name="mcr-experian-response-bureau-status" value="3" data-bind="checked: creditItem.ExperianResponseStatusId">&nbsp;<span>Positive</span>
+                                <input type="radio" name="mcr-experian-response-bureau-status" value="4" data-bind="checked: creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
+                                <input type="radio" name="mcr-experian-response-bureau-status" default="true">&nbsp;<span>No Response</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" data-bind="click:save"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Modal -->
+    <div class="modal fade" id="user-addresses-wizard-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <!--Home Address-->
+            <div class="modal-content" id="home-address-content" data-bind="style:{display:stepOne.display}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Home Address</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-home-address-line-one">
+                                <label>Address 1</label>
+                                <input type="text" class="form-control" data-bind="value:stepOne.addressLine1" placeholder="Address" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-home-address-line-two">
+                                <label>Address 2</label>
+                                <input type="text" class="form-control" data-bind="value:stepOne.addressLine2" placeholder="Address" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-home-address-city">
+                                <label>City</label>
+                                <input type="text" class="form-control" data-bind="value:stepOne.city" placeholder="City" />
+                            </div>
+                        </div>
+                        <div class="col-xs-3 kendo-dropdown-parent">
+                            <select id="home-address-wizard-state" data-bind="value:stepOne.stateId"></select>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-home-address-line-zip">
+                                <label>Zip</label>
+                                <input type="tel" class="form-control" data-bind="value:stepOne.zip" placeholder="Zip" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="1" data-bind="click:nextStep"><i class="fa fa-forward"></i>&nbsp;Next</button>
+                </div>
+            </div>
+            <!--Home Address-->
+
+            <!--Past Two Years Address-->
+            <div class="modal-content" id="previous-address-content" data-bind="style:{display:stepTwo.display}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Previous Address</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Have you lived at your current address for less that two years?&emsp;</label>
+                            <input type="checkbox" id="previous-address-switch" data-bind="events:{change:stepTwo.toggleAddressInputs}" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepTwo.fieldsDisplay}">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-previous-address-line-one">
+                                <label>Address 1</label>
+                                <input type="text" class="form-control" data-bind="value:stepTwo.addressLine1, readonly:stepTwo.areInputsReadonly" placeholder="Address"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-previous-address-line-two">
+                                <label>Address 2</label>
+                                <input type="text" class="form-control" data-bind="value:stepTwo.addressLine2, readonly:stepTwo.areInputsReadonly" placeholder="Address"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepTwo.fieldsDisplay}">
+                        <div class="col-xs-5">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-previous-address-city">
+                                <label>City</label>
+                                <input type="text" class="form-control" data-bind="value:stepTwo.city, readonly:stepTwo.areInputsReadonly" placeholder="City"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xs-3 kendo-dropdown-parent">
+                            <select id="previous-address-wizard-state" data-bind="value:stepTwo.stateId"></select>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="address-wizard-previous-address-line-zip">
+                                <label>Zip</label>
+                                <input type="tel" class="form-control" data-bind="value:stepTwo.zip, readonly:stepTwo.areInputsReadonly" placeholder="Zip"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="2" data-bind="click:nextStep"><i class="fa fa-forward"></i>&nbsp;Next</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="2" data-bind="click:previousStep"><i class="fa fa-backward"></i>&nbsp;Back</button>
+                </div>
+            </div>
+            <!--Past Two Years Address-->
+            <!--Mailing Address-->
+        </div>
+    </div>
+
+    <!--Phone Numbers Mobal-->
+    <div class="modal fade" id="user-information-wizard-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+            <!--Step One-->
+            <div class="modal-content" data-bind="style:{display:stepOne.display}" name="step-one">
+                <div class="modal-header">
+                    <h4 class="modal-title">Step 1: Edit Mobile Phone</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span>Do you have a mobile phone?</span>&emsp;
+                            <input type="checkbox" id="has-mobile-number-switch" data-bind="checked:stepOne.hasNumber" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepOne.numberDisplay}">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback phone-number" style="margin-bottom: 0;" id="phone-wizard-mobile-number">
+                                <label>Mobile Number</label>
+                                <input type="tel" class="form-control" data-bind="value:stepOne.number" placeholder="(555) 555-5555" data-value-update="keyup"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepOne.numberDisplay}">
+                        <div class="col-xs-12">
+                            <span>Is this your primary number?</span>&emsp;
+                            <input type="checkbox" id="is-primary-number-mobile" data-bind="checked:stepOne.isPrimaryNumber" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="1" data-bind="click:nextStep"><i class="fa fa-forward"></i>&nbsp;Next</button>
+                </div>
+            </div>
+            <!--Step One End-->
+            <!--Step Two-->
+            <div class="modal-content" data-bind="style:{display:stepTwo.display}" name="step-two">
+                <div class="modal-header">
+                    <h4 class="modal-title">Step 2: Edit Home Phone</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span>Do you have a home phone?</span>&emsp;
+                            <input type="checkbox" id="has-home-number-switch" data-bind="checked:stepTwo.hasNumber" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepTwo.numberDisplay}">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback phone-number" style="margin-bottom: 0;" id="phone-wizard-home-number">
+                                <label>Home Number</label>
+                                <input type="tel" class="form-control" data-bind="value:stepTwo.number" placeholder="(555) 555-5555" data-value-update="keyup"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepTwo.numberDisplay}">
+                        <div class="col-xs-12">
+                            <span>Is this your primary number?</span>&emsp;
+                            <input type="checkbox" id="is-primary-number-home" data-bind="checked:stepTwo.isPrimaryNumber" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="2" data-bind="click:nextStep"><i class="fa fa-forward"></i>&nbsp;Next</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="2" data-bind="click:previousStep"><i class="fa fa-backward"></i>&nbsp;Back</button>
+                </div>
+            </div>
+            <!--Step Two End-->
+            <!--Step Three-->
+            <div class="modal-content" data-bind="style:{display:stepThree.display}" name="step-three">
+                <div class="modal-header">
+                    <h4 class="modal-title">Step 3: Edit Work Phone</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span>Do you have a work phone?</span>&emsp;
+                            <input type="checkbox" id="has-work-number-switch" data-bind="checked:stepThree.hasNumber" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepThree.numberDisplay}">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback phone-number" style="margin-bottom: 0;" id="phone-wizard-work-number">
+                                <label>Work Number</label>
+                                <input type="tel" class="form-control" data-bind="value:stepThree.number" placeholder="(555) 555-5555" data-value-update="keyup"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:stepThree.numberDisplay}">
+                        <div class="col-xs-12">
+                            <span>Is this your primary number?</span>&emsp;
+                            <input type="checkbox" id="is-primary-number-work" data-bind="checked:stepThree.isPrimaryNumber" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="3" data-bind="click:nextStep"><i class="fa fa-forward"></i>&nbsp;Next</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="3" data-bind="click:previousStep"><i class="fa fa-backward"></i>&nbsp;Back</button>
+                </div>
+            </div>
+            <!--Step Three End-->
+            <!--Step Overview-->
+            <div class="modal-content" data-bind="style:{display:stepFour.display}" name="step-four">
+                <div class="modal-header">
+                    <h4 class="modal-title">Step 4: Save Changes</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p>Make sure everything looks correct before saving changes.</p>
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:hasMobileNumberDisplay}">
+                        <div class="col-xs-12">
+                            <label>Mobile Number<small data-bind="style:{display:stepOne.isPrimaryNumberDisplay}">&emsp;<i>(PRMIARY)</i></small></label>
+                            <input type="text" class="form-control" data-bind="value:stepOne.number" readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:hasHomeNumberDisplay}">
+                        <div class="col-xs-12">
+                            <label>Home Number<small data-bind="style:{display:stepTwo.isPrimaryNumberDisplay}">&emsp;<i>(PRMIARY)</i></small></label>
+                            <input type="text" class="form-control" data-bind="value:stepTwo.number" readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:hasWorkNumberDisplay}">
+                        <div class="col-xs-12">
+                            <label>Work Number<small data-bind="style:{display:stepThree.isPrimaryNumberDisplay}">&emsp;<i>(PRMIARY)</i></small></label>
+                            <input type="text" class="form-control" data-bind="value:stepThree.number" readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="row" data-bind="style:{display:noNumbersDisplay}">
+                        <div class="col-xs-12 text-center">
+                            <p class="text-danger">
+                                No numbers entered. Please note any phone numbers on file will be removed upon saving.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="4" data-bind="click:save"><i class="fa fa-check"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-success pull-right" current-step="4" data-bind="click:previousStep"><i class="fa fa-backward"></i>&nbsp;Back</button>
+                </div>
+            </div>
+            <!--Step Overview End-->
+        </div>
+    </div>
+
+    <!--Emails Modal-->
+    <div class="modal fade" id="user-emails-wizard-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Email Address</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="email-wizard-primary-email-address">
+                                <label>Primary Email Address</label>
+                                <input type="email" class="form-control" data-bind="value:primaryEmailAddress" placeholder="sample@email.com" readonly="readonly"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group has-feedback" style="margin-bottom: 0;" id="email-wizard-alternate-email-address">
+                                <label>Alternate Email Address</label>
+                                <input type="email" class="form-control" data-bind="value:alternateEmailAddress" placeholder="sample@email.com" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>I would like to receive emails from credit matters&emsp;</label>
+                            <input type="checkbox" id="receive-offers-switch" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button type="button" class="btn btn-success pull-right" data-bind="click:save"><i class="fa fa-check"></i>&nbsp;Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
