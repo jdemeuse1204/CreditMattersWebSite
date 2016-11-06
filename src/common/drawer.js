@@ -61,6 +61,7 @@ let _mobileDrawer,
     },
     _initialize = function() {
 
+        debugger;
         _mobileDrawer = _createMobileDrawer();
 
         // need to process width on load and on resize otherwise

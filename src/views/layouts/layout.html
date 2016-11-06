@@ -91,45 +91,45 @@
 
     <!-- Templates -->
     <script type="text/x-kendo-template" id="mobile-notification">
-    <div class="notification hidden-lg hidden-md text-center">
-        <span class="notification-message">#= message #</span>
-    </div>
-</script>
+        <div class="notification hidden-lg hidden-md text-center">
+            <span class="notification-message">#= message #</span>
+        </div>
+    </script>
 
     <script type="text/x-kendo-template" id="profile-message">
-    <div class="profile-message">
-        <i class="fa fa-exclamation-triangle fa-2x" title="#=title#"></i>
-        <span>#=message#</span>
-    </div>
-</script>
+        <div class="profile-message">
+            <i class="fa fa-exclamation-triangle fa-2x" title="#=title#"></i>
+            <span>#=message#</span>
+        </div>
+    </script>
 
     <script type="text/x-kendo-template" id="layout-header-desktop">
 
-    <div class="user-profile-desktop" id="user-profile-desktop" data-bind="click:userProfileClick">
-        <div>
-            <i class="fa fa-user fa-5x"></i>
+        <div class="user-profile-desktop" id="user-profile-desktop" data-bind="click:userProfileClick">
+            <div>
+                <i class="fa fa-user fa-5x"></i>
+            </div>
+            <div class="text-center">
+                <div class="username" data-bind="html:userLoggedInMessage"></div>
+                <div class="profile-and-settings">Profile & Settings</div>
+            </div>
         </div>
-        <div class="text-center">
-            <div class="username" data-bind="html:userLoggedInMessage"></div>
-            <div class="profile-and-settings">Profile & Settings</div>
-        </div>
-    </div>
 
-</script>
+    </script>
 
     <script type="text/x-kendo-template" id="layout-header-mobile-admin-options">
 
-    <a class="text-center header-button-mobile" href="#:url#">
-        <i class="fa fa-shield fa-3x"></i>
-    </a>
+        <a class="text-center header-button-mobile" href="#:url#">
+            <i class="fa fa-shield fa-3x"></i>
+        </a>
 
-</script>
+    </script>
 
     <script type="text/x-kendo-template" id="manage-credit-items-response-row-action">
-    <div class="manage-credit-items-response-row-action">
-        <span action="delete" data-id="#=dataId#"><i class="fa fa-trash"></i></span>
-    </div>
-</script>
+        <div class="manage-credit-items-response-row-action">
+            <span action="delete" data-id="#=dataId#"><i class="fa fa-trash"></i></span>
+        </div>
+    </script>
 
 
     <!-- Manage Credit Items Modal -->

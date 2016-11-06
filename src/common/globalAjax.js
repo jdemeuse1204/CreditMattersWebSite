@@ -1,5 +1,5 @@
 // Module require
-import * as _ from "lodash";
+import {has} from "lodash";
 import loginFunctions from "./loginFunctions";
 import * as environment from '../environment';
 
@@ -27,16 +27,16 @@ export default function (core) {
 
             // set custom headers
             jqXhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"); // header is not set by safari, must set this
-            jqXhr.setRequestHeader("X-CSRF-Token", _xsrfToken);
+            //jqXhr.setRequestHeader("X-CSRF-Token", _xsrfToken);
             jqXhr.setRequestHeader("Authorization", kendo.format("Bearer{0}", _jwt));
 
             _xhrPool.push(jqXhr);
         })
         .ajaxComplete(function (e, jqXhr) {
             let _json = jqXhr.responseJSON,
-                _success = _.has(_json, "success") ? _json.success : true;
+                _success = has(_json, "success") ? _json.success : true;
 
-            _message = _.has(_json, "message") ? _json.message : "Unspecified Error";
+            _message = has(_json, "message") ? _json.message : "Unspecified Error";
             _xhrPool = $.grep(_xhrPool, function (x) { return x !== jqXhr; });
 
             switch (jqXhr.status) {
@@ -65,9 +65,7 @@ export default function (core) {
             }
         })
         .ajaxError(function (e, jqXhr) {
-
-            core.error = jqXhr.statusText;
-
+debugger;
             // navigate to error page
             location.href = "#!/Error";
         });

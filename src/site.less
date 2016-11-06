@@ -159,6 +159,28 @@ input[type='search'] {
         .login-card-contents {
             padding: 20px 8px 8px;
 
+            .login-options-remember-me {
+                height: 40px;
+
+                input[type='checkbox'] {
+                    display: block;
+                    width: 30px !important;
+                    height: 30px !important;
+                }
+
+                span {
+                    padding-top: 6px;
+                    display: block;
+                    height: 30px;
+                    padding-left: 40px;
+                    min-width: 200px;
+                }
+            }
+
+            .input-group {
+                margin: 8px 0;
+            }
+
             .col-xs-6 {
                 margin: 0;
                 padding: 0;
@@ -177,20 +199,6 @@ input[type='search'] {
 
             span {
                 margin-top: 3px;
-            }
-
-            input[type='checkbox'] {
-                height: 20px;
-                width: 20px;
-                float: left;
-                position: relative;
-                padding-top: 0;
-                margin-bottom: 10px;
-            }
-
-            label {
-                font-weight: normal;
-                margin-top: 4px;
             }
 
             a {
@@ -504,11 +512,11 @@ input[type='search'] {
     }
 }
 
-.page-wrap {
+.page-host {
     min-height: 100%;
 }
 
-.page-wrap > div {
+.page-host > router-view > div {
     // make sure page is full browser height
     height: 100vh;
 
@@ -921,6 +929,14 @@ div.form-group {
 
             .home-button:hover {
                 text-decoration: none;
+            }
+
+            a[name='register'] {
+                float:left;
+            }
+
+            a[name='login'], a[name='dashboard'] {
+                float:left;
             }
         }
 

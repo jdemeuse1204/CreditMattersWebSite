@@ -2,13 +2,18 @@ import {useView} from 'aurelia-framework';
 import {Redirect} from 'aurelia-router';
 import {account} from '../common/repository';
 import globalAjax from '../common/globalAjax';
+import validation from '../common/validation';
 
 @useView('../views/app.html')
 export class App {
 
   constructor() {
+
     // register global ajax
-    globalAjax()
+    globalAjax();
+
+    // register jquery validation
+    validation();
   }
 
   configureRouter(config, router) {

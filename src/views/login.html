@@ -9,18 +9,22 @@
                 <div class="login-card-header">Log In</div>
                 <div class="login-message" css.bind="{display: loginMessageDisplay}">${loginMessage}</div>
                 <div class="login-card-contents">
-                    <div class="form-group has-feedback" id="login-username">
-                        <input type="text" class="form-control" placeholder="Email Address" value.bind="username"/>
+                    <div class="input-group input-group-flat" id="login-username-validate" data-validate-lite="input-empty">
+                        <input type="text" class="form-control" placeholder="Email Address" value.bind="username" aria-describedby="login-username" />
+                        <span class="input-group-addon" id="login-username"><i class="fa fa-asterisk"></i></span>
                     </div>
-                    <div class="form-group has-feedback" id="login-password">
-                        <input type="password" class="form-control" placeholder="Password" value.bind="password"/>
+                    <div class="input-group input-group-flat" id="login-password-validate" data-validate-lite="input-empty">
+                        <input type="password" class="form-control" placeholder="Password" value.bind="password" aria-describedby="login-password" />
+                        <span class="input-group-addon" id="login-password"><i class="fa fa-asterisk"></i></span>
                     </div>
-                    <div class="form-group has-feedback" id="login-pin" css.bind="{display:pinDisplay}">
-                        <input type="password" class="form-control" placeholder="Verification Code" value.bind="pin"/>
+                    <div class="input-group input-group-flat" id="login-pin-validate" data-validate-lite="input-empty" css.bind="{display:pinDisplay}">
+                        <input type="password" class="form-control" placeholder="Verification Code" value.bind="pin" aria-describedby="login-pin"/>
+                        <span class="input-group-addon" id="login-pin"><i class="fa fa-asterisk"></i></span>
                     </div>
                     <div class="row login-options">
                         <div class="col-xs-6 login-options-remember-me">
-                            <input type="checkbox" id="login-remember-me" class="form-control checkbox" checked.bind="rememberMe"/><label for="login-remember-me">&nbsp;&nbsp;Remember Me</label>
+                            <input type="checkbox" id="login-remember-me" class="form-control" checked.bind="rememberMe" />
+                            <span for="login-remember-me">&nbsp;&nbsp;Remember Me</span>
                         </div>
                     </div>
                     <a class="btn btn-primary" click.trigger="submit()" css.bind="{display: loginDisplay}">Submit</a>
