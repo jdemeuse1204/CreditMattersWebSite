@@ -8,16 +8,16 @@
             <div class="row login-card">
                 <div class="login-card-header">Log In</div>
                 <div class="login-message" css.bind="{display: loginMessageDisplay}">${loginMessage}</div>
-                <div class="login-card-contents">
-                    <div class="input-group input-group-flat" id="login-username-validate" data-validate-lite="input-empty">
-                        <input type="text" class="form-control" placeholder="Email Address" value.bind="username" aria-describedby="login-username" />
+                <form class="login-card-contents" submit.delegate="submit()">
+                    <div class="input-group input-group-flat v-error" id="login-username-validate" data-validate-lite="input-empty">
+                        <input type="text" class="form-control" placeholder="Email Address" value.bind="username & validate" aria-describedby="login-username" />
                         <span class="input-group-addon" id="login-username"><i class="fa fa-asterisk"></i></span>
                     </div>
-                    <div class="input-group input-group-flat" id="login-password-validate" data-validate-lite="input-empty">
-                        <input type="password" class="form-control" placeholder="Password" value.bind="password" aria-describedby="login-password" />
+                    <div class="input-group input-group-flat v-error" id="login-password-validate" data-validate-lite="input-empty">
+                        <input type="password" class="form-control" placeholder="Password" value.bind="password & validate" aria-describedby="login-password" />
                         <span class="input-group-addon" id="login-password"><i class="fa fa-asterisk"></i></span>
                     </div>
-                    <div class="input-group input-group-flat" id="login-pin-validate" data-validate-lite="input-empty" css.bind="{display:pinDisplay}">
+                    <div class="input-group input-group-flat v-error" id="login-pin-validate" data-validate-lite="input-empty" css.bind="{display:pinDisplay}">
                         <input type="password" class="form-control" placeholder="Verification Code" value.bind="pin" aria-describedby="login-pin"/>
                         <span class="input-group-addon" id="login-pin"><i class="fa fa-asterisk"></i></span>
                     </div>
@@ -27,9 +27,9 @@
                             <span for="login-remember-me">&nbsp;&nbsp;Remember Me</span>
                         </div>
                     </div>
-                    <a class="btn btn-primary" click.trigger="submit()" css.bind="{display: loginDisplay}">Submit</a>
-                    <a class="btn btn-primary" click.trigger="verifyPin()" css.bind="{display: pinDisplay}">Verify Device</a>
-                </div>
+                    <button type="submit" class="btn btn-primary" css.bind="{display: loginDisplay}">Submit</button>
+                    <button type="submit" class="btn btn-primary" click.trigger="verifyPin()" css.bind="{display: pinDisplay}">Verify Device</button>
+                </form>
             </div>
             <div class="row login-help">
                 <div class="col-xs-6">

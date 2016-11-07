@@ -22,8 +22,8 @@ export class App {
     config.title = 'Credit Matters';
     config.map([
       // un auth routes
-      { route: ['', 'home'], name: 'home',      moduleId: './home',      nav: true, title: 'Credit Matters - Home' },
-      { route: ['login'], name: 'login',      moduleId: './login',      nav: true, title: 'Credit Matters - Login' },
+      { route: ['', 'home'], name: 'home',      moduleId: './home',      nav: true, title: 'Home' },
+      { route: ['login'], name: 'login',      moduleId: './login',      nav: true, title: 'Login' },
 
       // management routes
       { route: 'Management/ManageCreditItems', name: 'ManageCreditItems', moduleId: './management/manageCreditItems', nav: true, title: 'Manage Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout' },

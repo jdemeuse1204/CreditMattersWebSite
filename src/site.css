@@ -316,6 +316,23 @@ input[type='search'] {
 .mobile-brand {
   background: url(/Content/images/CM-Green-Circles.png);
 }
+.global-loading-screen {
+  position: absolute;
+  display: table;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.075);
+  z-index: 99999999999;
+}
+.global-loading-screen div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
 /* #endregion */
 /*#region Bootstrap Overrides*/
 .modal-header {
@@ -430,7 +447,7 @@ input[type='search'] {
 #login-window .login-card .login-card-contents span {
   margin-top: 3px;
 }
-#login-window .login-card .login-card-contents a {
+#login-window .login-card .login-card-contents button {
   width: 100%;
 }
 #login-window .login-card .login-card-contents p {

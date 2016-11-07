@@ -7,9 +7,10 @@ Bluebird.config({ warnings: false });
 
 export async function configure(aurelia) {
   aurelia.use
-    .standardConfiguration()
-    .developmentLogging()
-    .plugin('aurelia-validation');
+      .standardConfiguration()
+      .developmentLogging()
+      .plugin('aurelia-validation')
+      .plugin("aurelia-validatejs");
 
   // Uncomment the line below to enable animation.
   // aurelia.use.plugin('aurelia-animator-css');
