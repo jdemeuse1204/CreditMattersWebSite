@@ -22,6 +22,14 @@ export const creditBureaus = creditBureauNames;
 
 export const creditBureauStatuses = reponseStatuses;
 
+export const loginResults = {
+    success: 'success',
+    failed: 'failed',
+    lockedOut: 'locked out',
+    requiresVerification: 'requires verification',
+    hasTemporaryPassword: 'has temporary password',
+    requiresDeviceVerification: 'requires device verification'
+};
 
 export function getCreditBureauId(creditBureau) {
     switch (creditBureau) {
