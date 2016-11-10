@@ -85,7 +85,15 @@ const baseConfig = {
       "window.jQuery": "jquery"
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-  ]
+  ],
+  module: {
+    loaders: [
+      {
+        test: /\.less$/,
+        loader: "style!css!less"
+      }
+    ]
+  }
 }
 
 // advanced configuration:
