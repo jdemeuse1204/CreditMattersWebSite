@@ -1,5 +1,5 @@
 // Scope require
-import * as kendo from 'kendo-ui-core';
+import '../../node_modules/kendo-ui-core/js/kendo.mobile.drawer';
 
 let _mobileDrawer,
     _listenForRouteChange = function() {
@@ -61,7 +61,6 @@ let _mobileDrawer,
     },
     _initialize = function() {
 
-        debugger;
         _mobileDrawer = _createMobileDrawer();
 
         // need to process width on load and on resize otherwise
@@ -73,22 +72,6 @@ let _mobileDrawer,
             .on("resize",
                 function() {
                     _processClientWidth();
-                });
-
-        // register click events for mobile
-        $("#main-layout-page .drawer li").unbind("click");
-        $("#main-layout-page .drawer li")
-            .on("click",
-                function(e) {
-                    const currentTargetElement = $(e.currentTarget);
-                    const route = currentTargetElement.attr("route");
-                    window.location.href = route;
-
-                    if (_isDesktop()) {
-                        return;
-                    }
-
-                    _collapse();
                 });
 
         $("#drawer-trigger").unbind("click");

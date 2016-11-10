@@ -35,6 +35,7 @@ const coreBundles = {
     'aurelia-dependency-injection',
     'aurelia-event-aggregator',
     'aurelia-framework',
+    'aurelia-dialog',
     'aurelia-history',
     'aurelia-history-browser',
     'aurelia-loader',
@@ -67,8 +68,15 @@ const baseConfig = {
     path: outDir,
   },
   resolve: {
-    kendo: path.resolve("node_modules/kendo-ui-core/js"),
-    jQuery: path.resolve("node_modules/kendo-ui-core/node_modules/jquery/dist/jquery.min.js")
+    extensions: ["", ".js", "min.js"],
+    alias: {
+      jquery: path.resolve("node_modules/kendo-ui-core/node_modules/jquery/dist/jquery.min.js"),
+      kendo: path.resolve("node_modules/kendo-ui-core/js"),
+    },
+    root: [
+      path.resolve("."),
+      path.resolve("node_modules/") // the path to the minified scripts
+    ]
   },
   plugins: [
     new webpack.ProvidePlugin({

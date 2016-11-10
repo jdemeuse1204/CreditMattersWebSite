@@ -887,6 +887,12 @@ div.form-group span {
   font-weight: 400;
   color: white;
 }
+.drawer ul li a,
+.drawer ul li a:hover,
+.drawer ul li a:active {
+  text-decoration: none;
+  color: white;
+}
 .drawer ul li:hover {
   cursor: pointer;
   background-color: #00853e;
@@ -1328,6 +1334,7 @@ div.form-group span {
 }
 #main-layout-content {
   height: 100vh;
+  background-color: white;
 }
 /*#region My Profile*/
 #my-profile-edit-my-information .modal-body > div:nth-child(2) {

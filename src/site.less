@@ -708,9 +708,6 @@ div.form-group {
     margin-bottom: 15px;
 }
 
-.active-selection {
-}
-
 .active-selection:before {
     content: "\00a0\f111";
     font-family: FontAwesome;
@@ -791,6 +788,11 @@ div.form-group {
             font-size: 18px;
             font-weight: 400;
             color: white;
+
+            a, a:hover, a:active {
+                text-decoration: none;
+                color: white;
+            }
         }
 
         li:hover {
@@ -1346,6 +1348,7 @@ div.form-group {
 
 #main-layout-content {
     height: 100vh;
+    background-color: white;
 }
 
 /*#region My Profile*/
