@@ -71,7 +71,7 @@ const baseConfig = {
     extensions: ["", ".js", "min.js"],
     alias: {
       jquery: path.resolve("node_modules/kendo-ui-core/node_modules/jquery/dist/jquery.min.js"),
-      kendo: path.resolve("node_modules/kendo-ui-core/js"),
+      kendo: path.resolve("node_modules/kendo-ui-core/js")
     },
     root: [
       path.resolve("."),

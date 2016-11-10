@@ -7,7 +7,6 @@ import { validate } from '../common/cmValidate';
 import { login } from '../common/authorization';
 import { loginResults } from '../constants';
 import { account } from '../common/repository';
-import { Confirm } from '../modals/confirm';
 
 @inject(ValidationControllerFactory, DialogService)
 @useView('../views/login.html')
@@ -45,7 +44,7 @@ export class Login {
 
         const modalModel = { title: "test", message: "test" };
 
-        this.dialogService.open({ viewModel: Confirm, model: modalModel }).then(response => {
+        this.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {
             debugger;
             if (!response.wasCancelled) {
                 console.log('good - ', response.output);

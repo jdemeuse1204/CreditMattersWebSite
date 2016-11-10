@@ -237,5 +237,5 @@ table.dataTable {
 }
 ai-dialog-overlay.active {
   background-color: black;
-  opacity: .5;
+  opacity: .05;
 }
