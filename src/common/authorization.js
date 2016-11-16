@@ -1,21 +1,22 @@
 import { account } from './repository';
-import {loginResults} from '../constants';
+import { loginResults } from '../constants';
 import loginFunctions from './loginFunctions';
 
 export function login(username, password, rememberMe = false) {
-debugger;
+
     return new Promise((resolve, reject) => {
 
         account.login(username, password).then(data => {
+            debugger;
             switch (data.Data.result.SignInStatus) {
                 case 0: // Success
-                processLogin(data.Data.result.Token,
-                    data.Data.result.FirstName, 
-                    data.Data.result.AddressCompleteDateTime,
-                    rememberMe,
-                    username,
-                    resolve,
-                    reject);
+                    processLogin(data.Data.result.Token,
+                        data.Data.result.FirstName,
+                        data.Data.result.AddressCompleteDateTime,
+                        rememberMe,
+                        username,
+                        resolve,
+                        reject);
                     break;
                 default:
                 case 1: // Fail
@@ -36,9 +37,11 @@ debugger;
 }
 
 export function rememberDevice(username) {
-
     loginFunctions(1000, "sfsdf").rememberDevice(username);
+}
 
+export function setToken(token, firstName, addressCompletedDateTime) {
+    loginFunctions(1000, "sfsdf").setToken(token, firstName, addressCompletedDateTime);
 }
 
 function processLogin(token, firstName, addressCompletedDateTime, rememberMe, username, resolve, reject) {

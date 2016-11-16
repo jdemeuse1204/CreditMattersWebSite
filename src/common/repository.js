@@ -13,15 +13,15 @@ const ACCOUNT_CONTROLLER = "Account";
 const MANAGEMENT_CONTROLLER = "Management";
 const REGISTER_CONTROLLER = "Register";
 
-let _post = function(url, payload) {
+let _post = function (url, payload) {
 
-        if (payload) {
-            return $.post(`${environment.repositoryUrl}${url}`, payload);
-        }
+    if (payload) {
+        return $.post(`${environment.repositoryUrl}${url}`, payload);
+    }
 
-        return $.post(`${environment.repositoryUrl}${url}`);
-    },
-    _get = function(url, payload) {
+    return $.post(`${environment.repositoryUrl}${url}`);
+},
+    _get = function (url, payload) {
 
         if (payload) {
             return $.getJSON(`${environment.repositoryUrl}${url}`, payload);
@@ -104,18 +104,18 @@ export const account = {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "SendDeviceAuthorizationCode"), { username: username });
     },
     login: function (username, password) {
-        return _post(_getUrl(ACCOUNT_CONTROLLER, "Login"), { Username: username, Password: password });
+        return _post(_getUrl(ACCOUNT_CONTROLLER, "Login"), { username: username, password: password });
     },
     trySendResetPasswordEmail: function (username, securityAnswerOne, securityAnswerTwo) {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "TrySendResetPasswordEmail"),
-        { Username: username, SecurityAnswerOne: securityAnswerOne, SecurityAnswerTwo: securityAnswerTwo });
+            { Username: username, SecurityAnswerOne: securityAnswerOne, SecurityAnswerTwo: securityAnswerTwo });
     },
     getSecurityQuestions: function (username) {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "GetSecurityQuestions"), { Username: username });
     },
     resetPassword: function (username, uid, password, oldPassword) {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "ResetPassword"),
-        { Username: username, Uid: uid, NewPassword: password, OldPassword: oldPassword });
+            { Username: username, Uid: uid, NewPassword: password, OldPassword: oldPassword });
     },
     isUidValid: function (uid) {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "IsUidValid"), { Uid: uid });
@@ -136,14 +136,14 @@ export const account = {
         isHomePrimary,
         isWorkPrimary) {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "SaveUserPhoneNumbers"),
-        {
-            MobileNumber: mobileNumber,
-            HomeNumber: homeNumber,
-            WorkNumber: workNumber,
-            IsMobilePrimary: isMobilePrimary,
-            IsHomePrimary: isHomePrimary,
-            IsWorkPrimary: isWorkPrimary
-        });
+            {
+                MobileNumber: mobileNumber,
+                HomeNumber: homeNumber,
+                WorkNumber: workNumber,
+                IsMobilePrimary: isMobilePrimary,
+                IsHomePrimary: isHomePrimary,
+                IsWorkPrimary: isWorkPrimary
+            });
     },
     isAdmin: function () {
         return _get(_getUrl(ACCOUNT_CONTROLLER, "IsAdmin"));
@@ -178,30 +178,30 @@ export const account = {
 
 export const register = {
 
-    submitRegistration: function(firstName,
-              lastName,
-              emailAddress,
-              password,
-              securityQuestionOneId,
-              securityAnswerOne,
-              securityQuestionTwoId,
-              securityAnswerTwo) {
+    submitRegistration: function (firstName,
+        lastName,
+        emailAddress,
+        password,
+        securityQuestionOneId,
+        securityAnswerOne,
+        securityQuestionTwoId,
+        securityAnswerTwo) {
         return _post(_getUrl(REGISTER_CONTROLLER, "SubmitRegistration"),
-        {
-            FirstName: firstName,
-            LastName: lastName,
-            Email: emailAddress,
-            Password: password,
-            SecurityQuestionOneID: securityQuestionOneId,
-            SecurityAnswerOne: securityAnswerOne,
-            SecurityQuestionTwoID: securityQuestionTwoId,
-            SecurityAnswerTwo: securityAnswerTwo
-        });
+            {
+                FirstName: firstName,
+                LastName: lastName,
+                Email: emailAddress,
+                Password: password,
+                SecurityQuestionOneID: securityQuestionOneId,
+                SecurityAnswerOne: securityAnswerOne,
+                SecurityQuestionTwoID: securityQuestionTwoId,
+                SecurityAnswerTwo: securityAnswerTwo
+            });
     },
-    getSecurityQuestions: function() {
+    getSecurityQuestions: function () {
         return _get(_getUrl(REGISTER_CONTROLLER, "GetSecurityQuestions"));
     },
-    authorizeUser: function(uid) {
+    authorizeUser: function (uid) {
         return _post(_getUrl(REGISTER_CONTROLLER, "AuthorizeUser"), { authorizationId: uid });
     }
 };
@@ -245,7 +245,7 @@ export const management = {
 
         return d.promise;
     },
-    changeCreditItemResponse: function(creditBureau, status, creditItemId) {
+    changeCreditItemResponse: function (creditBureau, status, creditItemId) {
         switch (creditBureau) {
             case constants.creditBureaus.transUnion:
                 return _post(_getUrl(MANAGEMENT_CONTROLLER, "ChangeCreditItemResponse"), {

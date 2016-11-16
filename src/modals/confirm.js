@@ -9,12 +9,10 @@ export class Confirm {
     model = null;
 
     constructor(controller) {
-        debugger;
         this.controller = controller;
     }
 
     activate(model) {
-        debugger;
         this.model = model
     }
 }

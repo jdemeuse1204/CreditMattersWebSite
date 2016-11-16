@@ -21,9 +21,9 @@ export default function (core) {
         })
         .ajaxSend(function (e, jqXhr) {
 
-            let _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val(),
-                _tokenData = _loginFunctions.getToken(),
-                _jwt = _tokenData.token;
+            const _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val(),
+                _tokenData = loginFunctions(1000, "sfsdf").getToken(),
+                _jwt =  !!_tokenData ? _tokenData.token || "" : "";
 
             // set custom headers
             jqXhr.setRequestHeader("X-Requested-With", "XMLHttpRequest"); // header is not set by safari, must set this

@@ -1,11 +1,9 @@
 @import "/node_modules/kendo-ui-core/css/web/kendo.common.core.min.css";
 @import "/node_modules/kendo-ui-core/css/web/kendo.default.min.css";
 @import "/node_modules/kendo-ui-core/css/web/kendo.default.mobile.min.css";
-
 @import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "/Content/DataTables/datatables.min.css";
 @import "/node_modules/font-awesome/css/font-awesome.min.css";
-
 @import "colors.less";
 @import "validation.less";
 @import "overrides.less";
@@ -179,20 +177,22 @@ input[type='search'] {
             padding: 20px 8px 8px;
 
             .login-options-remember-me {
+                padding: 0;
                 height: 40px;
 
                 input[type='checkbox'] {
+                    float:left;
                     display: block;
                     width: 30px !important;
                     height: 30px !important;
                 }
 
                 span {
+                    float:left;
                     padding-top: 6px;
                     display: block;
                     height: 30px;
-                    padding-left: 40px;
-                    min-width: 200px;
+                    margin-left: 10px;
                 }
             }
 

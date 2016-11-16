@@ -36,8 +36,12 @@
     "server:prod": "http-server dist --cors",
     "webpack": "cross-env ./node_modules/.bin/webpack",
     "webpack-dev-server": "cross-env ./node_modules/.bin/webpack-dev-server",
-    "css-compile-minify": "lessc --clean-css src/site.less styles/site.min.css",
-    "css-compile": "lessc src/site.less styles/site.min.css"
+    "css-minify": "lessc --clean-css src/site.less styles/site.min.css",
+    "css": "lessc src/site.less styles/site.min.css",
+    "css:colors": "lessc src/less/colors.less styles/colors.css",
+    "css:site": "lessc src/less/site.less styles/site.css",
+    "css:overrides": "lessc src/less/overrides.less styles/overrides.css",
+    "css:valdation": "lessc src/less/valdation.less styles/valdation.css"
   },
   "repository": {
     "type": "git",

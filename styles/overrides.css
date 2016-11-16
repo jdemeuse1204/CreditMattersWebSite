@@ -235,7 +235,8 @@ table.dataTable {
 .k-dialog .k-content {
   display: none;
 }
-ai-dialog-overlay.active {
-  background-color: black;
-  opacity: .05;
+ai-dialog-overlay.active,
+ai-dialog-overlay {
+  background-color: black !important;
+  opacity: .42 !important;
 }

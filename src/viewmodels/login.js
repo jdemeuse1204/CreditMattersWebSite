@@ -4,7 +4,7 @@ import { inject, NewInstance } from 'aurelia-dependency-injection';
 import { ValidationControllerFactory, ValidationController, ValidationRules } from 'aurelia-validation';
 import { CMRenderer } from '../common/cmRenderer';
 import { validate } from '../common/cmValidate';
-import { login } from '../common/authorization';
+import { login, rememberDevice, setToken } from '../common/authorization';
 import { loginResults } from '../constants';
 import { account } from '../common/repository';
 
@@ -40,29 +40,25 @@ export class Login {
 
     }
 
+    clearLoginMessage() { 
+        this.loginMessageDisplay = "none";
+    }
+
     submit() {
-
-        const modalModel = { title: "test", message: "test" };
-
-        this.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {
-            debugger;
-            if (!response.wasCancelled) {
-                console.log('good - ', response.output);
-            } else {
-                console.log('bad');
-            }
-            console.log(response.output);
-        });
-        return;
-
+        
         const loginRules = ValidationRules.taggedRules(this.rules, 'login');
         const that = this;
+
+        this.clearLoginMessage();
 
         validate(this.controller, { object: this, rules: loginRules }).then(() => {
 
             login(this.username, this.password, this.rememberMe)
                 .then((message, token, firstName, addressCompletedDateTime) => {
-                    debugger;
+
+                    rememberDevice(that.username);
+                    setToken(token, firstName, addressCompletedDateTime);
+                    window.location.href = "/#/Management/ManageCreditItems";
                 })
                 .catch((result) => {
                     debugger;
@@ -83,20 +79,14 @@ export class Login {
 
                             break;
                         case loginResults.requiresDeviceVerification:
-                            debugger;
 
                             account.sendAuthorizationCode(that.username);
 
-                            const modalModel = { title: "test", message: "test" };
+                            const modalModel = { title: "Device Verification Required", message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." };
 
-                            that.dialogService.open({ viewModel: 'Confrim', model: modalModel }).then(response => {
-                                debugger;
-                                if (!response.wasCancelled) {
-                                    console.log('good - ', response.output);
-                                } else {
-                                    console.log('bad');
-                                }
-                                console.log(response.output);
+                            that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {
+                                that.pinDisplay = "";
+                                that.loginDisplay = "none";
                             });
                             break;
                     }
@@ -110,5 +100,28 @@ export class Login {
 
     verifyPin() {
 
+        const that = this;
+
+        this.clearLoginMessage();
+
+        validate(this.controller).then(() => {
+
+            account.verifyVerificationCode(this.username, this.password, this.pin).then(response => {
+
+                debugger;
+                if (response.Data.result.Success === true) {
+
+                    rememberDevice(that.username);
+                    setToken(response.Data.result.Token, response.Data.result.FirstName, response.Data.result.AddressCompletedDateTime);
+                    window.location.href = "/#/Management/ManageCreditItems";
+
+                    return;
+                }
+
+                that.loginMessage = "PIN incorrect";
+                that.loginMessageDisplay = "block";
+            });
+
+        });
     }
 }

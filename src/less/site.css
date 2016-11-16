@@ -277,6 +277,10 @@ table.dataTable {
 .k-dialog .k-content {
   display: none;
 }
+ai-dialog-overlay.active {
+  background-color: black;
+  opacity: .05;
+}
 /* #region Main */
 html {
   font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
@@ -413,19 +417,21 @@ input[type='search'] {
   padding: 20px 8px 8px;
 }
 #login-window .login-card .login-card-contents .login-options-remember-me {
+  padding: 0;
   height: 40px;
 }
 #login-window .login-card .login-card-contents .login-options-remember-me input[type='checkbox'] {
+  float: left;
   display: block;
   width: 30px !important;
   height: 30px !important;
 }
 #login-window .login-card .login-card-contents .login-options-remember-me span {
+  float: left;
   padding-top: 6px;
   display: block;
   height: 30px;
-  padding-left: 40px;
-  min-width: 200px;
+  margin-left: 10px;
 }
 #login-window .login-card .login-card-contents .input-group {
   margin: 8px 0;
