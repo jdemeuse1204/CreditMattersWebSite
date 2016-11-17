@@ -59,23 +59,32 @@ input[type='search'] {
     background: url(/Content/images/CM-Green-Circles.png);
 }
 
-.global-loading-screen {
-    position: absolute;
-    display: table;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .075);
-    z-index: 99999999999;
+.cm-label {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
 
-    div {
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-    }
+.splash {
+    text-align: center;
+    margin: 0 0 0 0;
+    box-sizing: border-box;
+    cursor: wait;
+}
+
+.splash .message {
+    font-size: 72px;
+    line-height: 72px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.splash .fa-spinner {
+    text-align: center;
+    display: inline-block;
+    font-size: 72px;
+    margin-top: 50px;
 }
 /* #endregion */
 
@@ -537,7 +546,7 @@ input[type='search'] {
 
 .page-host > router-view > div {
     // make sure page is full browser height
-    height: 100vh;
+    min-height: 100vh;
 
     #blank-layout-content, #blank-layout-content > div {
         height: inherit;
@@ -614,19 +623,6 @@ input[type='search'] {
 
     button {
         margin-top: 12px;
-    }
-}
-
-div.form-group {
-
-    label {
-        font-size: 13px;
-        font-weight: 500;
-        margin-bottom: 0;
-    }
-
-    span {
-        margin-top: -5px;
     }
 }
 
@@ -1067,6 +1063,7 @@ div.form-group {
 #register-window {
     font-family: 'Open Sans';
     color: white;
+    height: inherit;
 
     .row {
         padding: 8px;

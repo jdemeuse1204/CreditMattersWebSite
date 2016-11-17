@@ -16,7 +16,8 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 9999;
     })
     .plugin('aurelia-validation')
-    .plugin("aurelia-validatejs");
+    .plugin("aurelia-validatejs")
+    .plugin('aurelia-kendoui-bridge');
 
   // Uncomment the line below to enable animation.
   // aurelia.use.plugin('aurelia-animator-css');

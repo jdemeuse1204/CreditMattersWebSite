@@ -7,7 +7,7 @@ export function login(username, password, rememberMe = false) {
     return new Promise((resolve, reject) => {
 
         account.login(username, password).then(data => {
-            debugger;
+
             switch (data.Data.result.SignInStatus) {
                 case 0: // Success
                     processLogin(data.Data.result.Token,
@@ -59,5 +59,10 @@ function processLogin(token, firstName, addressCompletedDateTime, rememberMe, us
         reject(loginResults.requiresDeviceVerification);
     }
 
-    resolve(loginResults.success, token, firstName, addressCompletedDateTime)
+    resolve({
+        message: loginResults.success,
+        token: token,
+        firstName: firstName,
+        addressCompletedDateTime: addressCompletedDateTime
+        });
 }

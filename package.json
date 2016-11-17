@@ -79,6 +79,7 @@
     "aurelia-fetch-client": "^1.0.0",
     "aurelia-framework": "^1.0.0",
     "aurelia-history-browser": "^1.0.0",
+    "aurelia-kendoui-bridge": "^1.0.1",
     "aurelia-loader-webpack": "^1.0.0",
     "aurelia-logging-console": "^1.0.0",
     "aurelia-pal-browser": "^1.0.0",

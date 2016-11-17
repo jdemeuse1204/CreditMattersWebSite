@@ -31,6 +31,11 @@ export const loginResults = {
     requiresDeviceVerification: 'requires device verification'
 };
 
+export const routes = {
+    login: '/#/Login',
+    manageCreditItems: '/#/Management/ManageCreditItems'
+};
+
 export function getCreditBureauId(creditBureau) {
     switch (creditBureau) {
         case creditBureauNames.transUnion:

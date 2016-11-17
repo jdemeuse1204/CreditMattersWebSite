@@ -321,7 +321,7 @@ input[type='search'] {
 .mobile-brand {
   background: url(/Content/images/CM-Green-Circles.png);
 }
-.global-loading-screen {
+.splash {
   position: absolute;
   display: table;
   height: 100%;
@@ -333,7 +333,7 @@ input[type='search'] {
   background-color: rgba(0, 0, 0, 0.075);
   z-index: 99999999999;
 }
-.global-loading-screen div {
+.splash div {
   display: table-cell;
   text-align: center;
   vertical-align: middle;

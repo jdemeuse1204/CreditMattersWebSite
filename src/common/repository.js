@@ -100,6 +100,9 @@ export const lookup = {
 
 export const account = {
 
+    canAccessManagementPages: function() {
+        return _post(_getUrl(ACCOUNT_CONTROLLER, "CanAccessManagementPages"));
+    },
     sendAuthorizationCode: function (username) {
         return _post(_getUrl(ACCOUNT_CONTROLLER, "SendDeviceAuthorizationCode"), { username: username });
     },

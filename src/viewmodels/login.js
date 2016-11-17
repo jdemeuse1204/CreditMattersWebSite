@@ -1,11 +1,11 @@
 import { useView } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
-import { inject, NewInstance } from 'aurelia-dependency-injection';
-import { ValidationControllerFactory, ValidationController, ValidationRules } from 'aurelia-validation';
+import { inject } from 'aurelia-dependency-injection';
+import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { CMRenderer } from '../common/cmRenderer';
 import { validate } from '../common/cmValidate';
 import { login, rememberDevice, setToken } from '../common/authorization';
-import { loginResults } from '../constants';
+import { loginResults, routes } from '../constants';
 import { account } from '../common/repository';
 
 @inject(ValidationControllerFactory, DialogService)
@@ -54,14 +54,15 @@ export class Login {
         validate(this.controller, { object: this, rules: loginRules }).then(() => {
 
             login(this.username, this.password, this.rememberMe)
-                .then((message, token, firstName, addressCompletedDateTime) => {
+                .then(response => {
 
                     rememberDevice(that.username);
-                    setToken(token, firstName, addressCompletedDateTime);
-                    window.location.href = "/#/Management/ManageCreditItems";
+                    setToken(response.token, response.firstName, response.addressCompletedDateTime);
+                    window.location.href = routes.manageCreditItems;
+                    
                 })
                 .catch((result) => {
-                    debugger;
+
                     switch (result) {
                         default:
                         case loginResults.failed:
@@ -113,7 +114,7 @@ export class Login {
 
                     rememberDevice(that.username);
                     setToken(response.Data.result.Token, response.Data.result.FirstName, response.Data.result.AddressCompletedDateTime);
-                    window.location.href = "/#/Management/ManageCreditItems";
+                    window.location.href = routes.manageCreditItems;
 
                     return;
                 }

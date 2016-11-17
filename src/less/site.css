@@ -277,9 +277,14 @@ table.dataTable {
 .k-dialog .k-content {
   display: none;
 }
-ai-dialog-overlay.active {
-  background-color: black;
-  opacity: .05;
+ai-dialog-overlay.active,
+ai-dialog-overlay {
+  background-color: black !important;
+  opacity: .42 !important;
+}
+.k-dropdown,
+.k-dropdown-wrap {
+  border-radius: 0;
 }
 /* #region Main */
 html {
@@ -320,22 +325,29 @@ input[type='search'] {
 .mobile-brand {
   background: url(/Content/images/CM-Green-Circles.png);
 }
-.global-loading-screen {
-  position: absolute;
-  display: table;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.075);
-  z-index: 99999999999;
+.cm-label {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
-.global-loading-screen div {
-  display: table-cell;
+.splash {
   text-align: center;
-  vertical-align: middle;
+  margin: 0 0 0 0;
+  box-sizing: border-box;
+  cursor: wait;
+}
+.splash .message {
+  font-size: 72px;
+  line-height: 72px;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.splash .fa-spinner {
+  text-align: center;
+  display: inline-block;
+  font-size: 72px;
+  margin-top: 50px;
 }
 /* #endregion */
 /*#region Bootstrap Overrides*/
@@ -692,7 +704,7 @@ input[type='search'] {
   min-height: 100%;
 }
 .page-host > router-view > div {
-  height: 100vh;
+  min-height: 100vh;
 }
 .page-host > router-view > div #blank-layout-content,
 .page-host > router-view > div #blank-layout-content > div {
@@ -748,14 +760,6 @@ input[type='search'] {
 }
 #my-profile-change-password button {
   margin-top: 12px;
-}
-div.form-group label {
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 0;
-}
-div.form-group span {
-  margin-top: -5px;
 }
 .drop-down-in-label label {
   margin-bottom: 10px !important;
@@ -1112,6 +1116,7 @@ div.form-group span {
 #register-window {
   font-family: 'Open Sans';
   color: white;
+  height: inherit;
 }
 #register-window .row {
   padding: 8px;
