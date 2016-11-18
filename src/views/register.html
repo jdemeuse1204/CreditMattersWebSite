@@ -1,6 +1,4 @@
 <template>
-    <require from="aurelia-kendoui-bridge/dropdownlist/dropdownlist"></require>
-
     <div id="register-window" class="container-full main-background window">
         <div class="container">
             <div class="row">
@@ -21,7 +19,7 @@
                             <div class="col-sm-6">
                                 <label class="cm-label">Last Name</label>
                                 <div class="input-group input-group-flat v-error">
-                                    <input type="text" class="form-control" value.bind="last & validate" aria-describedby="register-last-name" />
+                                    <input type="text" class="form-control" value.bind="lastName & validate" aria-describedby="register-last-name" />
                                     <span class="input-group-addon" id="register-last-name"><i class="fa fa-asterisk"></i></span>
                                 </div>
                             </div>
@@ -49,60 +47,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="register-card">
-                    In case you lose your password, would you like to setup security questions for easier password recovery?
-                    <div class="row register-header">Security Questions</div>
-                    <div class="row register-body">
-                        <div class="row" style="margin-bottom: 15px;">
-                            <div class="col-md-6" style="margin-bottom: 3px;">
-                                <div class="row">
-                                    <label class="cm-label">Security Question One</label>
-                                    <ak-drop-down-list k-data-text-field="Question" k-data-value-field="Id" k-data-source.bind="securityQuestions" k-value.two-way="securityQuestionOneId"
-                                        style="width: 100%;">
-                                    </ak-drop-down-list>
-                                </div>
-                                <div class="row" style="margin-bottom: 15px;">
-                                    <div class="form-group has-feedback" style="margin-bottom: 0;">
-                                        <label class="cm-label">Security Answer One</label>
-                                        <input type="text" class="form-control" value.bind="securityAnswerOne" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label>Security Question Two</label>
-                                    <ak-drop-down-list k-data-text-field="Question" k-data-value-field="Id" k-data-source.bind="securityQuestions" k-value.two-way="securityQuestionTwoId"
-                                        style="width: 100%;">
-                                    </ak-drop-down-list>
-                                </div>
-                                <div class="row" style="margin-bottom: 15px;">
-                                    <div class="form-group has-feedback" style="margin-bottom: 0;">
-                                        <label>Security Answer Two</label>
-                                        <input type="text" class="form-control" value.bind="securityAnswerTwo" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" css.bind="{display:registerDoneDisplay}">
-                <div class="register-card">
-                    <div class="row register-header">You are almost done!</div>
-                    <div class="row register-body">
-                        <div class="row text-center" style="margin-bottom: 8px;">
-                            <p>
-                                Please confirm your registration by finding the email we just sent you and follow the instructions.
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="row text-center" css.bind="{display:registerDisplay}">
                 <button type="button" class="btn btn-success" click.delegate="submitRegistration()"><i class="fa fa-thumbs-up"></i>&nbsp;Register</button>
-            </div>
-            <div class="row text-center" css.bind="{display:registerDoneDisplay}">
-                <button type="button" class="btn btn-success" click.delegate="homeClick()"><i class="fa fa-home"></i>&nbsp;Home</button>
             </div>
         </div>
     </div>

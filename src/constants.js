@@ -33,7 +33,8 @@ export const loginResults = {
 
 export const routes = {
     login: '/#/Login',
-    manageCreditItems: '/#/Management/ManageCreditItems'
+    manageCreditItems: '/#/Management/ManageCreditItems',
+    courses: '/#/Management/Courses'
 };
 
 export function getCreditBureauId(creditBureau) {

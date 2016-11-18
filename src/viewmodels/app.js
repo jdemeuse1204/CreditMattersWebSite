@@ -26,6 +26,7 @@ export class App {
       { route: 'register', name: 'register', moduleId: './register', nav: true, title: 'Register' },
 
       // management routes
+      { route: 'Management/Courses', name: 'Courses', moduleId: './management/courses', nav: true, title: 'Courses', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/ManageCreditItems', name: 'ManageCreditItems', moduleId: './management/manageCreditItems', nav: true, title: 'Manage Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/LinkedProfessional', name: 'LinkedProfessional', moduleId: './management/linkedProfessional', nav: true, title: 'Linked Professional', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/StallLetters', name: 'StallLetters', moduleId: './management/stallLetters', nav: true, title: 'Stall Letters', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
@@ -57,15 +58,7 @@ class AuthorizeStep {
         });
       }
 
-      return next(); // always authorize for now
-      // return account.isAdmin().then((response) => {
-
-      //   if (response.Data.success === true) {
-      //     return next();
-      //   }
-
-      //   return next.cancel(new Redirect('login'));
-      // });
+      return next(); 
     }
 
     return next();

@@ -184,21 +184,13 @@ export const register = {
     submitRegistration: function (firstName,
         lastName,
         emailAddress,
-        password,
-        securityQuestionOneId,
-        securityAnswerOne,
-        securityQuestionTwoId,
-        securityAnswerTwo) {
+        password) {
         return _post(_getUrl(REGISTER_CONTROLLER, "SubmitRegistration"),
             {
                 FirstName: firstName,
                 LastName: lastName,
                 Email: emailAddress,
-                Password: password,
-                SecurityQuestionOneID: securityQuestionOneId,
-                SecurityAnswerOne: securityAnswerOne,
-                SecurityQuestionTwoID: securityQuestionTwoId,
-                SecurityAnswerTwo: securityAnswerTwo
+                Password: password
             });
     },
     getSecurityQuestions: function () {
