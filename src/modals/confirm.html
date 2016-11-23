@@ -1,0 +1,11 @@
+<template>
+    <ai-dialog class="modal-dialog modal-md"
+        <ai-dialog-body>
+            <h2>${model.title}</h2>
+            <p>${model.message}</p>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <button type="button" class="btn btn-primary" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

@@ -36,8 +36,12 @@
     "server:prod": "http-server dist --cors",
     "webpack": "cross-env ./node_modules/.bin/webpack",
     "webpack-dev-server": "cross-env ./node_modules/.bin/webpack-dev-server",
-    "css-compile-minify": "lessc --clean-css src/site.less styles/site.min.css",
-    "css-compile": "lessc src/site.less styles/site.min.css"
+    "css-minify": "lessc --clean-css src/site.less styles/site.min.css",
+    "css": "lessc src/site.less styles/site.min.css",
+    "css:colors": "lessc src/less/colors.less styles/colors.css",
+    "css:site": "lessc src/less/site.less styles/site.css",
+    "css:overrides": "lessc src/less/overrides.less styles/overrides.css",
+    "css:valdation": "lessc src/less/valdation.less styles/valdation.css"
   },
   "repository": {
     "type": "git",
@@ -70,10 +74,12 @@
   },
   "dependencies": {
     "aurelia-bootstrapper-webpack": "^1.0.0",
+    "aurelia-dialog": "^1.0.0-beta.3.0.1",
     "aurelia-event-aggregator": "^1.0.0",
     "aurelia-fetch-client": "^1.0.0",
     "aurelia-framework": "^1.0.0",
     "aurelia-history-browser": "^1.0.0",
+    "aurelia-kendoui-bridge": "^1.0.1",
     "aurelia-loader-webpack": "^1.0.0",
     "aurelia-logging-console": "^1.0.0",
     "aurelia-pal-browser": "^1.0.0",
@@ -131,6 +137,7 @@
     "karma-remap-istanbul": "^0.1.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
+    "less-loader": "^2.2.3",
     "protractor": "^4.0.0",
     "rimraf": "^2.5.4",
     "wait-on": "^1.5.2",

@@ -1,0 +1,56 @@
+<template>
+    <div id="register-window" class="container-full main-background window">
+        <div class="container">
+            <div class="row">
+                <h2 class="main-page-header">Register</h2>
+            </div>
+            <div class="row" id="register-main-container" css.bind="{display:registerDisplay}">
+                <div class="register-card">
+                    <div class="row register-header">User Info</div>
+                    <div class="row register-body">
+                        <div class="row" style="margin-bottom: 8px;">
+                            <div class="col-sm-6">
+                                <label class="cm-label">First Name</label>
+                                <div class="input-group input-group-flat v-error">
+                                    <input type="text" class="form-control" value.bind="firstName & validate" aria-describedby="register-first-name" />
+                                    <span class="input-group-addon" id="register-first-name"><i class="fa fa-asterisk"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="cm-label">Last Name</label>
+                                <div class="input-group input-group-flat v-error">
+                                    <input type="text" class="form-control" value.bind="lastName & validate" aria-describedby="register-last-name" />
+                                    <span class="input-group-addon" id="register-last-name"><i class="fa fa-asterisk"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="cm-label">Email Address</label>
+                                <div class="input-group input-group-flat v-error">
+                                    <input type="text" class="form-control" value.bind="email & validate" aria-describedby="register-email-address" />
+                                    <span class="input-group-addon" id="register-email-address"><i class="fa fa-asterisk"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                 <label class="cm-label">Password</label>
+                                <div class="input-group input-group-flat v-error">
+                                    <input type="password" class="form-control" value.bind="password & validate" aria-describedby="register-password" />
+                                    <span class="input-group-addon" id="register-password"><i class="fa fa-asterisk"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <p>We will not use your email address for spam at all, we promise!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center" css.bind="{display:registerDisplay}">
+                <button type="button" class="btn btn-success" click.delegate="submitRegistration()"><i class="fa fa-thumbs-up"></i>&nbsp;Register</button>
+            </div>
+        </div>
+    </div>
+</template>

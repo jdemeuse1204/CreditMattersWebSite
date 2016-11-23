@@ -277,6 +277,11 @@ table.dataTable {
 .k-dialog .k-content {
   display: none;
 }
+ai-dialog-overlay.active,
+ai-dialog-overlay {
+  background-color: black !important;
+  opacity: .42 !important;
+}
 /* #region Main */
 html {
   font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
@@ -315,6 +320,23 @@ input[type='search'] {
 }
 .mobile-brand {
   background: url(/Content/images/CM-Green-Circles.png);
+}
+.splash {
+  position: absolute;
+  display: table;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.075);
+  z-index: 99999999999;
+}
+.splash div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }
 /* #endregion */
 /*#region Bootstrap Overrides*/
@@ -395,6 +417,26 @@ input[type='search'] {
 #login-window .login-card .login-card-contents {
   padding: 20px 8px 8px;
 }
+#login-window .login-card .login-card-contents .login-options-remember-me {
+  padding: 0;
+  height: 40px;
+}
+#login-window .login-card .login-card-contents .login-options-remember-me input[type='checkbox'] {
+  float: left;
+  display: block;
+  width: 30px !important;
+  height: 30px !important;
+}
+#login-window .login-card .login-card-contents .login-options-remember-me span {
+  float: left;
+  padding-top: 6px;
+  display: block;
+  height: 30px;
+  margin-left: 10px;
+}
+#login-window .login-card .login-card-contents .input-group {
+  margin: 8px 0;
+}
 #login-window .login-card .login-card-contents .col-xs-6 {
   margin: 0;
   padding: 0;
@@ -412,19 +454,7 @@ input[type='search'] {
 #login-window .login-card .login-card-contents span {
   margin-top: 3px;
 }
-#login-window .login-card .login-card-contents input[type='checkbox'] {
-  height: 20px;
-  width: 20px;
-  float: left;
-  position: relative;
-  padding-top: 0;
-  margin-bottom: 10px;
-}
-#login-window .login-card .login-card-contents label {
-  font-weight: normal;
-  margin-top: 4px;
-}
-#login-window .login-card .login-card-contents a {
+#login-window .login-card .login-card-contents button {
   width: 100%;
 }
 #login-window .login-card .login-card-contents p {
@@ -659,14 +689,14 @@ input[type='search'] {
 .main-page-header span {
   border-bottom: 2px solid lightgray;
 }
-.page-wrap {
+.page-host {
   min-height: 100%;
 }
-.page-wrap > div {
+.page-host > router-view > div {
   height: 100vh;
 }
-.page-wrap > div #blank-layout-content,
-.page-wrap > div #blank-layout-content > div {
+.page-host > router-view > div #blank-layout-content,
+.page-host > router-view > div #blank-layout-content > div {
   height: inherit;
 }
 #main-layout-page {
@@ -864,6 +894,12 @@ div.form-group span {
   font-weight: 400;
   color: white;
 }
+.drawer ul li a,
+.drawer ul li a:hover,
+.drawer ul li a:active {
+  text-decoration: none;
+  color: white;
+}
 .drawer ul li:hover {
   cursor: pointer;
   background-color: #00853e;
@@ -988,6 +1024,13 @@ div.form-group span {
 }
 #home-page .home-page-first-row .button-container .home-button:hover {
   text-decoration: none;
+}
+#home-page .home-page-first-row .button-container a[name='register'] {
+  float: left;
+}
+#home-page .home-page-first-row .button-container a[name='login'],
+#home-page .home-page-first-row .button-container a[name='dashboard'] {
+  float: left;
 }
 #home-page .home-page-first-row div:nth-child(2) h1 {
   margin: 105px 10px 30px 10px;
@@ -1298,6 +1341,7 @@ div.form-group span {
 }
 #main-layout-content {
   height: 100vh;
+  background-color: white;
 }
 /*#region My Profile*/
 #my-profile-edit-my-information .modal-body > div:nth-child(2) {

@@ -1,9 +1,5 @@
 <template>
-  <require from="../views/shared/loading.html"></require>
-  
-  <loading router.bind="router"></loading>
-
   <div class="page-host">
-    <router-view></router-view>
+    <router-view class="${router.isNavigating ? 'navigating' : ''}"></router-view>
   </div>
 </template>

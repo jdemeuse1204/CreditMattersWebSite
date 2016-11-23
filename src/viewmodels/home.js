@@ -25,18 +25,6 @@ export class Home {
 
             this.loginDisplay = "none";
             this.dashboardDisplay = "block";
-
-            // user is logged in
-            authentication.authenticate(
-                repository,
-                core,
-                router,
-                false,
-                false,
-                response.Data.result.ActualUsername,
-                response.Data.result.Token,
-                response.Data.result.FirstName,
-                response.Data.result.AddressCompleteDateTime);
         });
     }
 }

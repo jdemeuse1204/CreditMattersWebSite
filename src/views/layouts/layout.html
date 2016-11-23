@@ -10,17 +10,17 @@
                 <span>Profile Incomplete</span>
             </div>
             <ul name="drawer-nav-items">
-                <li click.delegate="drawerNavigate()">Manage Credit Items</li>
-                <li click.trigger="drawerNavigate()">Linked Professional</li>
-                <li click.trigger="drawerNavigate($event)">Stall Letters</li>
-                <li click.trigger="drawerNavigate($event)">Credit Cards</li>
-                <li click.trigger="drawerNavigate($event)">Helpful Videos</li>
-                <li click.trigger="drawerNavigate($event)">Establish Accounts</li>
-                <li click.trigger="drawerNavigate($event)">Resolving CDS</li>
-                <li click.trigger="drawerNavigate($event)">Tracking Dispute Activity</li>
+                <li><a href="#/Management/ManageCreditItems">Manage Credit Items</a></li>
+                <li><a href="#/Management/LinkedProfessional">Linked Professional</a></li>
+                <li><a href="#/Management/StallLetters">Stall Letters</a></li>
+                <li><a href="#/Management/CreditCards">Credit Cards</a></li>
+                <li><a href="#/Management/HelpfulVideos">Helpful Videos</a></li>
+                <li><a href="#/Management/EstablishAccounts">Establish Accounts</a></li>
+                <li><a href="#/Management/ResolvingCDS">Resolving CDS</a></li>
+                <li><a href="#/Management/TrackingDisputeActivity">Tracking Dispute Activity</a></li>
             </ul>
             <div class="text-center">
-                <button class="btn btn-danger log-out" click.trigger="logout()">Log Out</button>
+                <button class="btn btn-danger log-out">Log Out</button>
             </div>
         </div>
 
@@ -70,7 +70,7 @@
             <!--Mobile-->
             <div class="page-header-row-mobile hidden-lg hidden-md">
 
-                <a class="header-button-no-border" href="/#!">
+                <a class="header-button-no-border" href="/">
                     <img alt="Credit Matters" src="/Content/images/CM-Green-Circles.png" width="43" height="43" />
                 </a>
                 <div class="text-center header-button-mobile">
