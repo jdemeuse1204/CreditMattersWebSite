@@ -8,3 +8,6 @@ npm-debug.log*
 /electron.js*
 /release
 /test/coverage
+# jspm_packages
+bower_components
+.idea
