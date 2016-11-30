@@ -1,5 +1,6 @@
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import 'bootstrap';
+import 'whatwg-fetch';
 
 // comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
 import * as Bluebird from 'bluebird';

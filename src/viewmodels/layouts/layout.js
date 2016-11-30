@@ -14,10 +14,10 @@ export class Layout {
     }
 
     logout() {
-        debugger;
+        
     }
 
     drawerNavigate() {
-        debugger;
+       
     }
 }

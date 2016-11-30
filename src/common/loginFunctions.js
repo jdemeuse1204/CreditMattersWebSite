@@ -30,11 +30,11 @@ let _tokenInfoKey = "cm_info", // one per browser because it contains our sessio
         };
     };
 
-export default function(tokenExpirationDays, securityPhrase) {
+export default function(tokenExpirationDays) {
 
     let _get = function(key) {
 
-        const data = ls.get(key, securityPhrase);
+        const data = ls.get(key);
 
         if (!!data) {
             return data;
@@ -44,14 +44,14 @@ export default function(tokenExpirationDays, securityPhrase) {
     },
         _set = function(data, tokenName) {
 
-            ls.set(data, tokenName, securityPhrase);
+            ls.set(data, tokenName);
 
         },
 
 
         _deviceNeedsAuthorization = function(username) {
 
-            const array = ls.get(_tokenDevicesKey, securityPhrase);
+            const array = ls.get(_tokenDevicesKey);
 
             if (_.isEmpty(array)) {
                 return true;
@@ -71,7 +71,7 @@ export default function(tokenExpirationDays, securityPhrase) {
         },
         _getRememberedUsername = function() {
 
-            const username = ls.get(_tokenRememberedUsername, securityPhrase);
+            const username = ls.get(_tokenRememberedUsername);
 
             if (_.isEmpty(username)) {
                 return "";
@@ -105,7 +105,7 @@ export default function(tokenExpirationDays, securityPhrase) {
         },
         _rememberDevice = function(username) {
 
-            const data = _get(_tokenDevicesKey),
+            const data = _get(_tokenDevicesKey) || [],
                 index = _.findIndex(data, function(item) {
                     return item.username === username;
                 });

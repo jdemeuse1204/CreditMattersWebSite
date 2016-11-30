@@ -95,7 +95,7 @@ export class Login {
                 });
 
         }).catch(() => {
-            debugger;
+            
         });
     }
 
@@ -109,7 +109,6 @@ export class Login {
 
             account.verifyVerificationCode(this.username, this.password, this.pin).then(response => {
 
-                debugger;
                 if (response.Data.result.Success === true) {
 
                     rememberDevice(that.username);

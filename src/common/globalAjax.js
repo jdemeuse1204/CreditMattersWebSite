@@ -11,7 +11,7 @@ export default function (core) {
         .ajaxSend(function (e, jqXhr) {
 
             const _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val(),
-                _tokenData = loginFunctions(1000, "sfsdf").getToken(),
+                _tokenData = loginFunctions(1000).getToken(),
                 _jwt =  !!_tokenData ? _tokenData.token || "" : "";
 
             // set custom headers

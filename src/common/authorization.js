@@ -37,23 +37,23 @@ export function login(username, password, rememberMe = false) {
 }
 
 export function rememberDevice(username) {
-    loginFunctions(1000, "sfsdf").rememberDevice(username);
+    loginFunctions(1000).rememberDevice(username);
 }
 
 export function setToken(token, firstName, addressCompletedDateTime) {
-    loginFunctions(1000, "sfsdf").setToken(token, firstName, addressCompletedDateTime);
+    loginFunctions(1000).setToken(token, firstName, addressCompletedDateTime);
 }
 
 function processLogin(token, firstName, addressCompletedDateTime, rememberMe, username, resolve, reject) {
 
     if (rememberMe) {
-        loginFunctions(1000, "sfsdf").setRememberedUsername(username);
+        loginFunctions(1000).setRememberedUsername(username);
     } else {
         // forget the user
-        loginFunctions(1000, "sfsdf").forgetRememberedUser();
+        loginFunctions(1000).forgetRememberedUser();
     }
 
-    const deviceNeedsAuthorization = loginFunctions(1000, "sfsdf").deviceNeedsAuthorization(username);
+    const deviceNeedsAuthorization = loginFunctions(1000).deviceNeedsAuthorization(username);
 
     if (deviceNeedsAuthorization === true) {
         reject(loginResults.requiresDeviceVerification);
