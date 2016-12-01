@@ -1,7 +1,6 @@
 import { useView } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
 import { account } from '../common/repository';
-import globalAjax from '../common/globalAjax';
 import { includes } from 'lodash';
 import { routes } from '../constants';
 
@@ -9,9 +8,6 @@ import { routes } from '../constants';
 export class App {
 
   constructor() {
-
-    // register global ajax
-    globalAjax();
 
   }
 

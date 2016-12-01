@@ -105,7 +105,7 @@ export default function(tokenExpirationDays) {
         },
         _rememberDevice = function(username) {
 
-            const data = _get(_tokenDevicesKey) || [],
+            let data = _get(_tokenDevicesKey) || [],
                 index = _.findIndex(data, function(item) {
                     return item.username === username;
                 });
@@ -117,6 +117,9 @@ export default function(tokenExpirationDays) {
                 model.username = username;
                 model.expirationDate = moment().add(tokenExpirationDays, "days").format();
 
+                if (!data.push) {
+                    data = [];
+                }
                 data.push(model);
 
                 _set(data, _tokenDevicesKey);

@@ -86,15 +86,7 @@ const baseConfig = {
       "window.jQuery": "jquery"
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-  ],
-  module: {
-    loaders: [
-      {
-        test: /\.less$/,
-        loader: "style!css!less"
-      }
-    ]
-  }
+  ]
 }
 
 // advanced configuration:
@@ -111,9 +103,6 @@ switch (ENV) {
 
       require('@easy-webpack/config-babel')(),
       require('@easy-webpack/config-html')(),
-
-      require('@easy-webpack/config-css')
-        ({ filename: 'site.css', allChunks: true, sourceMap: false }),
 
       require('@easy-webpack/config-fonts-and-images')(),
       require('@easy-webpack/config-global-bluebird')(),
@@ -146,9 +135,6 @@ switch (ENV) {
       require('@easy-webpack/config-babel')(),
       require('@easy-webpack/config-html')(),
 
-      require('@easy-webpack/config-css')
-        ({ filename: 'site.css', allChunks: true, sourceMap: false }),
-
       require('@easy-webpack/config-fonts-and-images')(),
       require('@easy-webpack/config-global-bluebird')(),
       require('@easy-webpack/config-global-jquery')(),
@@ -172,9 +158,6 @@ switch (ENV) {
 
       require('@easy-webpack/config-babel')(),
       require('@easy-webpack/config-html')(),
-
-      require('@easy-webpack/config-css')
-        ({ filename: 'site.css', allChunks: true, sourceMap: false }),
 
       require('@easy-webpack/config-fonts-and-images')(),
       require('@easy-webpack/config-global-bluebird')(),
