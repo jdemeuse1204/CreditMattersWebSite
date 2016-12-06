@@ -4,7 +4,7 @@ export function show() {
     const body = $("body");
 
     if (loadingScreenElement.length === 0) {
-        loadingScreenElement = $('<div id="cm-loading-screen" class="loading-screen"></div>');
+        loadingScreenElement = $('<div id="cm-loading-screen" class="loading-screen"><img src="Content/images/loading-image.gif"></img></div>');
     }
 
     loadingScreenElement.appendTo(body);

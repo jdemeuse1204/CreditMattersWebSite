@@ -15,7 +15,7 @@ var cssSrc = ['node_modules/kendo-ui-core/css/web/kendo.common.core.min.css',
     'css/site.css'
   ];
 
-gulp.task('css-watch', ['watch', 'css']);
+gulp.task('css:watch', ['watch', 'css']);
 
 gulp.task('css', ['less'], function () {
   return gulp.src(cssSrc)

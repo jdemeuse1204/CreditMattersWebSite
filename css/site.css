@@ -1595,3 +1595,11 @@ ai-dialog ai-dialog-footer {
   z-index: 9999999999;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.loading-screen img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: transparent;
+  height: 30px;
+  width: 50px;
+}

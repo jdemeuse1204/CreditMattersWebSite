@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%- webpackConfig.metadata.title %></title>
+    <title><%- htmlWebpackPlugin.options.metadata.title %></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <base href="<%- webpackConfig.metadata.baseUrl %>">
-    <% if (webpackConfig.metadata.ENV === 'development') { %>
+    <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <% if (htmlWebpackPlugin.options.metadata.ENV === 'development') { %>
     <link href="css/bundle.css" rel="stylesheet">
     <% } else { %>
     <link href="css/bundle.min.css" rel="stylesheet">
@@ -15,10 +15,10 @@
   </head>
   <body aurelia-app="main">
     <div class="splash">
-      <div class="message"><%- webpackConfig.metadata.title %></div>
+      <div class="message"><%- htmlWebpackPlugin.options.metadata.title %></div>
       <i class="fa fa-spinner fa-spin"></i>
     </div>
-    <% if (webpackConfig.metadata.ENV === 'development') { %>
+    <% if (htmlWebpackPlugin.options.metadata.ENV === 'development') { %>
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>
     <% } %>
