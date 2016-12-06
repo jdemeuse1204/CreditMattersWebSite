@@ -113,7 +113,6 @@ input[type='search'] {
 }
 
 #login-window {
-    font-family: 'Open Sans';
 
     .row {
         margin: 0;
@@ -200,7 +199,11 @@ input[type='search'] {
             }
 
             .input-group {
-                margin: 8px 0;
+                margin: 20px 0;
+
+                .cm-error-message {
+                    margin-top: 5px;
+                } 
             }
 
             .col-xs-6 {
@@ -215,7 +218,6 @@ input[type='search'] {
             }
 
             input[type='text'], input[type='password'] {
-                margin: 0;
                 height: 41px;
             }
 
@@ -862,7 +864,6 @@ input[type='search'] {
 }
 
 #home-page {
-    font-family: 'Open Sans';
 
     .row {
         margin: 0;
@@ -1031,7 +1032,6 @@ input[type='search'] {
     left: 0;
     color: white;
     font-size: 22px;
-    font-family: 'Open Sans';
     padding-top: 5px;
     padding-bottom: 5px;
     z-index: 9999;
@@ -1055,7 +1055,6 @@ input[type='search'] {
 
 /*#region Register*/
 #register-window {
-    font-family: 'Open Sans';
     color: white;
     height: inherit;
 
@@ -1093,7 +1092,6 @@ input[type='search'] {
 
 /*#region Responsive Card*/
 .main-card-center {
-    font-family: 'Open Sans';
     background-color: rgba(43, 47, 47, 0.7);
     box-shadow: rgba(0, 0, 0, .5) 0 1px 2px 1px;
     width: 300px;
@@ -1210,7 +1208,6 @@ input[type='search'] {
 }
 
 #window-management-manage-credit-items {
-    font-family: 'Open Sans';
 
     #manage-credit-items-table_wrapper > div:nth-child(2) {
 
@@ -1714,4 +1711,12 @@ ai-dialog {
     }
 }
 
-
+.loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999999999;
+    background-color: rgba(0, 0, 0, .5);
+}

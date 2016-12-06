@@ -374,9 +374,6 @@ input[type='search'] {
 #login-window > .row:nth-child(2) > div:nth-child(2) {
   margin-top: 20px;
 }
-#login-window {
-  font-family: 'Open Sans';
-}
 #login-window .row {
   margin: 0;
 }
@@ -448,7 +445,10 @@ input[type='search'] {
   margin-left: 10px;
 }
 #login-window .login-card .login-card-contents .input-group {
-  margin: 8px 0;
+  margin: 20px 0;
+}
+#login-window .login-card .login-card-contents .input-group .cm-error-message {
+  margin-top: 5px;
 }
 #login-window .login-card .login-card-contents .col-xs-6 {
   margin: 0;
@@ -461,7 +461,6 @@ input[type='search'] {
 }
 #login-window .login-card .login-card-contents input[type='text'],
 #login-window .login-card .login-card-contents input[type='password'] {
-  margin: 0;
   height: 41px;
 }
 #login-window .login-card .login-card-contents span {
@@ -959,9 +958,6 @@ input[type='search'] {
 .fa-twitter {
   color: #4099FF;
 }
-#home-page {
-  font-family: 'Open Sans';
-}
 #home-page .row {
   margin: 0;
 }
@@ -1096,7 +1092,6 @@ input[type='search'] {
   left: 0;
   color: white;
   font-size: 22px;
-  font-family: 'Open Sans';
   padding-top: 5px;
   padding-bottom: 5px;
   z-index: 9999;
@@ -1116,7 +1111,6 @@ input[type='search'] {
 /* #endregion */
 /*#region Register*/
 #register-window {
-  font-family: 'Open Sans';
   color: white;
   height: inherit;
 }
@@ -1144,7 +1138,6 @@ input[type='search'] {
 /*#endregion*/
 /*#region Responsive Card*/
 .main-card-center {
-  font-family: 'Open Sans';
   background-color: rgba(43, 47, 47, 0.7);
   box-shadow: rgba(0, 0, 0, 0.5) 0 1px 2px 1px;
   width: 300px;
@@ -1249,9 +1242,6 @@ input[type='search'] {
   padding: 3px 0;
   color: white;
   font-size: 16px;
-}
-#window-management-manage-credit-items {
-  font-family: 'Open Sans';
 }
 #window-management-manage-credit-items #manage-credit-items-table_wrapper > div:nth-child(2) .cm-swipable.drag-left .cm-swipable-right-action {
   display: none;
@@ -1595,4 +1585,13 @@ ai-dialog ai-dialog-footer {
 }
 #register-security-questions-modal .questions-body {
   margin: 0 10px;
+}
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999999;
+  background-color: rgba(0, 0, 0, 0.5);
 }
