@@ -2,6 +2,7 @@ import * as environment from '../environment';
 import { HttpClient as FetchClient, json } from 'aurelia-fetch-client';
 import { HttpClient } from 'aurelia-http-client';
 import loginFunctions from "./loginFunctions";
+import { merge } from "lodash";
 
 export function post(url, payload) {
 
@@ -62,4 +63,28 @@ export function get(url, payload) {
         .then(response => {
             return response && response.response ? JSON.parse(response.response) : undefined;
         });
+}
+
+export function createKendoDataSource(options, url) {
+
+    const _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val();
+    const _tokenData = loginFunctions(1000).getToken();
+    const _jwt = !!_tokenData ? _tokenData.token || "" : "";
+    const mainOptions = {
+        transport: {
+            read: {
+                url: `${environment.repositoryUrl}${url}`,
+                beforeSend: (request) => {
+                    request.setRequestHeader('X-Requested-With', "XMLHttpRequest");
+                    request.setRequestHeader('Authorization', `Bearer${_jwt}`);
+                }
+            }
+        }
+    };
+
+    const mergedOptions = merge(mainOptions, options);
+
+    const model = kendo.data.DataSource.create(mergedOptions);
+
+    return model;
 }

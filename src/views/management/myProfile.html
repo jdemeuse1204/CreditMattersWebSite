@@ -1,0 +1,93 @@
+<template>
+    <div class="container-full" id="window-my-profile" slot="page-content">
+        <h3 class="cm-page-header">My Profile</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table-card" id="my-profile-card-table">
+                    <colgroup>
+                        <col style="width: 85%;" />
+                        <col style="width: 15%;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th colspan="2"><span>${fullName}</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr repeat.for="info of userInformationItems">
+                            <td if.bind="info.isPlaceHolder"><i class="fa fa-${info.type === 'HomeAddress' ? 'home' : info.type === 'HomePhoneNumber' ? 'phone' : 'envelope'}"></i>&emsp;<i>${info.content}</i></td>
+                            <td if.bind="!info.isPlaceHolder"><i class="fa fa-${info.type === 'HomeAddress' ? 'home' : info.type === 'HomePhoneNumber' ? 'phone' : 'envelope'}"></i>&emsp;<span>${info.content}</span></td>
+                            <td class="text-center"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table-card">
+                    <colgroup>
+                        <col style="width: 85%;" />
+                        <col style="width: 15%;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Service & Payments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-credit-card"></i>&emsp;Payments</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-cart-arrow-down"></i>&emsp;My Service Plan</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-users"></i>&emsp;My Linked Users</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table-card">
+                    <colgroup>
+                        <col style="width: 85%;" />
+                        <col style="width: 15%;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Security & Settings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-shield"></i>&emsp;Change Password</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-toggle-on"></i>&emsp;Notifications</td>
+                            <td class="text-center"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table-card">
+                    <colgroup>
+                        <col style="width: 85%;" />
+                        <col style="width: 15%;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th colspan="2">My Promo Page</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>

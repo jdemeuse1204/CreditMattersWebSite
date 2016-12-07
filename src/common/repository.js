@@ -7,6 +7,8 @@ import creditBureau from "../models/creditBureau";
 import creditBureauStatus from "../models/creditBureauStatus";
 import * as constants from "../constants";
 import { post, get } from "./webApi";
+import loginFunctions from "./loginFunctions";
+import {createKendoDataSource} from "../common/webApi";
 
 const LOOKUP_CONTROLLER = "Lookup";
 const ACCOUNT_CONTROLLER = "Account";
@@ -136,11 +138,15 @@ export const account = {
     },
     getUserInformation: function () {
 
-        const d = q.defer(),
-            model = kendo.data.DataSource.create({
+        return new Promise((resolve, reject) => {
+
+            const _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val();
+            const _tokenData = loginFunctions(1000).getToken();
+            const _jwt = !!_tokenData ? _tokenData.token || "" : "";
+            const url = _getUrl(ACCOUNT_CONTROLLER, "GetUserContactInformation");
+            const model = createKendoDataSource({
                 transport: {
                     read: {
-                        url: _getUrl(ACCOUNT_CONTROLLER, "GetUserContactInformation"),
                         type: "POST"
                     }
                 },
@@ -148,14 +154,15 @@ export const account = {
                     data: "Data.result",
                     model: aspnet_user
                 }
+            }, url);
+
+            model.read().then(() => {
+                resolve(model.data()[0]);
+            }).fail(() => {
+                reject();
             });
 
-        model.read()
-            .done(function () {
-                d.resolve(model.data()[0]);
-            });
-
-        return d.promise;
+        });
     },
     isUserAuthorized: function () {
         return post(_getUrl(ACCOUNT_CONTROLLER, "IsUserAuthorized"));

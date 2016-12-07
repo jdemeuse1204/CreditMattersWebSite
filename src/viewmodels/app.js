@@ -30,7 +30,8 @@ export class App {
       { route: 'Management/HelpfulVideos', name: 'HelpfulVideos', moduleId: './management/helpfulVideos', nav: true, title: 'Helpful Videos', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/EstablishAccounts', name: 'EstablishAccounts', moduleId: './management/establishAccounts', nav: true, title: 'Establish Accounts', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/ResolvingCDS', name: 'ResolvingCDS', moduleId: './management/resolvingCDS', nav: true, title: 'Resolving CDS', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
-      { route: 'Management/TrackingDisputeActivity', name: 'TrackingDisputeActivity', moduleId: './management/trackingDisputeActivity', nav: true, title: 'Tracking Dispute Activity', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
+      { route: 'Management/TrackingDisputeActivity', name: 'TrackingDisputeActivity', moduleId: './management/trackingDisputeActivity', nav: true, title: 'Tracking Dispute Activity', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+      { route: 'Management/MyProfile', name: 'MyProfile', moduleId: './management/myProfile', nav: true, title: 'My Profile', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
     ]);
 
     this.router = router;
