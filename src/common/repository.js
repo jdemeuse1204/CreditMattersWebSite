@@ -8,7 +8,7 @@ import creditBureauStatus from "../models/creditBureauStatus";
 import * as constants from "../constants";
 import { post, get } from "./webApi";
 import loginFunctions from "./loginFunctions";
-import {createKendoDataSource} from "../common/webApi";
+import { createKendoDataSource } from "../common/webApi";
 
 const LOOKUP_CONTROLLER = "Lookup";
 const ACCOUNT_CONTROLLER = "Account";
@@ -58,11 +58,12 @@ export const lookup = {
     },
     getCreditBureauStatuses: function () {
 
-        const d = q.defer(),
-            model = kendo.data.DataSource.create({
+        return new Promise((resolve, reject) => {
+
+            const url = _getUrl(LOOKUP_CONTROLLER, "GetCreditBureauStatuses");
+            const model = createKendoDataSource({
                 transport: {
                     read: {
-                        url: _getUrl(LOOKUP_CONTROLLER, "GetCreditBureauStatuses"),
                         type: "GET"
                     }
                 },
@@ -70,16 +71,14 @@ export const lookup = {
                     data: "Data.result",
                     model: creditBureauStatus
                 }
+            }, url);
+
+            model.read().then(() => {
+                resolve(model.data()[0]);
+            }).fail(() => {
+                reject();
             });
-
-        model.read()
-            .then(function () {
-
-                d.resolve(model.data());
-
-            });
-
-        return d.promise;
+        });
     }
 };
 
@@ -140,9 +139,6 @@ export const account = {
 
         return new Promise((resolve, reject) => {
 
-            const _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val();
-            const _tokenData = loginFunctions(1000).getToken();
-            const _jwt = !!_tokenData ? _tokenData.token || "" : "";
             const url = _getUrl(ACCOUNT_CONTROLLER, "GetUserContactInformation");
             const model = createKendoDataSource({
                 transport: {
@@ -202,11 +198,12 @@ export const management = {
     },
     getCreditItem: function (id) {
 
-        const d = q.defer(),
-            model = kendo.data.DataSource.create({
+        return new Promise((resolve, reject) => {
+
+            const url = _getUrl(MANAGEMENT_CONTROLLER, "GetCreditItem");
+            const model = createKendoDataSource({
                 transport: {
                     read: {
-                        url: _getUrl(MANAGEMENT_CONTROLLER, "GetCreditItem"),
                         type: "GET"
                     },
                     parameterMap: function () {
@@ -219,16 +216,14 @@ export const management = {
                     data: "Data.result",
                     model: creditBureauEntry
                 }
+            }, url);
+
+            model.read().then(() => {
+                resolve(model.data()[0]);
+            }).fail(() => {
+                reject();
             });
-
-        model.read()
-            .then(function () {
-
-                d.resolve(model.data()[0]);
-
-            });
-
-        return d.promise;
+        });
     },
     changeCreditItemResponse: function (creditBureau, status, creditItemId) {
         switch (creditBureau) {
