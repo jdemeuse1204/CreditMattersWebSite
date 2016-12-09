@@ -17,6 +17,10 @@ export class AddNewCreditItemModal {
         this.controller = controller;
     }
 
+    attached() {
+        loadingScreen.hide();
+    }
+
     async activate(model) {
 
         this.model = model
@@ -28,8 +32,7 @@ export class AddNewCreditItemModal {
 
         this.creditors = creditorsResult.Data.result;
         this.adverseTypes = adverseTypesResult.Data.result;
-
-        loadingScreen.hide();
+    
     }
 
     save() {

@@ -4,15 +4,18 @@ import { useView } from 'aurelia-framework';
 import { MainGrid } from '../../controllers/manageCreditItems/mainGrid';
 import { inject } from 'aurelia-dependency-injection';
 import * as loadingScreen from "../../common/loadingScreen";
+import {GridServices} from '../../controllers/manageCreditItems/gridServices';
 
 @useView('../../views/management/manageCreditItems.html')
-@inject(MainGrid)
+@inject(MainGrid, GridServices)
 export class ManageCreditItems {
 
     mainGrid = null;
+    gridServices = null;
 
-    constructor(mainGrid) {
+    constructor(mainGrid, gridServices) {
         this.mainGrid = mainGrid;
+        this.gridServices = gridServices;
     }
 
     attached() {
@@ -25,7 +28,7 @@ export class ManageCreditItems {
     }
 
     addItem() {
-        this.mainGrid.addItemClick();
+        this.gridServices.openModal();
     }
 
     createLetter() {

@@ -3,15 +3,21 @@ import { ValidationRenderer, RenderInstruction, ValidationError } from 'aurelia-
 export class CMRenderer {
   render(instruction) {
 
-    for (let { error, elements } of instruction.unrender) {
-      for (let element of elements) {
-        success(element);
-      }
-    }
+    // for (let { error, result, elements } of instruction.unrender) {
+    //   for (let element of elements) {
+    //     debugger;
+    //     success(element);
+    //   }
+    // }
 
-    for (let { error, elements } of instruction.render) {
+    for (let { result, elements } of instruction.render) {
       for (let element of elements) {
-        fail(element, error);
+
+        if (!!result && result.valid === true) {
+          success(element);
+        } else {
+          fail(element, result);
+        }
       }
     }
   }
@@ -29,7 +35,7 @@ function success(element) {
   $parent.find('div.cm-error-message').remove();
 }
 
-function fail(element, error) {
+function fail(element, result) {
 
   const $parent = $(element).parent(),
     $i = $parent.find(".input-group-addon i");
@@ -42,5 +48,5 @@ function fail(element, error) {
 
   // remove last error so they don't stack
   $parent.find('div.cm-error-message').remove();
-  $(`<div class='v-error cm-error-message'>${error.message}</div>`).appendTo($parent);
+  $(`<div class='v-error cm-error-message'>${result.message}</div>`).appendTo($parent);
 }

@@ -12,6 +12,10 @@ export function getTemplate(selector, model) {
     return template(model);
 }
 
+export function isGuidEmpty(guid) {
+    return guid === "00000000-0000-0000-0000-000000000000" || isEmpty(guid);
+}
+
 export function isNullOrEmpty(value) {
     return isEmpty(trim(value));
 }

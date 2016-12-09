@@ -5,10 +5,10 @@ export function show() {
 
     if (loadingScreenElement.length === 0) {
         loadingScreenElement = $('<div id="cm-loading-screen" class="loading-screen"><img src="Content/images/loading-image.gif"></img></div>');
+        loadingScreenElement.appendTo(body);
+    } else {
+        loadingScreenElement.css('display', '');
     }
-
-    loadingScreenElement.appendTo(body);
-
 }
 
 export function hide() {

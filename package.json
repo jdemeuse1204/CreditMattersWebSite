@@ -68,6 +68,7 @@
     }
   },
   "dependencies": {
+    "aurelia-binding": "^1.1.0",
     "aurelia-bootstrapper-webpack": "^1.0.0",
     "aurelia-dialog": "^1.0.0-beta.3.0.1",
     "aurelia-event-aggregator": "^1.0.0",
@@ -86,7 +87,7 @@
     "aurelia-templating-resources": "^1.1.1",
     "aurelia-templating-router": "^1.0.0",
     "aurelia-validatejs": "^0.7.0",
-    "aurelia-validation": "^0.14.0",
+    "aurelia-validation": "1.0.0-beta.1.0.0",
     "bluebird": "^3.4.6",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",

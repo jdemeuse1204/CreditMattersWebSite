@@ -3,32 +3,31 @@ import "bootstrap";
 import "../../../Scripts/DataTables/datatables.min";
 
 // Module require
-import creditBureauEntry from "../../models/creditBureauEntry";
 import swipable from "../../controllers/swipable";
 import { management } from "../../common/repository";
 import * as constants from "../../constants";
 import { getTemplateHtml, getTemplate } from "../../common/utils";
 import * as loadingScreen from "../../common/loadingScreen";
-import { DialogService } from 'aurelia-dialog';
-import { inject } from 'aurelia-dependency-injection';
 import { find } from 'lodash';
+import { inject } from 'aurelia-dependency-injection';
+import {GridServices} from './gridServices';
 
-@inject(DialogService)
+@inject(GridServices)
 export class MainGrid {
 
-    dialogService = null;
+    gridServices = null;
     itemModal = null;
     table = null;
     gridData = [];
 
-    constructor(dialogService) {
-        this.dialogService = dialogService;
+    constructor(gridServices) {
+        this.gridServices = gridServices;
     }
 
     load() {
 
         const that = this;
-        const gridServices = {
+        const gridHelpers = {
             makeRowsResponsive: function (items) {
                 // ----- ROWS -----
                 // Include On Letter
@@ -56,37 +55,6 @@ export class MainGrid {
                 }
 
             },
-            editCreditItem: function (id) {
-
-                loadingScreen.show();
-
-                management.getCreditItem(id).then(function (result) {
-
-                    const cbe = new creditBureauEntry(result);
-
-                    gridServices.addEditNewItem(cbe);
-                });
-
-            },
-            addEditNewItem: function (item) {
-                const addOrEdit = item.Id ? "Edit" : "Add";
-                const modalModel = {
-                    title: `${addOrEdit} Credit Item`,
-                    creditItem: item,
-                    display: {
-                        defaultDisputeReason:"none",
-                        add: item.Id ? "none" : "",
-                        edit: item.Id ? "" : "none"
-                    }
-                };
-
-                that.dialogService.open({
-                    viewModel: 'modals/addNewCreditItemModal',
-                    model: modalModel
-                }).then(response => {
-
-                });
-            },
             gridInitComplete: function () {
 
                 const onRightAction = function (e) {
@@ -98,13 +66,13 @@ export class MainGrid {
                             ? $(e.sender.element).data("id")
                             : $(e.delegateTarget).parent().find(".cm-swipable-drag-overlay").data("id");
 
-                        gridServices.editCreditItem(id, true);
+                        that.gridServices.openModal(id);
                     },
                     onTap = function (e) {
 
                         const id = $(e.sender.element).data("id");
 
-                        gridServices.editCreditItem(id, false);
+                        that.gridServices.openModal(id);
 
                     };
 
@@ -119,17 +87,10 @@ export class MainGrid {
 
                     const id = $(e.delegateTarget).parent().data("id");
 
-                    gridServices.editCreditItem(id, false);
+                    openModal(id);
 
                 });
                 //#endregion
-            },
-            addNewCreditItem: function () {
-
-                loadingScreen.show();
-
-                gridServices.addEditNewItem(new creditBureauEntry());
-
             }
         };
 
@@ -147,7 +108,7 @@ export class MainGrid {
                     that.table.clear();
                     that.table.rows.add(that.gridData);
                     that.table.draw();
-                    gridServices.gridInitComplete();
+                    gridHelpers.gridInitComplete();
                     return;
                 }
 
@@ -198,20 +159,20 @@ export class MainGrid {
                     paging: false,
                     initComplete: function () {
 
-                        gridServices.gridInitComplete();
+                        gridHelpers.gridInitComplete();
 
                         resolve();
                     },
                     headerCallback: function (e) {
                         const ths = $(e).find("th");
-                        gridServices.makeRowsResponsive(ths);
+                        gridHelpers.makeRowsResponsive(ths);
                     },
                     createdRow: function (e) {
 
                         // set the id for the row so we know what data its linked to
                         //$(e).data("id", e);
                         const tds = $(e).find("td");
-                        gridServices.makeRowsResponsive(tds);
+                        gridHelpers.makeRowsResponsive(tds);
 
                         // ----- ROWS -----
                         // Include On Letter
@@ -236,10 +197,6 @@ export class MainGrid {
                 reject();
             });
         });
-    }
-
-    addItemClick() {
-
     }
 
     anyItemsSelected() {
