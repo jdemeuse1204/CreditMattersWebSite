@@ -55,8 +55,7 @@
                         <div class="row">
                             <label>Dispute Reason</label>
                             <div>
-                                <label>Customize It?</label>&nbsp;<input id="manage-credit-items-dispute-reason-user-custom-reason"
-                                    type="checkbox" class="form-control" />
+                                <label>Customize It?</label>&nbsp;<input id="manage-credit-items-dispute-reason-user-custom-reason" type="checkbox" class="form-control" />
                             </div>
                         </div>
 
@@ -84,53 +83,50 @@
                     <div class="row">
                         <div class="col-md-4 mcr-radio-group">
                             <label>TransUnion</label>
-                            <input type="radio" name="mcr-transunion-initial-bureau-status" value="1" data-bind="checked: creditItem.TransUnionInitialStatusId"
-                                default="true">&nbsp;<span>Not Reporting</span>
-                            <input type="radio" name="mcr-transunion-initial-bureau-status" value="2" data-bind="checked: creditItem.TransUnionInitialStatusId">&nbsp;<span>Negative</span>
+                            <input type="radio" model.bind="1" name="mcr-transunion-initial-bureau-status" checked.bind="model.creditItem.TransUnionInitialStatusId">&nbsp;<span>Not Reporting</span>
+                            <input type="radio" model.bind="2" name="mcr-transunion-initial-bureau-status" checked.bind="model.creditItem.TransUnionInitialStatusId">&nbsp;<span>Negative</span>
                         </div>
                         <div class="col-md-4 mcr-radio-group">
                             <label>Equifax</label>
-                            <input type="radio" name="mcr-equifax-initial-bureau-status" value="1" data-bind="checked: creditItem.EquifaxInitialStatusId"
-                                default="true">&nbsp;<span>Not Reporting</span>
-                            <input type="radio" name="mcr-equifax-initial-bureau-status" value="2" data-bind="checked: creditItem.EquifaxInitialStatusId">&nbsp;<span>Negative</span>
+                            <input type="radio" model.bind="1" name="mcr-equifax-initial-bureau-status" checked.bind="model.creditItem.EquifaxInitialStatusId">&nbsp;<span>Not Reporting</span>
+                            <input type="radio" model.bind="2" name="mcr-equifax-initial-bureau-status" checked.bind="model.creditItem.EquifaxInitialStatusId">&nbsp;<span>Negative</span>
                         </div>
                         <div class="col-md-4 mcr-radio-group">
                             <label>Experian</label>&emsp;
-                            <input type="radio" name="mcr-experian-initial-bureau-status" value="1" data-bind="checked: creditItem.ExperianInitialStatusId"
-                                default="true">&nbsp;<span>Not Reporting</span>
-                            <input type="radio" name="mcr-experian-initial-bureau-status" value="2" data-bind="checked: creditItem.ExperianInitialStatusId">&nbsp;<span>Negative</span>
+                            <input type="radio" model.bind="1" name="mcr-experian-initial-bureau-status" checked.bind="model.creditItem.ExperianInitialStatusId">&nbsp;<span>Not Reporting</span>
+                            <input type="radio" model.bind="2" name="mcr-experian-initial-bureau-status" checked.bind="model.creditItem.ExperianInitialStatusId">&nbsp;<span>Negative</span>
                         </div>
                     </div>
 
                 </div>
-                <div dcss.bind="{ display:model.display.edit }">
+                <div css.bind="{ display:model.display.edit }">
                     <h4>Credit Bureau Response Status</h4>
                     <div class="row">
                         <div class="col-md-4 mcr-radio-group">
                             <label>TransUnion</label>
-                            <input type="radio" name="mcr-transunion-response-bureau-status" value="3" checked.bind="creditItem.TransUnionResponseStatusId === 3">&nbsp;<span>Positive</span>
-                            <input type="radio" name="mcr-transunion-response-bureau-status" value="4" checked.bind="creditItem.TransUnionResponseStatusId === 4">&nbsp;<span>Deleted</span>
-                            <input type="radio" name="mcr-transunion-response-bureau-status" default="true">&nbsp;<span>No Response</span>
+                            <input type="radio" model.bind="3" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Positive</span>
+                            <input type="radio" model.bind="4" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Deleted</span>
+                            <input type="radio" model.bind="null" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>No Response</span>
                         </div>
                         <div class="col-md-4 mcr-radio-group">
                             <label>Equifax</label>
-                            <input type="radio" name="mcr-equifax-response-bureau-status" value="3" data-bind="checked: creditItem.EquifaxResponseStatusId">&nbsp;<span>Positive</span>
-                            <input type="radio" name="mcr-equifax-response-bureau-status" value="4" data-bind="checked: creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
-                            <input type="radio" name="mcr-equifax-response-bureau-status" default="true">&nbsp;<span>No Response</span>
+                            <input type="radio" model.bind="3" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Positive</span>
+                            <input type="radio" model.bind="4" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
+                            <input type="radio" model.bind="null" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>No Response</span>
                         </div>
                         <div class="col-md-4 mcr-radio-group">
                             <label>Experian</label>
-                            <input type="radio" name="mcr-experian-response-bureau-status" value="3" data-bind="checked: creditItem.ExperianResponseStatusId">&nbsp;<span>Positive</span>
-                            <input type="radio" name="mcr-experian-response-bureau-status" value="4" data-bind="checked: creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
-                            <input type="radio" name="mcr-experian-response-bureau-status" default="true">&nbsp;<span>No Response</span>
+                            <input type="radio" model.bind="3" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Positive</span>
+                            <input type="radio" model.bind="4" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
+                            <input type="radio" model.bind="null" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>No Response</span>
                         </div>
                     </div>
                 </div>
             </div>
         </ai-dialog-body>
         <ai-dialog-footer class="modal-footer">
-            <button type="button" class="btn btn-success pull-right" delegate.trigger="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
-            <button type="button" class="btn btn-danger pull-left" click.trigger="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+            <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+            <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
         </ai-dialog-footer>
     </ai-dialog>
 </template>

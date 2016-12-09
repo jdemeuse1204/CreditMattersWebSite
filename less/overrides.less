@@ -121,13 +121,24 @@
 
 .kendo-autocomplete {
 
-    .k-autocomplete {
+    ak-autocomplete {
         border-radius: 0;
         margin-top: 0;
+        height: 34px;
+
+        span.k-autocomplete {
+            height: inherit;
+            border-radius: 0 !important;
+        }
 
         input {
-            height: 32px;
-            border-radius: 0;
+            border-radius: 0 !important;
+            height: 27px !important;
+        }
+
+        span.k-autocomplete {
+            margin: 0;
+            padding: 0;
         }
     }
 }

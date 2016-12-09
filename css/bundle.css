@@ -254,13 +254,22 @@ table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected{background-
   height: 32px !important;
   border-radius: 0;
 }
-.kendo-autocomplete .k-autocomplete {
+.kendo-autocomplete ak-autocomplete {
   border-radius: 0;
   margin-top: 0;
+  height: 34px;
 }
-.kendo-autocomplete .k-autocomplete input {
-  height: 32px;
-  border-radius: 0;
+.kendo-autocomplete ak-autocomplete span.k-autocomplete {
+  height: inherit;
+  border-radius: 0 !important;
+}
+.kendo-autocomplete ak-autocomplete input {
+  border-radius: 0 !important;
+  height: 27px !important;
+}
+.kendo-autocomplete ak-autocomplete span.k-autocomplete {
+  margin: 0;
+  padding: 0;
 }
 .kendo-dropdown .k-dropdown,
 .kendo-dropdown .k-dropdown-wrap {
