@@ -84,19 +84,7 @@ input[type='search'] {
 
 
 /*#region Bootstrap Overrides*/
-.modal-header {
-    position: relative;
 
-    .close-modal {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        height: 25px;
-        width: 25px;
-        cursor: pointer;
-        background: url(/Content/images/1473912285_basics-22.svg);
-    }
-}
 
 
 /*#endregion*/
@@ -1406,8 +1394,11 @@ input[type='search'] {
         }
 
         div:nth-child(1) {
+
+            padding: 0;
+
             label:nth-child(1) {
-                padding-top: 3px;
+                padding-top: 0;
                 float: left;
             }
 
@@ -1415,15 +1406,20 @@ input[type='search'] {
                 float: right;
 
                 label {
-                    padding-top: 3px;
+                    padding-top: 0;
                 }
 
                 input[type='checkbox'] {
                     width: 20px !important;
                     height: 20px !important;
-                    display: inline-block;
+                    float:right;
+                    margin-top: -3px;
                 }
             }
+        }
+
+        div:nth-child(2) {
+            padding: 0;
         }
     }
 

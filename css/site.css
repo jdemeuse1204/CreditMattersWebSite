@@ -110,7 +110,7 @@
   border-radius: 0;
 }
 .input-group-flat {
-  height: 32px;
+  height: 34px;
 }
 .input-group-flat .input-group-addon {
   border-radius: 0;
@@ -168,7 +168,7 @@
 }
 .kendo-dropdown .k-dropdown,
 .kendo-dropdown .k-dropdown-wrap {
-  height: 30px;
+  height: 32px;
   border-radius: 0;
 }
 .kendo-dropdown .k-input {
@@ -293,6 +293,27 @@ ai-dialog-overlay {
   background-color: black !important;
   opacity: .42 !important;
 }
+ai-dialog-body {
+  padding: 0 !important;
+}
+ai-dialog-body .cm-modal-header {
+  position: relative;
+  margin: 0 15px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 15px;
+}
+ai-dialog-body .cm-modal-header h2 {
+  margin: 0;
+}
+ai-dialog-body .cm-modal-header .cm-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 28px;
+  width: 28px;
+  cursor: pointer;
+  background: url(/Content/images/1473912285_basics-22.svg);
+}
 .k-dropdown,
 .k-dropdown-wrap {
   border-radius: 0;
@@ -362,18 +383,6 @@ input[type='search'] {
 }
 /* #endregion */
 /*#region Bootstrap Overrides*/
-.modal-header {
-  position: relative;
-}
-.modal-header .close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  background: url(/Content/images/1473912285_basics-22.svg);
-}
 /*#endregion*/
 /* #region Login */
 #login-window > .row:nth-child(2) {
@@ -1387,20 +1396,27 @@ input[type='search'] {
   margin-left: 0;
   margin-right: 0;
 }
+#manage-credit-items-item-modal .dispute-reason div:nth-child(1) {
+  padding: 0;
+}
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) label:nth-child(1) {
-  padding-top: 3px;
+  padding-top: 0;
   float: left;
 }
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) div:nth-child(2) {
   float: right;
 }
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) div:nth-child(2) label {
-  padding-top: 3px;
+  padding-top: 0;
 }
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) div:nth-child(2) input[type='checkbox'] {
   width: 20px !important;
   height: 20px !important;
-  display: inline-block;
+  float: right;
+  margin-top: -3px;
+}
+#manage-credit-items-item-modal .dispute-reason div:nth-child(2) {
+  padding: 0;
 }
 #manage-credit-items-item-modal .mcr-radio-group {
   height: 60px;

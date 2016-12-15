@@ -3,13 +3,6 @@ import { ValidationRenderer, RenderInstruction, ValidationError } from 'aurelia-
 export class CMRenderer {
   render(instruction) {
 
-    // for (let { error, result, elements } of instruction.unrender) {
-    //   for (let element of elements) {
-    //     debugger;
-    //     success(element);
-    //   }
-    // }
-
     for (let { result, elements } of instruction.render) {
       for (let element of elements) {
 
