@@ -10,7 +10,7 @@ import { getTemplateHtml, getTemplate } from "../../common/utils";
 import * as loadingScreen from "../../common/loadingScreen";
 import { find } from 'lodash';
 import { inject } from 'aurelia-dependency-injection';
-import {GridServices} from './gridServices';
+import { GridServices } from './gridServices';
 
 @inject(GridServices)
 export class MainGrid {
@@ -72,7 +72,12 @@ export class MainGrid {
 
                         const id = $(e.sender.element).data("id");
 
-                        that.gridServices.openModal(id);
+                        that.gridServices.openModal(id).then(response => {
+
+                            if (response.wasCancelled === false) {
+                                that.load();
+                            }
+                        });
 
                     };
 

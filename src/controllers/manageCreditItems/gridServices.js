@@ -3,7 +3,7 @@ import * as loadingScreen from "../../common/loadingScreen";
 import creditBureauEntry from "../../models/creditBureauEntry";
 import { inject } from 'aurelia-dependency-injection';
 import { DialogService } from 'aurelia-dialog';
-import {isGuidEmpty} from '../../common/utils';
+import { isGuidEmpty } from '../../common/utils';
 
 @inject(DialogService)
 export class GridServices {
@@ -16,47 +16,52 @@ export class GridServices {
 
     openModal(id) {
 
-        loadingScreen.show();
+        return new Promise((resolve, reject) => {
 
-        let cbe = null;
-        const that = this;
-        const renderModal = function (item) {
+            loadingScreen.show();
 
-            const isNewItem = isGuidEmpty(item.Id) === true;
+            let cbe = null;
+            const that = this;
+            const renderModal = function (item) {
 
-            const addOrEdit = isNewItem === true ? "Add" : "Edit";
-            const modalModel = {
-                title: `${addOrEdit} Credit Item`,
-                creditItem: item,
-                display: {
-                    defaultDisputeReason: "none",
-                    add: isNewItem ? "" : "none",
-                    edit: isNewItem ? "none" : ""
-                }
+                const isNewItem = isGuidEmpty(item.Id) === true;
+
+                const addOrEdit = isNewItem === true ? "Add" : "Edit";
+                const modalModel = {
+                    title: `${addOrEdit} Credit Item`,
+                    creditItem: item,
+                    display: {
+                        defaultDisputeReason: "none",
+                        add: isNewItem ? "" : "none",
+                        edit: isNewItem ? "none" : ""
+                    }
+                };
+
+                that.dialogService.open({
+                    viewModel: 'modals/addNewCreditItemModal',
+                    model: modalModel
+                }).then(response => {
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
+                });
             };
 
-            that.dialogService.open({
-                viewModel: 'modals/addNewCreditItemModal',
-                model: modalModel
-            }).then(response => {
+            if (id) {
 
-            });
-        };
+                management.getCreditItem(id).then(function (result) {
 
-        if (id) {
+                    cbe = new creditBureauEntry(result);
 
-            management.getCreditItem(id).then(function (result) {
+                    renderModal(cbe);
+                });
+                return;
+            }
 
-                cbe = new creditBureauEntry(result);
+            cbe = new creditBureauEntry();
 
-                renderModal(cbe);
-            });
-            return;
-        }
-
-        cbe = new creditBureauEntry();
-
-        renderModal(cbe);
+            renderModal(cbe);
+        });
     }
 }
 

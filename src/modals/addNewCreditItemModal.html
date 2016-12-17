@@ -10,7 +10,7 @@
                 <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row main-row">
                     <div class="col-xs-12">
                         <label>Account Number</label>
                         <div class="input-group input-group-flat" id="manage-credit-items-validate-account-number">
@@ -19,11 +19,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row main-row">
                     <div class="col-sm-6 kendo-autocomplete">
                         <label>Creditor</label>
                         <div class="input-group input-group-flat" id="manage-credit-items-validate-creditor">
-                            <ak-autocomplete k-data-source.bind="creditors" k-min-length.bind="2" k-virtual.bind="virtual" k-data-text-field="Name" k-value.two-way="model.creditItem.Creditor.Name"
+                            <ak-autocomplete k-data-source.bind="creditors" k-min-length.bind="2" k-virtual.bind="virtual" k-data-text-field="Name" k-value.two-way="model.creditItem.Creditor.Name & validate"
                                 aria-describedby="manage-credit-items-creditor">
                                 <input style="width: 100%;" placeholder="Type to find...">
                             </ak-autocomplete>
@@ -32,17 +32,17 @@
                     </div>
                     <div class="col-sm-6">
                         <label>Balance</label>
-                        <div class="input-group input-group-flat" id="manage-credit-items-validate-balance" data-validate-lite="input-empty-numeric">
+                        <div class="input-group input-group-flat" id="manage-credit-items-validate-balance">
                             <input type="text" class="form-control" value.bind="model.creditItem.Balance & validate" aria-describedby="manage-credit-items-balance">
                             <span class="input-group-addon" id="manage-credit-items-balance"><i class="fa fa-asterisk"></i></span>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row main-row">
                     <div class="col-sm-5 kendo-dropdown">
                         <label>Type</label>
-                        <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type" data-validate-lite="dropdown">
-                            <ak-drop-down-list k-data-text-field="Type" k-data-value-field="Id" k-data-source.bind="adverseTypes" k-value.two-way="model.creditItem.AdverseTypeId"
+                        <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type">
+                            <ak-drop-down-list k-data-text-field="Type" k-data-value-field="Id" k-data-source.bind="adverseTypes" k-value.two-way="model.creditItem.AdverseTypeId & validate"
                                 k-data-option-label="Select Type..." style="width: 100%;" aria-describedby="manage-credit-items-adverse-type"
                                 k-on-change.delegate="typeChange($event.detail)">
                             </ak-drop-down-list>
@@ -54,7 +54,7 @@
                             <label>Dispute Reason</label>
                             <div>
                                 <label if.bind="isUsingCustomReason === true">Un-Customize It?</label><label if.bind="isUsingCustomReason === false">Customize It?</label>&nbsp;<input id="manage-credit-items-dispute-reason-user-custom-reason" checked.bind="isUsingCustomReason"
-                                    type="checkbox" class="form-control" />
+                                    type="checkbox" class="form-control" change.delegate="usingCustomReasonChange($event)"/>
                             </div>
                         </div>
 

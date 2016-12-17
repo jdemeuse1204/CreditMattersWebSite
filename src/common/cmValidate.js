@@ -30,16 +30,22 @@ export function validateMultiple(controller, options) {
 
         Promise.all(promises).then(values => { 
 
+            let hasErrors = false;
+
             for(let i = 0; i < values.length; i++) {
                 const value = values[i];
 
                 if (value.valid === false) {
-                    reject();
-                    break;
+                    hasErrors = true;
+                    continue;
                 }
             }
 
-            resolve();
+            if (hasErrors === true) {
+                reject();
+            } else {
+                resolve();
+            }
         });
     });
 

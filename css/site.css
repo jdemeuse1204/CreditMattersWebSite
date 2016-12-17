@@ -1392,6 +1392,13 @@ input[type='search'] {
 #home-address-content > .modal-body > div:nth-child(2) input {
   padding-right: 0;
 }
+#manage-credit-items-item-modal .main-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#manage-credit-items-item-modal h4 {
+  padding-top: 12px;
+}
 #manage-credit-items-item-modal .dispute-reason .row {
   margin-left: 0;
   margin-right: 0;

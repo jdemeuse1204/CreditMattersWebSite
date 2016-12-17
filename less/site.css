@@ -110,7 +110,7 @@
   border-radius: 0;
 }
 .input-group-flat {
-  height: 32px;
+  height: 34px;
 }
 .input-group-flat .input-group-addon {
   border-radius: 0;
@@ -168,7 +168,7 @@
 }
 .kendo-dropdown .k-dropdown,
 .kendo-dropdown .k-dropdown-wrap {
-  height: 30px;
+  height: 32px;
   border-radius: 0;
 }
 .kendo-dropdown .k-input {
@@ -1391,6 +1391,13 @@ input[type='search'] {
 }
 #home-address-content > .modal-body > div:nth-child(2) input {
   padding-right: 0;
+}
+#manage-credit-items-item-modal .main-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#manage-credit-items-item-modal h4 {
+  padding-top: 12px;
 }
 #manage-credit-items-item-modal .dispute-reason .row {
   margin-left: 0;
