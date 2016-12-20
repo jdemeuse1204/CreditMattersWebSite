@@ -1,4 +1,3 @@
-import { useView } from 'aurelia-framework';
 import { inject } from 'aurelia-dependency-injection';
 import { DialogController } from 'aurelia-dialog';
 import { lookup, management } from '../common/repository';
@@ -7,6 +6,8 @@ import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation
 import { CMRenderer } from '../common/cmRenderer';
 import { validateMultiple } from '../common/cmValidate';
 import disputeReason from '../models/disputeReason';
+import creditBureauEntry from '../models/creditBureauEntry';
+import {isGuidEmpty} from "../common/utils"
 
 @inject(DialogController, ValidationControllerFactory)
 export class AddNewCreditItemModal {
@@ -49,9 +50,19 @@ export class AddNewCreditItemModal {
         }
     }
 
+    canDeactivate() {
+        $("#manage-credit-items-validate-creditor input").val("");
+        this.model.creditItem = new creditBureauEntry();
+    }
+
     async activate(model) {
 
         this.isUsingCustomReason = model.creditItem.Dispute ? !model.creditItem.Dispute.IsDefault : false;
+
+        if (this.isUsingCustomReason === true) {
+            this.customReason = model.creditItem.Dispute.Reason;
+        }
+
         this.model = model
         this.creditBureauStatuses = await lookup.getCreditBureauStatuses();
 
@@ -64,8 +75,9 @@ export class AddNewCreditItemModal {
         this.rules = ValidationRules
             .ensure('Balance').required().tag('core').satisfies(w => !isNaN(parseFloat(w)) && isFinite(w))
             .ensure('AccountNumber').required().tag('core')
-            .ensure('AdverseTypeId').satisfies(w => w !== 0).withMessage('Please select Type').tag('core:kendoDropDownList')
-            .ensure('DisputeReasonId').satisfies(w => w !== 0).withMessage('Please select Reason').tag('default')
+            .ensure('AdverseTypeId').satisfies(w => w > 0).withMessage('Please select Type').tag('core:kendoDropDownList')
+            .on(this.model.creditItem)
+            .ensure('DisputeReasonId').satisfies(w => w > 0).withMessage('Please select Reason').tag('default:kendoDropDownList')
             .on(this.model.creditItem)
             .ensure('Name').required().tag('creditItem')
             .on(this.model.creditItem.Creditor)
@@ -82,6 +94,8 @@ export class AddNewCreditItemModal {
         const that = this;
 
         this.populateDisputeReasons(event.sender._old).then(response => {
+            that.model.creditItem.Dispute = null;
+            that.model.creditItem.DisputeReasonId = 0;
             loadingScreen.hide();
         });
     }
@@ -126,8 +140,10 @@ export class AddNewCreditItemModal {
         if (this.isUsingCustomReason === true) {
 
             this.model.creditItem.Dispute = new disputeReason();
+            this.model.creditItem.Dispute.Id = 0;
             this.model.creditItem.Dispute.Reason = this.customReason;
             this.model.creditItem.Dispute.IsDefault = false;
+            this.model.creditItem.Dispute.AdverseTypeId = this.model.creditItem.AdverseTypeId;
             this.model.creditItem.DisputeReasonId = 0;
 
             const customRules = ValidationRules.taggedRules(this.rules, 'custom');
@@ -136,9 +152,10 @@ export class AddNewCreditItemModal {
             { object: this.model.creditItem, rules: coreKendoDropDowns },
             { object: this.model.creditItem.Creditor, rules: creditItemRule },
             { object: this, rules: customRules }];
+
         } else {
 
-            const defaultRules = ValidationRules.taggedRules(this.rules, 'default');
+            const defaultRules = ValidationRules.taggedRules(this.rules, 'default:kendoDropDownList');
 
             validateOptions = [{ object: this.model.creditItem, rules: coreRules },
             { object: this.model.creditItem, rules: coreKendoDropDowns },
@@ -146,10 +163,12 @@ export class AddNewCreditItemModal {
             { object: this.model.creditItem, rules: defaultRules }];
         }
 
-
         validateMultiple(this.validationController, validateOptions).then(() => {
 
             loadingScreen.show();
+
+            this.model.creditItem.preSaveOps();
+
             management.saveCreditItem(this.model.creditItem).then(result => {
                 that.controller.ok();
             }).finally(() => {

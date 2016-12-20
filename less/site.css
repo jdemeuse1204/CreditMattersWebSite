@@ -170,6 +170,7 @@
 .kendo-dropdown .k-dropdown-wrap {
   height: 32px;
   border-radius: 0;
+  max-width: 280px;
 }
 .kendo-dropdown .k-input {
   padding-bottom: 0;
@@ -1392,6 +1393,15 @@ input[type='search'] {
 #home-address-content > .modal-body > div:nth-child(2) input {
   padding-right: 0;
 }
+#manage-credit-items-item-modal .transUnion-logo img {
+  height: 25px;
+}
+#manage-credit-items-item-modal .equifax-logo img {
+  height: 25px;
+}
+#manage-credit-items-item-modal .experian-logo img {
+  height: 25px;
+}
 #manage-credit-items-item-modal .main-row {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -1427,6 +1437,8 @@ input[type='search'] {
 }
 #manage-credit-items-item-modal .mcr-radio-group {
   height: 60px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 #manage-credit-items-item-modal .mcr-radio-group span {
   padding-top: 6px;
@@ -1634,4 +1646,35 @@ ai-dialog ai-dialog-footer {
   background-color: transparent;
   height: 30px;
   width: 50px;
+}
+#manage-credit-items-default-dispute-reason-default-ddl {
+  max-width: 100%;
+}
+.profile-card-header {
+  font-size: 20px;
+  background-color: #5cad3a;
+  padding: 5px 15px;
+  color: white;
+  border: 1px solid #5cad3a;
+}
+.profile-card-body {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.075);
+}
+.profile-card-body ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+.profile-card-body ul li {
+  cursor: pointer;
+  margin: 0;
+  padding: 7px;
+  width: 100%;
+  border-left: 1px solid #eaeaea;
+  border-right: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+.profile-card-body ul li span.glyphicon-chevron-right {
+  float: right;
+  margin-right: 10px;
 }

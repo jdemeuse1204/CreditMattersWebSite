@@ -4,7 +4,7 @@ import { useView } from 'aurelia-framework';
 import { MainGrid } from '../../controllers/manageCreditItems/mainGrid';
 import { inject } from 'aurelia-dependency-injection';
 import * as loadingScreen from "../../common/loadingScreen";
-import {GridServices} from '../../controllers/manageCreditItems/gridServices';
+import { GridServices } from '../../controllers/manageCreditItems/gridServices';
 
 @useView('../../views/management/manageCreditItems.html')
 @inject(MainGrid, GridServices)
@@ -19,7 +19,7 @@ export class ManageCreditItems {
     }
 
     attached() {
-        
+
         loadingScreen.show();
 
         this.mainGrid.load().then(() => {
@@ -28,7 +28,15 @@ export class ManageCreditItems {
     }
 
     addItem() {
-        this.gridServices.openModal();
+
+        const that = this;
+
+        this.gridServices.openModal().then(response => {
+
+            if (response.wasCancelled === false) {
+                that.mainGrid.load();
+            }
+        }).catch(() => {});
     }
 
     createLetter() {

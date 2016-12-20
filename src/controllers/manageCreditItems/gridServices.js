@@ -58,9 +58,7 @@ export class GridServices {
                 return;
             }
 
-            cbe = new creditBureauEntry();
-
-            renderModal(cbe);
+            renderModal(new creditBureauEntry());
         });
     }
 }

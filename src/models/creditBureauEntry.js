@@ -6,7 +6,7 @@ import creditBureauStatus from "./creditBureauStatus";
 import moment from "moment";
 
 let _item = kendo.data.Model.define({
-    asJSON: function() {
+    asJSON: function () {
 
         return {
             Id: this.Id,
@@ -31,7 +31,7 @@ let _item = kendo.data.Model.define({
 
             EquifaxInitialStatusId: this.EquifaxInitialStatusId,
             EquifaxInitialStatus: this.EquifaxInitialStatus ? this.EquifaxInitialStatus.asJSON() : null,
-            
+
             EquifaxResponseStatusId: this.EquifaxResponseStatusId === 0 ? undefined : this.EquifaxResponseStatusId,
             EquifaxResponseStatus: this.EquifaxResponseStatus ? this.EquifaxResponseStatus.asJSON() : null,
 
@@ -43,27 +43,66 @@ let _item = kendo.data.Model.define({
         };
     },
 
+    preSaveOps: function () {
+
+        if (!!this.DisputeReasonId && this.Dispute && this.Dispute.Id !== this.DisputeReasonId) {
+            this.Dispute = null;
+        }
+
+        if (!!this.AdverseTypeId && this.AdverseType && this.AdverseType.Id !== this.AdverseTypeId) {
+            this.AdverseType = null;
+        }
+
+        if (!!this.CreditorId && this.Creditor && this.Creditor.Id !== this.CreditorId) {
+            this.Creditor = null;
+        }
+
+        if (!!this.TransUnionResponseStatusId && this.TransUnionResponseStatus && this.TransUnionResponseStatus.Id !== this.TransUnionResponseStatusId) {
+            this.TransUnionResponseStatus = null;
+        }
+
+        if (!!this.TransUnionInitialStatusId && this.TransUnionInitialStatus && this.TransUnionInitialStatus.Id !== this.TransUnionInitialStatusId) {
+            this.TransUnionInitialStatus = null;
+        }
+
+        if (!!this.ExperianResponseStatusId && this.ExperianResponseStatus && this.ExperianResponseStatus.Id !== this.ExperianResponseStatusId) {
+            this.ExperianResponseStatus = null;
+        }
+
+        if (!!this.ExperianInitialStatusId && this.ExperianInitialStatus && this.ExperianInitialStatus.Id !== this.ExperianInitialStatusId) {
+            this.ExperianInitialStatus = null;
+        }
+
+        if (!!this.EquifaxInitialStatusId && this.EquifaxInitialStatus && this.EquifaxInitialStatus.Id !== this.EquifaxInitialStatusId) {
+            this.EquifaxInitialStatus = null;
+        }
+
+        if (!!this.EquifaxResponseStatusStatusId && this.EquifaxResponseStatus && this.EquifaxResponseStatus.Id !== this.EquifaxResponseStatusId) {
+            this.EquifaxResponseStatus = null;
+        }
+    },
+
     id: "Id",
     fields: {
         "Id": { editable: true, type: "string", defaultValue: "00000000-0000-0000-0000-000000000000" },
-        "CreditorId": { editable: true, type: "number", defaultValue: -1 },
+        "CreditorId": { editable: true, type: "number", defaultValue: 0 },
         "Creditor": {
             editable: true,
             defaultValue: new creditor(),
-            parse: function(data) { return new creditor(data); }
+            parse: function (data) { return new creditor(data); }
         },
         "AccountNumber": { editable: true, type: "string" },
         "AdverseTypeId": { editable: true, type: "number" },
         "AdverseType": {
             editable: true,
             defaultValue: new adverseType(),
-            parse: function(data) { return new adverseType(data); }
+            parse: function (data) { return new adverseType(data); }
         },
-        "DisputeReasonId": { editable: true, type: "number", defaultValue: -1 },
+        "DisputeReasonId": { editable: true, type: "number", defaultValue: 0 },
         "Dispute": {
             editable: true,
             defaultValue: new disputeReason(),
-            parse: function(data) { return new disputeReason(data); }
+            parse: function (data) { return new disputeReason(data); }
         },
 
 
@@ -77,14 +116,14 @@ let _item = kendo.data.Model.define({
         "TransUnionInitialStatus": {
             editable: true,
             defaultValue: new creditBureauStatus(),
-            parse: function(data) { return new creditBureauStatus(data); }
+            parse: function (data) { return new creditBureauStatus(data); }
         },
 
         "ExperianInitialStatusId": { editable: true, type: "number", defaultValue: 1 },
         "ExperianInitialStatus": {
             editable: true,
             defaultValue: new creditBureauStatus(),
-            parse: function(data) { return new creditBureauStatus(data); }
+            parse: function (data) { return new creditBureauStatus(data); }
         },
         "ExperianResponseStatusId": { editable: true, type: "number", defaultValue: 0 },
         "ExperianResponseStatus": {
@@ -98,7 +137,7 @@ let _item = kendo.data.Model.define({
         "EquifaxInitialStatus": {
             editable: true,
             defaultValue: new creditBureauStatus(),
-            parse: function(data) { return new creditBureauStatus(data); }
+            parse: function (data) { return new creditBureauStatus(data); }
         },
         "EquifaxResponseStatusId": { editable: true, type: "number", defaultValue: 0 },
         "EquifaxResponseStatus": {

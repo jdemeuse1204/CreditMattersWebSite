@@ -18,7 +18,7 @@ export class MainGrid {
     gridServices = null;
     itemModal = null;
     table = null;
-    gridData = [];
+    data = [];
 
     constructor(gridServices) {
         this.gridServices = gridServices;
@@ -29,15 +29,6 @@ export class MainGrid {
         const that = this;
         const gridHelpers = {
             makeRowsResponsive: function (items) {
-                // ----- ROWS -----
-                // Include On Letter
-                // Creditor
-                // Account Number,
-                // Account Code,
-                // Dispute Reason,
-                // Experian, Equifax, TransUnion Code and Date
-                // Actions
-                // Mobile
 
                 for (let i = 0; i < items.length; i++) {
                     const item = items[i];
@@ -101,24 +92,32 @@ export class MainGrid {
 
         return new Promise((resolve, reject) => {
 
-            management.getCreditItems(constants.creditBureaus.all).then(function (response) {
+            let mobileTemplate = kendo.template(getTemplateHtml("#mobile-credit-item")),
+                desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-manage-credit-credit-bureaus"));
 
-                let mobileTemplate = kendo.template(getTemplateHtml("#mobile-credit-item")),
-                    desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-manage-credit-credit-bureaus"));
+            if (that.table) {
 
-                that.gridData = response.Data.result;
+                management.getCreditItems(constants.creditBureaus.all).then(function (refreshResponse) {
 
-                if (that.table) {
+                    that.data = refreshResponse.Data.result;
+
                     // if table is already drawn, do not redraw
                     that.table.clear();
-                    that.table.rows.add(that.gridData);
+                    that.table.rows.add(that.data);
                     that.table.draw();
                     gridHelpers.gridInitComplete();
-                    return;
-                }
+                }).catch(() => {
+                    reject();
+                });
+                return;
+            }
+
+            management.getCreditItems(constants.creditBureaus.all).then(function (initResponse) {
+
+                that.data = initResponse.Data.result;
 
                 that.table = $("#manage-credit-items-table").DataTable({
-                    data: that.gridData,
+                    data: that.data,
                     columns: [
                         {
                             title: "",
@@ -140,22 +139,31 @@ export class MainGrid {
                             data: "Id",
                             width: "300px",
                             render: function (e) {
+                                try {
+                                    const item = find(that.data, function (i) { return i.Id === e; });
 
-                                const item = find(that.gridData, function (i) { return i.Id === e; });
+                                    if (!item) {debugger;}
+                                    return desktopCreditItemsTemplate(item);
+                                } catch (error) {
+                                    debugger;
+                                }
 
-                                return desktopCreditItemsTemplate(item);
                             }
                         },
                         {
                             title: "Credit Items",
                             data: "Id",
                             render: function (e) {
+                                try {
+                                    const item = find(that.data, function (i) { return i.Id === e; });
+                                    if (!item) {debugger;}
+                                    item.Balance = kendo.toString(item.Balance, "c2");
 
-                                const item = find(that.gridData, function (i) { return i.Id === e; });
+                                    return mobileTemplate(item);
+                                } catch (error) {
+                                    debugger;
+                                }
 
-                                item.Balance = kendo.toString(item.Balance, "c2");
-
-                                return mobileTemplate(item);
                             }
                         }
                     ],
@@ -179,15 +187,6 @@ export class MainGrid {
                         const tds = $(e).find("td");
                         gridHelpers.makeRowsResponsive(tds);
 
-                        // ----- ROWS -----
-                        // Include On Letter
-                        // Creditor
-                        // Account Number,
-                        // Account Code,
-                        // Dispute Reason,
-                        // Experian, Equifax, TransUnion Code and Date
-                        // Actions
-                        // Mobile
                     }
                 });
 
