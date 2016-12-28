@@ -16,6 +16,10 @@ export function isGuidEmpty(guid) {
     return guid === "00000000-0000-0000-0000-000000000000" || isEmpty(guid);
 }
 
+export function isNumeric(value) {
+    return !isNaN(parseFloat(w)) && isFinite(w);
+}
+
 export function isNullOrEmpty(value) {
     return isEmpty(trim(value));
 }

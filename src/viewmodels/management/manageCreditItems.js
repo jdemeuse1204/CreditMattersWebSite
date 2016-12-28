@@ -1,20 +1,20 @@
 import "bootstrap";
 
 import { useView } from 'aurelia-framework';
-import { MainGrid } from '../../controllers/manageCreditItems/mainGrid';
+import { Grid } from '../../controllers/manageCreditItems/grid';
 import { inject } from 'aurelia-dependency-injection';
 import * as loadingScreen from "../../common/loadingScreen";
 import { GridServices } from '../../controllers/manageCreditItems/gridServices';
 
 @useView('../../views/management/manageCreditItems.html')
-@inject(MainGrid, GridServices)
+@inject(Grid, GridServices)
 export class ManageCreditItems {
 
-    mainGrid = null;
+    Grid = null;
     gridServices = null;
 
-    constructor(mainGrid, gridServices) {
-        this.mainGrid = mainGrid;
+    constructor(grid, gridServices) {
+        this.grid = grid;
         this.gridServices = gridServices;
     }
 
@@ -22,7 +22,7 @@ export class ManageCreditItems {
 
         loadingScreen.show();
 
-        this.mainGrid.load().then(() => {
+        this.grid.load().then(() => {
             loadingScreen.hide();
         });
     }
@@ -34,14 +34,14 @@ export class ManageCreditItems {
         this.gridServices.openModal().then(response => {
 
             if (response.wasCancelled === false) {
-                that.mainGrid.load();
+                that.grid.load();
             }
         }).catch(() => {});
     }
 
     createLetter() {
 
-        if (this.mainGrid.anyItemsSelected() === false) {
+        if (this.grid.anyItemsSelected() === false) {
             return;
         }
     }

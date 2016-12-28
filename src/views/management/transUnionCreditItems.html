@@ -1,0 +1,69 @@
+<template>
+    <div class="container-full credit-items-page" id="window-management-transunion-credit-items" slot="page-content">
+        <h3 class="cm-page-header">TransUnion Credit Items</h3>
+
+        <div class="row">
+            <div class="hidden-lg row credit-bureau-filter-buttons">
+                <div class="col-xs-12 text-center"><a href="/#/Management/ManageCreditItems"><i class="fa fa-backward"></i>&nbsp;All Credit Items</a></div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <span class="buttons-header">Grid Actions</span>
+            <div class="hidden-lg row mobile-mcr-buttons">
+                <div class="col-xs-3 text-center"><span><i class="fa fa-check-square-o"></i>&nbsp;Select All</span></div>
+                <div class="col-xs-3 text-center"><span><i class="fa fa-square-o"></i>&nbsp;Unselect All</span></div>
+                <div class="col-xs-3 text-center"><span><i class="fa fa-map-o"></i>&nbsp;How To</span></div>
+                <div class="col-xs-3 text-center"><span><i class="fa fa-envelope-o"></i>&nbsp;Create Letter</span></div>
+            </div>
+
+            <table id="manage-credit-items-transunion-table" class="display" style="width: 100%;"></table>
+        </div>
+    </div>
+
+<section slot="scripts">
+    <script type="text/x-kendo-template" id="mobile-credit-item-transunion">
+    <div class="cm-swipable #= Status === 1 ? 'cm-swipable-deleted' : Status === 2 ? 'cm-swipable-positive' : ''#">
+        <div class="cm-swipable-left-action">
+            <div class="pull-left text-center">
+                <div>Deleted</div>
+                <i class="fa fa-close"></i>
+            </div>
+        </div>
+        <div class="cm-swipable-right-action">
+            <div class="pull-right text-center">
+                <div>Positive</div>
+                <i class="fa fa-plus"></i>
+            </div>
+        </div>
+
+        <div class="cm-swipable-drag-overlay" data-id="#=Id#">
+            <div class="cm-swipable-status #= Status === 1 ? 'cm-swipable-status-deleted' : Status === 2 ? 'cm-swipable-status-positive' : ''#">#= Status === 1 ? 'Deleted' : Status === 2 ? 'Positive' : ''#</div>
+            <span>
+                <input type="checkbox" data-id="#=Id#" class="form-control" data-type="mobile-checkbox" />
+            </span>
+            <div class="row">
+                <div>#=AccountNumber#</div>
+            </div>
+            <div class="row">
+                <div>#=Creditor.Name#</div>
+            </div>
+            <div class="row">
+                <div>#=AdverseType.Type#</div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="desktop-manage-credit-items-actions-transunion">
+    <div class="manage-credit-items-actions" data-id="#=dataId#">
+        <span class="fa-stack" data-selected="false">
+            <i class="fa fa-square-o fa-2x fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x" style="display:none;"></i>
+        </span>
+        <a class="btn btn-sm btn-danger" data-action="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+        <a class="btn btn-sm btn-primary" data-action="edit"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+    </div>
+</script>
+</section>
+</template>

@@ -1,7 +1,17 @@
 <template>
     <ai-dialog class="modal-dialog modal-md" id="my-profile-phone-numbers-modal">
         <ai-dialog-body>
-
+            <div class="cm-modal-header">
+                <h2>My Phone Numbers</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <ul class="phone-numbers-modal-phone-numbers">
+                    <li><span>Mobile</span>&emsp;<input type="tel"/></li>
+                    <li><span>Home</span>&emsp;<input type="tel"/></li>
+                    <li><span>Work</span>&emsp;<input type="tel"/></li>
+                </ul>
+            </div>
         </ai-dialog-body>
         <ai-dialog-footer class="modal-footer">
             <button type="button" class="btn btn-success pull-right"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>

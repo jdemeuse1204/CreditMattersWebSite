@@ -35,6 +35,13 @@
     border-bottom: none;
 }
 
+.btn-default {
+    background-color: #a2a2a2;
+    border-radius: 0;
+    border-bottom: none;
+    color:white;
+}
+
 .btn-cm {
     background-color: @CMOrange;
     border-radius: 0;
@@ -55,12 +62,26 @@
     color: white;
 }
 
+.btn.btn-default:hover {
+    border-color: #939393;
+    color: white;
+    background-color: #939393;
+    box-shadow: 0 1px 1px #a2a2a2 inset, 0 0 8px #a2a2a2;
+}
+
+.btn.btn-danger:hover {
+    border-color: #d9534f;
+    background-color: #d9534f;
+    box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
+}
 
 .btn.btn-success:hover {
+    border-color: @CMLightGreen;
     box-shadow: 0 1px 1px @CMLightGreen inset, 0 0 8px @CMLightGreen;
 }
 
 .btn-primary:hover {
+    border-color:rgb(51, 122, 183);
     box-shadow: 0 1px 1px rgb(51, 122, 183) inset, 0 0 8px rgb(51, 122, 183);
 }
 

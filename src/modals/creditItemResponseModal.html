@@ -1,0 +1,23 @@
+<template>
+    <ai-dialog class="modal-dialog modal-md" id="manage-credit-items-item-response-modal">
+        <ai-dialog-body>
+            <div class="cm-modal-header">
+                <h2>${model.title}</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <button type="button" class="btn btn-default" click.delegate="markAsNoResponse()"><i class="fa fa-hourglass"></i>&nbsp;No Response</button>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <button type="button" class="btn btn-danger" click.delegate="markAsDeleted()"><i class="fa fa-close"></i>&nbsp;Deleted</button>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <button type="button" class="btn btn-success" click.delegate="markAsPositive()"><i class="fa fa-plus"></i>&nbsp;Positive</button>
+                    </div>
+                </div> 
+            </div>
+        </ai-dialog-body>
+    </ai-dialog>
+</template>

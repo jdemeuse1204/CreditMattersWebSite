@@ -13,7 +13,7 @@ import { inject } from 'aurelia-dependency-injection';
 import { GridServices } from './gridServices';
 
 @inject(GridServices)
-export class MainGrid {
+export class Grid {
 
     gridServices = null;
     itemModal = null;
@@ -94,22 +94,29 @@ export class MainGrid {
 
             let mobileTemplate = kendo.template(getTemplateHtml("#mobile-credit-item")),
                 desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-manage-credit-credit-bureaus"));
-
+        
             if (that.table) {
 
-                management.getCreditItems(constants.creditBureaus.all).then(function (refreshResponse) {
+                if ($("#manage-credit-items-table_wrapper").length === 0) {
+                    that.table.destroy();
+                    $("#manage-credit-items-table").removeData();
+                    $("#manage-credit-items-table").empty();
+                } else {
+                    management.getCreditItems(constants.creditBureaus.all).then(function (refreshResponse) {
 
-                    that.data = refreshResponse.Data.result;
+                        that.data = refreshResponse.Data.result;
 
-                    // if table is already drawn, do not redraw
-                    that.table.clear();
-                    that.table.rows.add(that.data);
-                    that.table.draw();
-                    gridHelpers.gridInitComplete();
-                }).catch(() => {
-                    reject();
-                });
-                return;
+                        // if table is already drawn, do not redraw
+                        that.table.clear();
+                        that.table.rows.add(that.data);
+                        that.table.draw();
+                        gridHelpers.gridInitComplete();
+
+                    }).catch(() => {
+                        reject();
+                    });
+                    return;
+                }
             }
 
             management.getCreditItems(constants.creditBureaus.all).then(function (initResponse) {
@@ -142,7 +149,7 @@ export class MainGrid {
                                 try {
                                     const item = find(that.data, function (i) { return i.Id === e; });
 
-                                    if (!item) {debugger;}
+                                    if (!item) { debugger; }
                                     return desktopCreditItemsTemplate(item);
                                 } catch (error) {
                                     debugger;
@@ -156,7 +163,7 @@ export class MainGrid {
                             render: function (e) {
                                 try {
                                     const item = find(that.data, function (i) { return i.Id === e; });
-                                    if (!item) {debugger;}
+                                    if (!item) { debugger; }
                                     item.Balance = kendo.toString(item.Balance, "c2");
 
                                     return mobileTemplate(item);

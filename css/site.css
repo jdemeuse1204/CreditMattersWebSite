@@ -80,6 +80,12 @@
   border-radius: 0;
   border-bottom: none;
 }
+.btn-default {
+  background-color: #a2a2a2;
+  border-radius: 0;
+  border-bottom: none;
+  color: white;
+}
 .btn-cm {
   background-color: #f4792b;
   border-radius: 0;
@@ -97,10 +103,23 @@
 .btn-cm:focus {
   color: white;
 }
+.btn.btn-default:hover {
+  border-color: #939393;
+  color: white;
+  background-color: #939393;
+  box-shadow: 0 1px 1px #a2a2a2 inset, 0 0 8px #a2a2a2;
+}
+.btn.btn-danger:hover {
+  border-color: #d9534f;
+  background-color: #d9534f;
+  box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
+}
 .btn.btn-success:hover {
+  border-color: #5cad3a;
   box-shadow: 0 1px 1px #5cad3a inset, 0 0 8px #5cad3a;
 }
 .btn-primary:hover {
+  border-color: #337ab7;
   box-shadow: 0 1px 1px #337ab7 inset, 0 0 8px #337ab7;
 }
 .modal-dialog,
@@ -1394,10 +1413,10 @@ input[type='search'] {
   padding-right: 0;
 }
 #manage-credit-items-item-modal .transUnion-logo img {
-  height: 25px;
+  height: 26px;
 }
 #manage-credit-items-item-modal .equifax-logo img {
-  height: 25px;
+  height: 20px;
 }
 #manage-credit-items-item-modal .experian-logo img {
   height: 25px;
@@ -1570,6 +1589,16 @@ input[type='search'] {
   padding: 10px 15px;
   width: 100%;
   height: 75px;
+}
+.credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay span {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 8px;
+  right: 12px;
+}
+.credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay span input[type='checkbox'] {
+  height: inherit;
 }
 .credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-left-action {
   background-color: #00853e;

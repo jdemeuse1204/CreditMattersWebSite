@@ -53,8 +53,8 @@ function processLogin(token, firstName, addressCompletedDateTime, rememberMe, us
         loginFunctions(1000).forgetRememberedUser();
     }
 
-    const deviceNeedsAuthorization = loginFunctions(1000).deviceNeedsAuthorization(username);
-
+    // const deviceNeedsAuthorization = loginFunctions(1000).deviceNeedsAuthorization(username);
+    const deviceNeedsAuthorization = false;
     if (deviceNeedsAuthorization === true) {
         reject(loginResults.requiresDeviceVerification);
     }
@@ -64,5 +64,5 @@ function processLogin(token, firstName, addressCompletedDateTime, rememberMe, us
         token: token,
         firstName: firstName,
         addressCompletedDateTime: addressCompletedDateTime
-        });
+    });
 }

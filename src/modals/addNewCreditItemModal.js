@@ -7,7 +7,7 @@ import { CMRenderer } from '../common/cmRenderer';
 import { validateMultiple } from '../common/cmValidate';
 import disputeReason from '../models/disputeReason';
 import creditBureauEntry from '../models/creditBureauEntry';
-import {isGuidEmpty} from "../common/utils"
+import {isGuidEmpty, isNumeric} from "../common/utils"
 
 @inject(DialogController, ValidationControllerFactory)
 export class AddNewCreditItemModal {
@@ -73,7 +73,7 @@ export class AddNewCreditItemModal {
         this.adverseTypes = adverseTypesResult.Data.result;
 
         this.rules = ValidationRules
-            .ensure('Balance').required().tag('core').satisfies(w => !isNaN(parseFloat(w)) && isFinite(w))
+            .ensure('Balance').required().tag('core').satisfies(w => isNumeric(w))
             .ensure('AccountNumber').required().tag('core')
             .ensure('AdverseTypeId').satisfies(w => w > 0).withMessage('Please select Type').tag('core:kendoDropDownList')
             .on(this.model.creditItem)
