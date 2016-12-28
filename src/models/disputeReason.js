@@ -18,7 +18,7 @@ var _reason = kendo.data.Model.define({
         "CreatedByUserId": { editable: true, type: "string" },
         "AdverseTypeId": { editable: true, type: "number" },
         "SequenceNumber": { editable: true, type: "number" },
-        "IsDefault": { editable: true, type: "boolean" }
+        "IsDefault": { editable: true, type: "boolean", defaultValue: 1 }
     }
 });
 

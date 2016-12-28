@@ -1,7 +1,6 @@
 import { useView } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
 import { account } from '../common/repository';
-import globalAjax from '../common/globalAjax';
 import { includes } from 'lodash';
 import { routes } from '../constants';
 
@@ -9,9 +8,6 @@ import { routes } from '../constants';
 export class App {
 
   constructor() {
-
-    // register global ajax
-    globalAjax();
 
   }
 
@@ -34,7 +30,11 @@ export class App {
       { route: 'Management/HelpfulVideos', name: 'HelpfulVideos', moduleId: './management/helpfulVideos', nav: true, title: 'Helpful Videos', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/EstablishAccounts', name: 'EstablishAccounts', moduleId: './management/establishAccounts', nav: true, title: 'Establish Accounts', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/ResolvingCDS', name: 'ResolvingCDS', moduleId: './management/resolvingCDS', nav: true, title: 'Resolving CDS', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
-      { route: 'Management/TrackingDisputeActivity', name: 'TrackingDisputeActivity', moduleId: './management/trackingDisputeActivity', nav: true, title: 'Tracking Dispute Activity', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
+      { route: 'Management/TrackingDisputeActivity', name: 'TrackingDisputeActivity', moduleId: './management/trackingDisputeActivity', nav: true, title: 'Tracking Dispute Activity', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+      { route: 'Management/MyProfile', name: 'MyProfile', moduleId: './management/myProfile', nav: true, title: 'My Profile', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+      { route: 'Management/TransUnionCreditItems', name: 'TransUnionCreditItems', moduleId: './management/transUnionCreditItems', nav: true, title: 'TransUnion Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+      { route: 'Management/EquifaxCreditItems', name: 'EquifaxCreditItems', moduleId: './management/equifaxCreditItems', nav: true, title: 'Equifax Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+      { route: 'Management/ExperianCreditItems', name: 'ExperianCreditItems', moduleId: './management/experianCreditItems', nav: true, title: 'Experian Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
     ]);
 
     this.router = router;

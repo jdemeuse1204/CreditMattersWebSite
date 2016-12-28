@@ -1,33 +1,17 @@
-let _get = function(key, securityPhrase) {
+let _get = function(key) {
 
-        const rawData = _getRawData(key);
+        var item = localStorage.getItem(key);
 
-        if (!!rawData) {
-            const decryptedString = _decrypt(rawData, securityPhrase);
-
-            return JSON.parse(decryptedString);
-        }
-
-        return null;
+        return JSON.parse(item || "{}");
     },
     _remove = function(key) {
         return localStorage.removeItem(key);
     },
-    _set = function(data, tokenName, securityPhrase) {
+    _set = function(data, key) {
 
-        const rawDataString = JSON.stringify(data),
-            storageData = _encrypt(rawDataString, securityPhrase);
+        const rawDataString = JSON.stringify(data || "");
 
-        localStorage.setItem(tokenName, storageData);
-    },
-    _encrypt = function(stringArray, securityPhrase) {
-        return CryptoJS.AES.encrypt(stringArray, securityPhrase).toString();
-    },
-    _decrypt = function(stringArray, securityPhrase) {
-        return CryptoJS.AES.decrypt(stringArray, securityPhrase).toString(CryptoJS.enc.Utf8);
-    },
-    _getRawData = function(tokenName) {
-        return localStorage.getItem(tokenName);
+        localStorage.setItem(key, rawDataString);
     },
     _finalModel = {
         get: _get,

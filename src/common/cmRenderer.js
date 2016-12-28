@@ -1,46 +1,116 @@
 import { ValidationRenderer, RenderInstruction, ValidationError } from 'aurelia-validation';
+import { includes } from 'lodash';
 
 export class CMRenderer {
   render(instruction) {
 
-    for (let { error, elements } of instruction.unrender) {
+    for (let { result, elements } of instruction.render) {
       for (let element of elements) {
-        success(element);
-      }
-    }
 
-    for (let { error, elements } of instruction.render) {
-      for (let element of elements) {
-        fail(element, error);
+        if (!!result && result.valid === true) {
+          success(element, result);
+        } else {
+          fail(element, result);
+        }
       }
     }
   }
 }
 
-function success(element) {
-  const $parent = $(element).parent(),
-    $i = $parent.find(".input-group-addon i");
+function success(element, result) {
 
-  $parent.removeClass("v-error").removeClass("v-success");
-  $i.removeClass("fa-asterisk").removeClass("fa-exclamation-triangle").removeClass("fa-check");
+  const renderType = getCustomRenderType(result.rule.tag);
 
-  $i.addClass("fa-check");
-  $parent.addClass("v-success");
-  $parent.find('div.cm-error-message').remove();
+  switch (renderType) {
+    case "default":
+      successDefault(element);
+      break;
+    case "kendoDropDownList":
+      successKendoDropDown(element);
+      break;
+  }
 }
 
-function fail(element, error) {
+function fail(element, result) {
+
+  const renderType = getCustomRenderType(result.rule.tag);
+
+  switch (renderType) {
+    case "default":
+      failDefault(element, result);
+      break;
+    case "kendoDropDownList":
+      failKendoDropDown(element, result);
+      break;
+  }
+}
+
+function successDefault(element) {
 
   const $parent = $(element).parent(),
     $i = $parent.find(".input-group-addon i");
 
-  $parent.removeClass("v-error").removeClass("v-success");
-  $i.removeClass("fa-asterisk").removeClass("fa-exclamation-triangle").removeClass("fa-check");
+  renderSuccess($parent, $i);
+}
 
-  $i.addClass("fa-exclamation-triangle");
-  $parent.addClass("v-error");
+
+
+function successKendoDropDown(element) {
+
+  const $parent = $(element).parent().parent(),
+    $i = $parent.find(".input-group-addon i.fa*");
+
+  renderSuccess($parent, $i);
+}
+
+function failDefault(element, result) {
+
+  const $parent = $(element).parent(),
+    $i = $parent.find(".input-group-addon i");
+
+  renderFail($parent, $i, result.message);
+}
+
+function failKendoDropDown(element, result) {
+
+  const $parent = $(element).parent().parent(),
+    $i = $parent.find(".input-group-addon i.fa*");
+
+  renderFail($parent, $i, result.message);
+}
+
+function renderSuccess(parent, i) {
+  parent.removeClass("v-error").removeClass("v-success");
+  i.removeClass("fa-asterisk").removeClass("fa-exclamation-triangle").removeClass("fa-check");
+
+  i.addClass("fa-check");
+  parent.addClass("v-success");
+  parent.find('div.cm-error-message').remove();
+}
+
+function renderFail(parent, i, message) {
+  parent.removeClass("v-error").removeClass("v-success");
+  i.removeClass("fa-asterisk").removeClass("fa-exclamation-triangle").removeClass("fa-check");
+
+  i.addClass("fa-exclamation-triangle");
+  parent.addClass("v-error");
 
   // remove last error so they don't stack
-  $parent.find('div.cm-error-message').remove();
-  $(`<div class='v-error cm-error-message'>${error.message}</div>`).appendTo($parent);
+  parent.find('div.cm-error-message').remove();
+  $(`<div class='v-error cm-error-message'>${message}</div>`).appendTo(parent);
+}
+
+function getCustomRenderType(tag) {
+
+  if (!tag) {
+    return "default";
+  }
+
+  const index = tag.indexOf(":");
+
+  if (index === -1) {
+    return "default";
+  }
+
+  return tag.slice(index + 1, tag.length);
 }

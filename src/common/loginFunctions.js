@@ -15,7 +15,7 @@ import ls from "./localStorage";
 let _tokenInfoKey = "cm_info", // one per browser because it contains our session and remember me info
     _tokenDevicesKey = "cm_devices",
     _tokenRememberedUsername = "cm_auth_user",
-    _infoModel = function() {
+    _infoModel = function () {
         return {
             username: "",
             token: "",
@@ -23,18 +23,23 @@ let _tokenInfoKey = "cm_info", // one per browser because it contains our sessio
             addressCompletedDate: ""
         }
     },
-    _deviceModel = function() {
+    _deviceModel = function () {
         return {
             username: "",
             expirationDate: ""
         };
     };
 
-export default function(tokenExpirationDays, securityPhrase) {
+export default function (tokenExpirationDays) {
 
-    let _get = function(key) {
+    let _get = function (key) {
 
-        const data = ls.get(key, securityPhrase);
+        let data = null;
+        try {
+            data = ls.get(key);
+        } catch (error) {
+
+        }
 
         if (!!data) {
             return data;
@@ -42,22 +47,22 @@ export default function(tokenExpirationDays, securityPhrase) {
 
         return key === _tokenInfoKey ? new _infoModel() : [];
     },
-        _set = function(data, tokenName) {
+        _set = function (data, tokenName) {
 
-            ls.set(data, tokenName, securityPhrase);
+            ls.set(data, tokenName);
 
         },
 
 
-        _deviceNeedsAuthorization = function(username) {
+        _deviceNeedsAuthorization = function (username) {
 
-            const array = ls.get(_tokenDevicesKey, securityPhrase);
+            const array = ls.get(_tokenDevicesKey);
 
             if (_.isEmpty(array)) {
                 return true;
             }
 
-            const index = _.findIndex(array, function(item) {
+            const index = _.findIndex(array, function (item) {
                 if (item.username === username) {
                     return moment(item.expirationDate).diff(moment(), "days") > 0;
                 }
@@ -69,9 +74,9 @@ export default function(tokenExpirationDays, securityPhrase) {
 
             _set(username, _tokenRememberedUsername);
         },
-        _getRememberedUsername = function() {
+        _getRememberedUsername = function () {
 
-            const username = ls.get(_tokenRememberedUsername, securityPhrase);
+            const username = ls.get(_tokenRememberedUsername);
 
             if (_.isEmpty(username)) {
                 return "";
@@ -79,7 +84,7 @@ export default function(tokenExpirationDays, securityPhrase) {
 
             return username;
         },
-        _setToken = function(token, firstName, addressCompletedDate) {
+        _setToken = function (token, firstName, addressCompletedDate) {
 
             const item = _get(_tokenInfoKey);
 
@@ -89,10 +94,10 @@ export default function(tokenExpirationDays, securityPhrase) {
 
             _set(item, _tokenInfoKey);
         },
-        _getToken = function() {
+        _getToken = function () {
             return _get(_tokenInfoKey);
         },
-        _removeToken = function() {
+        _removeToken = function () {
 
             const token = _get(_tokenInfoKey);
 
@@ -100,13 +105,13 @@ export default function(tokenExpirationDays, securityPhrase) {
 
             _set(token, _tokenInfoKey);
         },
-        _forgetRememberedUser = function() {
+        _forgetRememberedUser = function () {
             ls.remove(_tokenRememberedUsername);
         },
-        _rememberDevice = function(username) {
+        _rememberDevice = function (username) {
 
-            const data = _get(_tokenDevicesKey),
-                index = _.findIndex(data, function(item) {
+            let data = _get(_tokenDevicesKey) || [],
+                index = _.findIndex(data, function (item) {
                     return item.username === username;
                 });
 
@@ -117,6 +122,9 @@ export default function(tokenExpirationDays, securityPhrase) {
                 model.username = username;
                 model.expirationDate = moment().add(tokenExpirationDays, "days").format();
 
+                if (!data.push) {
+                    data = [];
+                }
                 data.push(model);
 
                 _set(data, _tokenDevicesKey);

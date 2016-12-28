@@ -35,6 +35,13 @@
     border-bottom: none;
 }
 
+.btn-default {
+    background-color: #a2a2a2;
+    border-radius: 0;
+    border-bottom: none;
+    color:white;
+}
+
 .btn-cm {
     background-color: @CMOrange;
     border-radius: 0;
@@ -55,12 +62,26 @@
     color: white;
 }
 
+.btn.btn-default:hover {
+    border-color: #939393;
+    color: white;
+    background-color: #939393;
+    box-shadow: 0 1px 1px #a2a2a2 inset, 0 0 8px #a2a2a2;
+}
+
+.btn.btn-danger:hover {
+    border-color: #d9534f;
+    background-color: #d9534f;
+    box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
+}
 
 .btn.btn-success:hover {
+    border-color: @CMLightGreen;
     box-shadow: 0 1px 1px @CMLightGreen inset, 0 0 8px @CMLightGreen;
 }
 
 .btn-primary:hover {
+    border-color:rgb(51, 122, 183);
     box-shadow: 0 1px 1px rgb(51, 122, 183) inset, 0 0 8px rgb(51, 122, 183);
 }
 
@@ -73,7 +94,7 @@
         border-radius: 0;
     }
 
-    height: 32px;
+    height: 34px;
 }
 
 .km-switch {
@@ -121,13 +142,24 @@
 
 .kendo-autocomplete {
 
-    .k-autocomplete {
+    ak-autocomplete {
         border-radius: 0;
         margin-top: 0;
+        height: 34px;
+
+        span.k-autocomplete {
+            height: inherit;
+            border-radius: 0 !important;
+        }
 
         input {
-            height: 32px;
-            border-radius: 0;
+            border-radius: 0 !important;
+            height: 27px !important;
+        }
+
+        span.k-autocomplete {
+            margin: 0;
+            padding: 0;
         }
     }
 }
@@ -135,8 +167,9 @@
 .kendo-dropdown {
 
     .k-dropdown, .k-dropdown-wrap {
-        height: 30px;
+        height: 32px;
         border-radius: 0;
+        max-width: 280px;
     }
 
     .k-input {
@@ -291,7 +324,31 @@ ai-dialog-overlay.active, ai-dialog-overlay {
   opacity: .42 !important;
 }
 
+ai-dialog-body {
 
+    padding: 0 !important;
+
+    .cm-modal-header {
+        position: relative;
+        margin: 0 15px;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 15px;
+
+        h2 {
+            margin: 0;
+        }
+
+        .cm-close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            height: 28px;
+            width: 28px;
+            cursor: pointer;
+            background: url(/Content/images/1473912285_basics-22.svg);
+        }
+    }
+}
 
 .k-dropdown, .k-dropdown-wrap {
     border-radius: 0;

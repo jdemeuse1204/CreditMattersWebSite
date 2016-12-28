@@ -1,0 +1,183 @@
+<template>
+    <require from="aurelia-kendoui-bridge/dropdownlist/dropdownlist"></require>
+    <require from="aurelia-kendoui-bridge/autocomplete/autocomplete"></require>
+    <require from="aurelia-kendoui-bridge/common/template"></require>
+
+    <ai-dialog class="modal-dialog modal-md" id="manage-credit-items-item-modal">
+        <ai-dialog-body>
+            <div class="cm-modal-header">
+                <h2>${model.title}</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row main-row">
+                    <div class="col-xs-12">
+                        <label>Account Number</label>
+                        <div class="input-group input-group-flat" id="manage-credit-items-validate-account-number">
+                            <input type="text" class="form-control" placeholder="Account Number" value.bind="model.creditItem.AccountNumber & validate"
+                                aria-describedby="manage-credit-items-account-number">
+                            <span class="input-group-addon" id="manage-credit-items-account-number"><i class="fa fa-asterisk"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row main-row">
+                    <div class="col-sm-6 kendo-autocomplete">
+                        <label>Creditor</label>
+                        <div class="input-group input-group-flat" id="manage-credit-items-validate-creditor">
+                            <ak-autocomplete k-data-source.bind="creditors" k-min-length.bind="2" k-virtual.bind="virtual" k-data-text-field="Name" k-value.two-way="model.creditItem.Creditor.Name & validate"
+                                aria-describedby="manage-credit-items-creditor">
+                                <input style="width: 100%;" placeholder="Type to find..." value.bind="model.creditItem.Creditor.Name">
+</ak-autocomplete>
+<span class="input-group-addon" id="manage-credit-items-creditor"><i class="fa fa-asterisk"></i></span>
+</div>
+</div>
+<div class="col-sm-6">
+    <label>Balance</label>
+    <div class="input-group input-group-flat" id="manage-credit-items-validate-balance">
+        <input type="text" class="form-control" placeholder="Balance" value.bind="model.creditItem.Balance & validate" aria-describedby="manage-credit-items-balance">
+        <span class="input-group-addon" id="manage-credit-items-balance"><i class="fa fa-asterisk"></i></span>
+    </div>
+</div>
+</div>
+<div class="row main-row">
+    <div class="col-sm-5 kendo-dropdown">
+        <label>Type</label>
+        <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type">
+            <ak-drop-down-list k-data-text-field="Type" k-data-value-field="Id" k-data-source.bind="adverseTypes" k-value.two-way="model.creditItem.AdverseTypeId & validate"
+                k-data-option-label="Select Type..." style="width: 100%;" aria-describedby="manage-credit-items-adverse-type" k-on-change.delegate="typeChange($event.detail)">
+</ak-drop-down-list>
+<span class="input-group-addon" id="manage-credit-items-adverse-type"><i class="fa fa-asterisk"></i></span>
+</div>
+</div>
+<div class="col-sm-7 kendo-dropdown dispute-reason">
+    <div class="row">
+        <label>Dispute Reason</label>
+        <div>
+            <label if.bind="isUsingCustomReason === true">Un-Customize It?</label><label if.bind="isUsingCustomReason === false">Customize It?</label>&nbsp;<input
+                id="manage-credit-items-dispute-reason-user-custom-reason" checked.bind="isUsingCustomReason" type="checkbox"
+                class="form-control" change.delegate="usingCustomReasonChange($event)" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div if.bind="isUsingCustomReason === false" class="input-group input-group-flat" id="manage-credit-items-default-dispute-reason-default-ddl">
+            <ak-drop-down-list k-data-text-field="Reason" k-data-value-field="Id" k-value.two-way="model.creditItem.DisputeReasonId & validate"
+                k-data-option-label="Select Reason..." style="width: 100%;" aria-describedby="manage-credit-items-validate-dispute-reason-default">
+</ak-drop-down-list>
+<span class="input-group-addon" id="manage-credit-items-validate-dispute-reason-default"><i class="fa fa-asterisk"></i></span>
+</div>
+
+<div if.bind="isUsingCustomReason === true" class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom">
+    <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" value.bind="customReason & validate"
+        aria-describedby="manage-credit-items-dispute-reason-custom-addon" placeholder="Custom Reason" />
+    <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon"><i class="fa fa-asterisk"></i></span>
+</div>
+</div>
+</div>
+</div>
+<div css.bind="{ display:model.display.add }">
+    <h4>Credit Bureau Initial Status</h4>
+    <div class="row">
+        <div class="col-md-4 mcr-radio-group">
+            <div class="text-center transUnion-logo">
+                <img src="/Content/images/transunion_logo.jpg" />
+            </div>
+            <div class="row">
+                <div class="col-xs-6 text-center">
+                    <input type="radio" model.bind="1" name="mcr-transunion-initial-bureau-status" checked.bind="model.creditItem.TransUnionInitialStatusId">&nbsp;<span>Not Reporting</span>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <input type="radio" model.bind="2" name="mcr-transunion-initial-bureau-status" checked.bind="model.creditItem.TransUnionInitialStatusId">&nbsp;<span>Negative</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mcr-radio-group">
+            <div class="text-center equifax-logo">
+                <img src="/Content/images/Equifax.svg" />
+            </div>
+            <div class="row">
+                <div class="col-xs-6 text-center">
+                    <input type="radio" model.bind="1" name="mcr-equifax-initial-bureau-status" checked.bind="model.creditItem.EquifaxInitialStatusId">&nbsp;<span>Not Reporting</span>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <input type="radio" model.bind="2" name="mcr-equifax-initial-bureau-status" checked.bind="model.creditItem.EquifaxInitialStatusId">&nbsp;<span>Negative</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mcr-radio-group">
+            <div class="text-center experian-logo">
+                <img src="/Content/images/Experian.svg" />
+            </div>
+            <div class="row">
+                <div class="col-xs-6 text-center">
+                    <input type="radio" model.bind="1" name="mcr-experian-initial-bureau-status" checked.bind="model.creditItem.ExperianInitialStatusId">&nbsp;<span>Not Reporting</span>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <input type="radio" model.bind="2" name="mcr-experian-initial-bureau-status" checked.bind="model.creditItem.ExperianInitialStatusId">&nbsp;<span>Negative</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div css.bind="{ display:model.display.edit }">
+    <h4>Credit Bureau Response Status</h4>
+    <div class="row">
+        <div class="col-md-4 mcr-radio-group">
+            <div class="text-center transUnion-logo">
+                <img src="/Content/images/transunion_logo.jpg" />
+            </div>
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="3" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Positive</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="4" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Deleted</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="null" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>No Response</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mcr-radio-group">
+            <div class="text-center equifax-logo">
+                <img src="/Content/images/Equifax.svg" />
+            </div>
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="3" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Positive</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="4" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="null" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>No Response</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mcr-radio-group">
+            <div class="text-center experian-logo">
+                <img src="/Content/images/Experian.svg" />
+            </div>
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="3" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Positive</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="4" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <input type="radio" model.bind="null" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>No Response</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</ai-dialog-body>
+<ai-dialog-footer class="modal-footer">
+    <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+    <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+</ai-dialog-footer>
+</ai-dialog>
+</template>

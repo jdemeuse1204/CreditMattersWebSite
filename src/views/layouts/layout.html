@@ -73,9 +73,9 @@
                 <a class="header-button-no-border" href="/">
                     <img alt="Credit Matters" src="/Content/images/CM-Green-Circles.png" width="43" height="43" />
                 </a>
-                <div class="text-center header-button-mobile">
+                <a class="text-center header-button-mobile" href="#/Management/MyProfile">
                     <i class="fa fa-user fa-3x"></i>
-                </div>
+                </a>
                 <div id="layout-admin-options"></div>
 
             </div>
@@ -131,138 +131,6 @@
         </div>
     </script>
 
-
-    <!-- Manage Credit Items Modal -->
-    <div class="modal fade" id="manage-credit-items-item-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="close-modal" data-dismiss="modal"></div>
-                    <h4 class="modal-title" data-bind="text:header"></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label>Account Number</label>
-                            <div class="input-group input-group-flat" id="manage-credit-items-validate-account-number" data-validate-lite="input-empty">
-                                <input type="text" class="form-control" data-bind="value:creditItem.AccountNumber" aria-describedby="manage-credit-items-account-number">
-                                <span class="input-group-addon" id="manage-credit-items-account-number"><i class="fa fa-asterisk"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 kendo-autocomplete">
-                            <label>Creditor</label>
-                            <div class="input-group input-group-flat" id="manage-credit-items-validate-creditor" data-validate-lite="input-empty">
-                                <input class="form-control" style="width: 100%;" data-placeholder="Type to find..." data-role="autocomplete" data-text-field="Name"
-                                    data-min-length="2" data-virtual="true" data-virtual-item-height="28" data-page-size="10"
-                                    data-bind="source:creditors,value:creditItem.Creditor.Name,events:{select:selectCreditor}"
-                                    aria-describedby="manage-credit-items-creditor" />
-                                <span class="input-group-addon" id="manage-credit-items-creditor"><i class="fa fa-asterisk"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>Balance</label>
-                            <div class="input-group input-group-flat" id="manage-credit-items-validate-balance" data-validate-lite="input-empty-numeric">
-                                <input type="text" class="form-control" data-bind="value:creditItem.Balance" aria-describedby="manage-credit-items-balance">
-                                <span class="input-group-addon" id="manage-credit-items-balance"><i class="fa fa-asterisk"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5 kendo-dropdown">
-                            <label>Type</label>
-                            <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type" data-validate-lite="dropdown">
-                                <input style="width: 100%;" data-validate="kendoDropDownList" data-option-label="Select Type..." data-role="dropdownlist"
-                                    data-text-field="Type" data-value-field="Id" data-bind="source:adverseTypes,value:creditItem.AdverseTypeId"
-                                    aria-describedby="manage-credit-items-adverse-type">
-                                <span class="input-group-addon" id="manage-credit-items-adverse-type"><i class="fa fa-asterisk"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-7 kendo-combobox dispute-reason">
-                            <div class="row">
-                                <label>Dispute Reason</label>
-                                <div>
-                                    <label>Customize It?</label>&nbsp;<input id="manage-credit-items-dispute-reason-user-custom-reason"
-                                        type="checkbox" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-default" data-validate-lite="input-empty"
-                                    data-bind="style: { display: defaultDisputeReasonDisplay }">
-                                    <select id="manage-credit-items-dispute-reason-default" class="form-control" data-bind="value:creditItem.DisputeReason.Reason"
-                                        aria-describedby="manage-credit-items-dispute-reason-default-addon" data-bind="style: { display: defaultDisputeReasonDisplay }"
-                                    />
-                                    <span class="input-group-addon" id="manage-credit-items-dispute-reason-default-addon" data-bind="style: { display: defaultDisputeReasonDisplay }"><i class="fa fa-asterisk"></i></span>
-                                </div>
-
-                                <div class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom" data-validate-lite="input-empty"
-                                    data-bind="style: { display: customDisputeReasonDisplay }">
-                                    <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" data-bind="value:creditItem.DisputeReason.Reason"
-                                        aria-describedby="manage-credit-items-dispute-reason-custom-addon" data-bind="style: { display: customDisputeReasonDisplay }"
-                                        placeholder="Custom Reason" />
-                                    <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon" data-bind="style: { display: customDisputeReasonDisplay }"><i class="fa fa-asterisk"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div data-bind="style:{ display:display.add }">
-                        <h4>Credit Bureau Initial Status</h4>
-                        <div class="row">
-                            <div class="col-md-4 mcr-radio-group">
-                                <label>TransUnion</label>
-                                <input type="radio" name="mcr-transunion-initial-bureau-status" value="1" data-bind="checked: creditItem.TransUnionInitialStatusId"
-                                    default="true">&nbsp;<span>Not Reporting</span>
-                                <input type="radio" name="mcr-transunion-initial-bureau-status" value="2" data-bind="checked: creditItem.TransUnionInitialStatusId">&nbsp;<span>Negative</span>
-                            </div>
-                            <div class="col-md-4 mcr-radio-group">
-                                <label>Equifax</label>
-                                <input type="radio" name="mcr-equifax-initial-bureau-status" value="1" data-bind="checked: creditItem.EquifaxInitialStatusId"
-                                    default="true">&nbsp;<span>Not Reporting</span>
-                                <input type="radio" name="mcr-equifax-initial-bureau-status" value="2" data-bind="checked: creditItem.EquifaxInitialStatusId">&nbsp;<span>Negative</span>
-                            </div>
-                            <div class="col-md-4 mcr-radio-group">
-                                <label>Experian</label>&emsp;
-                                <input type="radio" name="mcr-experian-initial-bureau-status" value="1" data-bind="checked: creditItem.ExperianInitialStatusId"
-                                    default="true">&nbsp;<span>Not Reporting</span>
-                                <input type="radio" name="mcr-experian-initial-bureau-status" value="2" data-bind="checked: creditItem.ExperianInitialStatusId">&nbsp;<span>Negative</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div data-bind="style:{ display:display.edit }">
-                        <h4>Credit Bureau Response Status</h4>
-                        <div class="row">
-                            <div class="col-md-4 mcr-radio-group">
-                                <label>TransUnion</label>
-                                <input type="radio" name="mcr-transunion-response-bureau-status" value="3" data-bind="checked: creditItem.TransUnionResponseStatusId">&nbsp;<span>Positive</span>
-                                <input type="radio" name="mcr-transunion-response-bureau-status" value="4" data-bind="checked: creditItem.TransUnionResponseStatusId">&nbsp;<span>Deleted</span>
-                                <input type="radio" name="mcr-transunion-response-bureau-status" default="true">&nbsp;<span>No Response</span>
-                            </div>
-                            <div class="col-md-4 mcr-radio-group">
-                                <label>Equifax</label>
-                                <input type="radio" name="mcr-equifax-response-bureau-status" value="3" data-bind="checked: creditItem.EquifaxResponseStatusId">&nbsp;<span>Positive</span>
-                                <input type="radio" name="mcr-equifax-response-bureau-status" value="4" data-bind="checked: creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
-                                <input type="radio" name="mcr-equifax-response-bureau-status" default="true">&nbsp;<span>No Response</span>
-                            </div>
-                            <div class="col-md-4 mcr-radio-group">
-                                <label>Experian</label>
-                                <input type="radio" name="mcr-experian-response-bureau-status" value="3" data-bind="checked: creditItem.ExperianResponseStatusId">&nbsp;<span>Positive</span>
-                                <input type="radio" name="mcr-experian-response-bureau-status" value="4" data-bind="checked: creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
-                                <input type="radio" name="mcr-experian-response-bureau-status" default="true">&nbsp;<span>No Response</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Cancel</button>
-                    <button type="button" class="btn btn-success pull-right" data-bind="click:save"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Address Modal -->
     <div class="modal fade" id="user-addresses-wizard-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">

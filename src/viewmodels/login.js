@@ -7,6 +7,7 @@ import { validate } from '../common/cmValidate';
 import { login, rememberDevice, setToken } from '../common/authorization';
 import { loginResults, routes } from '../constants';
 import { account } from '../common/repository';
+import * as loadingScreen from "../common/loadingScreen";
 
 @inject(ValidationControllerFactory, DialogService)
 @useView('../views/login.html')
@@ -53,6 +54,8 @@ export class Login {
 
         validate(this.controller, { object: this, rules: loginRules }).then(() => {
 
+            loadingScreen.show();
+            
             login(this.username, this.password, this.rememberMe)
                 .then(response => {
 
@@ -92,10 +95,12 @@ export class Login {
                             break;
                     }
 
+                }).finally(() => {
+                    loadingScreen.hide();
                 });
 
         }).catch(() => {
-            debugger;
+            
         });
     }
 
@@ -109,7 +114,6 @@ export class Login {
 
             account.verifyVerificationCode(this.username, this.password, this.pin).then(response => {
 
-                debugger;
                 if (response.Data.result.Success === true) {
 
                     rememberDevice(that.username);

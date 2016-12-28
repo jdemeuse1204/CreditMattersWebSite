@@ -1,9 +1,3 @@
-@import "/node_modules/kendo-ui-core/css/web/kendo.common.core.min.css";
-@import "/node_modules/kendo-ui-core/css/web/kendo.default.min.css";
-@import "/node_modules/kendo-ui-core/css/web/kendo.default.mobile.min.css";
-@import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import "/Content/DataTables/datatables.min.css";
-@import "/node_modules/font-awesome/css/font-awesome.min.css";
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 .cm-color-orange {
   background-color: #f4792b !important;
@@ -49,6 +43,14 @@
 .v-success i {
   color: #006900;
 }
+.cm-error-message {
+  position: absolute;
+  top: 36px;
+  left: 0px;
+  color: #bd0000;
+  font-size: 13px;
+  font-style: italic;
+}
 .btn {
   font-size: 14px;
   border-radius: 0;
@@ -78,6 +80,12 @@
   border-radius: 0;
   border-bottom: none;
 }
+.btn-default {
+  background-color: #a2a2a2;
+  border-radius: 0;
+  border-bottom: none;
+  color: white;
+}
 .btn-cm {
   background-color: #f4792b;
   border-radius: 0;
@@ -95,10 +103,23 @@
 .btn-cm:focus {
   color: white;
 }
+.btn.btn-default:hover {
+  border-color: #939393;
+  color: white;
+  background-color: #939393;
+  box-shadow: 0 1px 1px #a2a2a2 inset, 0 0 8px #a2a2a2;
+}
+.btn.btn-danger:hover {
+  border-color: #d9534f;
+  background-color: #d9534f;
+  box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
+}
 .btn.btn-success:hover {
+  border-color: #5cad3a;
   box-shadow: 0 1px 1px #5cad3a inset, 0 0 8px #5cad3a;
 }
 .btn-primary:hover {
+  border-color: #337ab7;
   box-shadow: 0 1px 1px #337ab7 inset, 0 0 8px #337ab7;
 }
 .modal-dialog,
@@ -108,7 +129,7 @@
   border-radius: 0;
 }
 .input-group-flat {
-  height: 32px;
+  height: 34px;
 }
 .input-group-flat .input-group-addon {
   border-radius: 0;
@@ -147,18 +168,28 @@
   height: 32px !important;
   border-radius: 0;
 }
-.kendo-autocomplete .k-autocomplete {
+.kendo-autocomplete ak-autocomplete {
   border-radius: 0;
   margin-top: 0;
+  height: 34px;
 }
-.kendo-autocomplete .k-autocomplete input {
-  height: 32px;
-  border-radius: 0;
+.kendo-autocomplete ak-autocomplete span.k-autocomplete {
+  height: inherit;
+  border-radius: 0 !important;
+}
+.kendo-autocomplete ak-autocomplete input {
+  border-radius: 0 !important;
+  height: 27px !important;
+}
+.kendo-autocomplete ak-autocomplete span.k-autocomplete {
+  margin: 0;
+  padding: 0;
 }
 .kendo-dropdown .k-dropdown,
 .kendo-dropdown .k-dropdown-wrap {
-  height: 30px;
+  height: 32px;
   border-radius: 0;
+  max-width: 280px;
 }
 .kendo-dropdown .k-input {
   padding-bottom: 0;
@@ -282,6 +313,31 @@ ai-dialog-overlay {
   background-color: black !important;
   opacity: .42 !important;
 }
+ai-dialog-body {
+  padding: 0 !important;
+}
+ai-dialog-body .cm-modal-header {
+  position: relative;
+  margin: 0 15px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 15px;
+}
+ai-dialog-body .cm-modal-header h2 {
+  margin: 0;
+}
+ai-dialog-body .cm-modal-header .cm-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 28px;
+  width: 28px;
+  cursor: pointer;
+  background: url(/Content/images/1473912285_basics-22.svg);
+}
+.k-dropdown,
+.k-dropdown-wrap {
+  border-radius: 0;
+}
 /* #region Main */
 html {
   font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
@@ -321,37 +377,32 @@ input[type='search'] {
 .mobile-brand {
   background: url(/Content/images/CM-Green-Circles.png);
 }
-.splash {
-  position: absolute;
-  display: table;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.075);
-  z-index: 99999999999;
+.cm-label {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
-.splash div {
-  display: table-cell;
+.splash {
   text-align: center;
-  vertical-align: middle;
+  margin: 0 0 0 0;
+  box-sizing: border-box;
+  cursor: wait;
+}
+.splash .message {
+  font-size: 72px;
+  line-height: 72px;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.splash .fa-spinner {
+  text-align: center;
+  display: inline-block;
+  font-size: 72px;
+  margin-top: 50px;
 }
 /* #endregion */
 /*#region Bootstrap Overrides*/
-.modal-header {
-  position: relative;
-}
-.modal-header .close-modal {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  background: url(/Content/images/1473912285_basics-22.svg);
-}
 /*#endregion*/
 /* #region Login */
 #login-window > .row:nth-child(2) {
@@ -360,9 +411,6 @@ input[type='search'] {
 }
 #login-window > .row:nth-child(2) > div:nth-child(2) {
   margin-top: 20px;
-}
-#login-window {
-  font-family: 'Open Sans';
 }
 #login-window .row {
   margin: 0;
@@ -435,7 +483,10 @@ input[type='search'] {
   margin-left: 10px;
 }
 #login-window .login-card .login-card-contents .input-group {
-  margin: 8px 0;
+  margin: 20px 0;
+}
+#login-window .login-card .login-card-contents .input-group .cm-error-message {
+  margin-top: 5px;
 }
 #login-window .login-card .login-card-contents .col-xs-6 {
   margin: 0;
@@ -448,7 +499,6 @@ input[type='search'] {
 }
 #login-window .login-card .login-card-contents input[type='text'],
 #login-window .login-card .login-card-contents input[type='password'] {
-  margin: 0;
   height: 41px;
 }
 #login-window .login-card .login-card-contents span {
@@ -693,7 +743,7 @@ input[type='search'] {
   min-height: 100%;
 }
 .page-host > router-view > div {
-  height: 100vh;
+  min-height: 100vh;
 }
 .page-host > router-view > div #blank-layout-content,
 .page-host > router-view > div #blank-layout-content > div {
@@ -749,14 +799,6 @@ input[type='search'] {
 }
 #my-profile-change-password button {
   margin-top: 12px;
-}
-div.form-group label {
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 0;
-}
-div.form-group span {
-  margin-top: -5px;
 }
 .drop-down-in-label label {
   margin-bottom: 10px !important;
@@ -954,9 +996,6 @@ div.form-group span {
 .fa-twitter {
   color: #4099FF;
 }
-#home-page {
-  font-family: 'Open Sans';
-}
 #home-page .row {
   margin: 0;
 }
@@ -1091,7 +1130,6 @@ div.form-group span {
   left: 0;
   color: white;
   font-size: 22px;
-  font-family: 'Open Sans';
   padding-top: 5px;
   padding-bottom: 5px;
   z-index: 9999;
@@ -1111,8 +1149,8 @@ div.form-group span {
 /* #endregion */
 /*#region Register*/
 #register-window {
-  font-family: 'Open Sans';
   color: white;
+  height: inherit;
 }
 #register-window .row {
   padding: 8px;
@@ -1138,7 +1176,6 @@ div.form-group span {
 /*#endregion*/
 /*#region Responsive Card*/
 .main-card-center {
-  font-family: 'Open Sans';
   background-color: rgba(43, 47, 47, 0.7);
   box-shadow: rgba(0, 0, 0, 0.5) 0 1px 2px 1px;
   width: 300px;
@@ -1243,9 +1280,6 @@ div.form-group span {
   padding: 3px 0;
   color: white;
   font-size: 16px;
-}
-#window-management-manage-credit-items {
-  font-family: 'Open Sans';
 }
 #window-management-manage-credit-items #manage-credit-items-table_wrapper > div:nth-child(2) .cm-swipable.drag-left .cm-swipable-right-action {
   display: none;
@@ -1378,27 +1412,52 @@ div.form-group span {
 #home-address-content > .modal-body > div:nth-child(2) input {
   padding-right: 0;
 }
+#manage-credit-items-item-modal .transUnion-logo img {
+  height: 26px;
+}
+#manage-credit-items-item-modal .equifax-logo img {
+  height: 20px;
+}
+#manage-credit-items-item-modal .experian-logo img {
+  height: 25px;
+}
+#manage-credit-items-item-modal .main-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#manage-credit-items-item-modal h4 {
+  padding-top: 12px;
+}
 #manage-credit-items-item-modal .dispute-reason .row {
   margin-left: 0;
   margin-right: 0;
 }
+#manage-credit-items-item-modal .dispute-reason div:nth-child(1) {
+  padding: 0;
+}
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) label:nth-child(1) {
-  padding-top: 3px;
+  padding-top: 0;
   float: left;
 }
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) div:nth-child(2) {
   float: right;
 }
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) div:nth-child(2) label {
-  padding-top: 3px;
+  padding-top: 0;
 }
 #manage-credit-items-item-modal .dispute-reason div:nth-child(1) div:nth-child(2) input[type='checkbox'] {
   width: 20px !important;
   height: 20px !important;
-  display: inline-block;
+  float: right;
+  margin-top: -3px;
+}
+#manage-credit-items-item-modal .dispute-reason div:nth-child(2) {
+  padding: 0;
 }
 #manage-credit-items-item-modal .mcr-radio-group {
   height: 60px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 #manage-credit-items-item-modal .mcr-radio-group span {
   padding-top: 6px;
@@ -1531,6 +1590,16 @@ div.form-group span {
   width: 100%;
   height: 75px;
 }
+.credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay span {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 8px;
+  right: 12px;
+}
+.credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay span input[type='checkbox'] {
+  height: inherit;
+}
 .credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-left-action {
   background-color: #00853e;
 }
@@ -1574,4 +1643,67 @@ div.form-group span {
 }
 .credit-items-page .dataTables_wrapper > div:nth-child(2) .cm-swipable div.row > div:nth-child(2) {
   float: right;
+}
+ai-dialog {
+  padding: 5px 0 15px 0;
+}
+ai-dialog h2,
+ai-dialog p,
+ai-dialog ai-dialog-footer {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.no-margin {
+  margin: 0 !important;
+}
+#register-security-questions-modal .questions-body {
+  margin: 0 10px;
+}
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.loading-screen img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: transparent;
+  height: 30px;
+  width: 50px;
+}
+#manage-credit-items-default-dispute-reason-default-ddl {
+  max-width: 100%;
+}
+.profile-card-header {
+  font-size: 20px;
+  background-color: #5cad3a;
+  padding: 5px 15px;
+  color: white;
+  border: 1px solid #5cad3a;
+}
+.profile-card-body {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.075);
+}
+.profile-card-body ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+.profile-card-body ul li {
+  cursor: pointer;
+  margin: 0;
+  padding: 7px;
+  width: 100%;
+  border-left: 1px solid #eaeaea;
+  border-right: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+.profile-card-body ul li span.glyphicon-chevron-right {
+  float: right;
+  margin-right: 10px;
 }

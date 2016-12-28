@@ -36,6 +36,12 @@
   border-radius: 0;
   border-bottom: none;
 }
+.btn-default {
+  background-color: #a2a2a2;
+  border-radius: 0;
+  border-bottom: none;
+  color: white;
+}
 .btn-cm {
   background-color: #f4792b;
   border-radius: 0;
@@ -53,10 +59,23 @@
 .btn-cm:focus {
   color: white;
 }
+.btn.btn-default:hover {
+  border-color: #939393;
+  color: white;
+  background-color: #939393;
+  box-shadow: 0 1px 1px #a2a2a2 inset, 0 0 8px #a2a2a2;
+}
+.btn.btn-danger:hover {
+  border-color: #d9534f;
+  background-color: #d9534f;
+  box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
+}
 .btn.btn-success:hover {
+  border-color: #5cad3a;
   box-shadow: 0 1px 1px #5cad3a inset, 0 0 8px #5cad3a;
 }
 .btn-primary:hover {
+  border-color: #337ab7;
   box-shadow: 0 1px 1px #337ab7 inset, 0 0 8px #337ab7;
 }
 .modal-dialog,
@@ -66,7 +85,7 @@
   border-radius: 0;
 }
 .input-group-flat {
-  height: 32px;
+  height: 34px;
 }
 .input-group-flat .input-group-addon {
   border-radius: 0;
@@ -105,18 +124,28 @@
   height: 32px !important;
   border-radius: 0;
 }
-.kendo-autocomplete .k-autocomplete {
+.kendo-autocomplete ak-autocomplete {
   border-radius: 0;
   margin-top: 0;
+  height: 34px;
 }
-.kendo-autocomplete .k-autocomplete input {
-  height: 32px;
-  border-radius: 0;
+.kendo-autocomplete ak-autocomplete span.k-autocomplete {
+  height: inherit;
+  border-radius: 0 !important;
+}
+.kendo-autocomplete ak-autocomplete input {
+  border-radius: 0 !important;
+  height: 27px !important;
+}
+.kendo-autocomplete ak-autocomplete span.k-autocomplete {
+  margin: 0;
+  padding: 0;
 }
 .kendo-dropdown .k-dropdown,
 .kendo-dropdown .k-dropdown-wrap {
-  height: 30px;
+  height: 32px;
   border-radius: 0;
+  max-width: 280px;
 }
 .kendo-dropdown .k-input {
   padding-bottom: 0;
@@ -239,6 +268,27 @@ ai-dialog-overlay.active,
 ai-dialog-overlay {
   background-color: black !important;
   opacity: .42 !important;
+}
+ai-dialog-body {
+  padding: 0 !important;
+}
+ai-dialog-body .cm-modal-header {
+  position: relative;
+  margin: 0 15px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 15px;
+}
+ai-dialog-body .cm-modal-header h2 {
+  margin: 0;
+}
+ai-dialog-body .cm-modal-header .cm-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 28px;
+  width: 28px;
+  cursor: pointer;
+  background: url(/Content/images/1473912285_basics-22.svg);
 }
 .k-dropdown,
 .k-dropdown-wrap {
