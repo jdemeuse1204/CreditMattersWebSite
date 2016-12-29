@@ -1,0 +1,94 @@
+<template>
+    <div class="container-full" id="window-management-resolving-cds" slot="page-content">
+        <h3 class="cm-page-header">Resolving CDS</h3>
+
+        <div class="row text-center">
+            <span class="buttons-header">Create CDS Letter</span>
+            <div class="hidden-lg row credit-bureau-filter-buttons">
+                <div class="col-xs-4 text-center">
+                    <a href="/#/Management/TransUnionCreditItems"><i class="fa fa-envelope-o"></i>&nbsp;TransUnion</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="/#/Management/EquifaxCreditItems"><i class="fa fa-envelope-o"></i>&nbsp;Equifax</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="/#/Management/ExperianCreditItems"><i class="fa fa-envelope-o"></i>&nbsp;Experian</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <span class="buttons-header">Grid Actions</span>
+            <div class="hidden-lg row mobile-mcr-buttons">
+                <div class="col-xs-4 text-center"><span click.delegate="addItem()"><i class="fa fa-plus-square-o"></i>&nbsp;Add Item</span></div>
+                <div class="col-xs-4 text-center"><span><i class="fa fa-map-o"></i>&nbsp;How To</span></div>
+                <div class="col-xs-4 text-center hidden-xs"><span data-bind="click:createLetter"><i class="fa fa-envelope-o"></i>&nbsp;Create Letter</span></div>
+                <div class="col-xs-4 text-center hidden-lg hidden-md hidden-sm"><span data-bind="click:createLetter"><i class="fa fa-envelope-o"></i>&nbsp;Create...</span></div>
+            </div>
+            <table id="resolving-cds-table" class="display" style="width: 100%;"></table>
+        </div>
+    </div>
+
+    <section slot="scripts">
+        <script type="text/x-kendo-template" id="mobile-credit-item">
+    <div class="cm-swipable">
+        <div class="cm-swipable-left-action">
+            <div class="pull-left text-center">
+                <div>Add Response</div>
+                <i class="fa fa-plus-square-o"></i>
+            </div>
+        </div>
+        <div class="cm-swipable-right-action">
+            <div class="pull-right text-center">
+                <div>Send To CDS</div>
+                <i class="fa fa-send"></i>
+            </div>
+        </div>
+
+        <div class="cm-swipable-drag-overlay" data-id="#=Id#">
+            <div class="row">
+                <div>#=AccountNumber#</div>
+                <div><span class="hidden-xs">TransUnion:</span><span class="hidden-lg hidden-md hidden-sm">TU:</span>&nbsp;<span class="#=TransUnionResponseStatusId === 3 || TransUnionResponseStatusId === 4 ? 'text-cm-success' : ''#">#=TransUnionResponseStatusId === 3 ? 'Positive' : TransUnionResponseStatusId === 4 ? 'Deleted' : 'No Response'#</span></div>
+            </div>
+            <div class="row">
+                <div>#=Creditor.Name#</div>
+                <div><span class="hidden-xs">Equifax:</span><span class="hidden-lg hidden-md hidden-sm">EQ:</span>&nbsp;<span class="#=EquifaxResponseStatusId === 3 || EquifaxResponseStatusId === 4 ? 'text-cm-success' : ''#">#=EquifaxResponseStatusId === 3 ? 'Positive' : EquifaxResponseStatusId === 4 ? 'Deleted' : 'No Response'#</span></div>
+            </div>
+            <div class="row">
+                <div>#=AdverseType.Type#</div>
+                <div><span class="hidden-xs">Experian:</span><span class="hidden-lg hidden-md hidden-sm">EX:</span>&nbsp;<span class="#=ExperianResponseStatusId === 3 || ExperianResponseStatusId === 4 ? 'text-cm-success' : ''#">#=ExperianResponseStatusId === 3 ? 'Positive' : ExperianResponseStatusId === 4 ? 'Deleted' : 'No Response'#</span></div>
+
+            </div>
+            <div class="row">
+                <div>#=Balance#</div>
+            </div>
+        </div>
+    </div>
+</script>
+
+        <script type="text/x-kendo-template" id="desktop-manage-credit-items-actions">
+    <div class="manage-credit-items-actions" data-id="#=dataId#">
+        <span class="fa-stack" data-selected="false">
+            <i class="fa fa-square-o fa-2x fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x" style="display:none;"></i>
+        </span>
+        <a class="btn btn-sm btn-danger" data-action="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+        <a class="btn btn-sm btn-primary" data-action="edit"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+    </div>
+</script>
+
+        <script type="text/x-kendo-template" id="desktop-manage-credit-credit-bureaus">
+    <div class="desktop-manage-credit-credit-bureaus">
+        <div class="row">
+
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</script>
+    </section>
+</template>

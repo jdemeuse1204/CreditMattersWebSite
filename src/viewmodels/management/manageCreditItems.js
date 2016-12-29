@@ -41,8 +41,6 @@ export class ManageCreditItems {
 
     createLetter() {
 
-        if (this.grid.anyItemsSelected() === false) {
-            return;
-        }
+
     }
 }

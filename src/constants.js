@@ -31,6 +31,18 @@ export const loginResults = {
     requiresDeviceVerification: 'requires device verification'
 };
 
+export const phoneNumberTypes = {
+    home: 'HomePhoneNumber',
+    work: 'WorkPhoneNumber',
+    mobile: 'MobilePhoneNumber'
+};
+
+export const phoneNumberTypeIds = {
+    home: 1,
+    work: 2,
+    mobile: 3
+};
+
 export const routes = {
     login: '/#/Login',
     manageCreditItems: '/#/Management/ManageCreditItems',

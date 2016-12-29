@@ -116,20 +116,15 @@ export const account = {
     saveEmailAddresses: function (alternateEmailAddress) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "SaveEmailAddresses"), { AlternateEmailAddress: alternateEmailAddress });
     },
-    saveUserPhoneNumbers: function (mobileNumber,
-        homeNumber,
-        workNumber,
-        isMobilePrimary,
-        isHomePrimary,
-        isWorkPrimary) {
+    saveUserPhoneNumbers: function (numbers) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "SaveUserPhoneNumbers"),
             {
-                MobileNumber: mobileNumber,
-                HomeNumber: homeNumber,
-                WorkNumber: workNumber,
-                IsMobilePrimary: isMobilePrimary,
-                IsHomePrimary: isHomePrimary,
-                IsWorkPrimary: isWorkPrimary
+                MobileNumber: numbers.MobileNumber,
+                HomeNumber: numbers.HomeNumber,
+                WorkNumber: numbers.WorkNumber,
+                IsMobilePrimary: numbers.IsMobilePrimary,
+                IsHomePrimary: numbers.IsHomePrimary,
+                IsWorkPrimary: numbers.IsWorkPrimary
             });
     },
     isAdmin: function () {

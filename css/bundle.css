@@ -142,7 +142,8 @@ table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected{background-
   display: block;
   margin-top: 10px;
 }
-.v-error i {
+.v-error i,
+.v-error span {
   color: #d9534f;
 }
 .v-success i {
@@ -1811,4 +1812,14 @@ ai-dialog ai-dialog-footer {
 .profile-card-body ul li span.glyphicon-chevron-right {
   float: right;
   margin-right: 10px;
+}
+#my-profile-phone-numbers-modal ul {
+  list-style: none;
+  padding-left: 15px;
+}
+#my-profile-phone-numbers-modal ul li {
+  margin: 20px 0;
+}
+#my-profile-phone-numbers-modal .phone-number-global-error > span {
+  margin-left: 30px;
 }

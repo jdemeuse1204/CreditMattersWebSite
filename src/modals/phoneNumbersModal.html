@@ -6,15 +6,51 @@
                 <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
             </div>
             <div class="modal-body">
+                <div class="v-error phone-number-global-error" css.bind="{display:displayError}">     
+                    <span><i class="fa fa-exclamation-triangle"></i>&emsp;${displayErrorText}</span>          
+                </div>
                 <ul class="phone-numbers-modal-phone-numbers">
-                    <li><span>Mobile</span>&emsp;<input type="tel"/></li>
-                    <li><span>Home</span>&emsp;<input type="tel"/></li>
-                    <li><span>Work</span>&emsp;<input type="tel"/></li>
+                    <li class="row">
+                        <div class="col-xs-2"><span>Home</span>&emsp;</div>
+                        <div class="col-xs-4">
+                            <div class="input-group input-group-flat">
+                                <input type="tel" class="form-control" placeholder="9999999999" value.bind="model.homePhoneNumber & validate" aria-describedby="home-phone-number">
+                                <span class="input-group-addon" id="home-phone-number"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <span>Is Primary?</span>&emsp;<input type="radio" model.bind="1" name="is-primary" checked.bind="model.primaryNumberId">
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-xs-2"><span>Work</span>&emsp;</div>
+                        <div class="col-xs-4">
+                            <div class="input-group input-group-flat">
+                                <input type="tel" class="form-control" placeholder="9999999999" value.bind="model.workPhoneNumber & validate" aria-describedby="work-phone-number">
+                                <span class="input-group-addon" id="work-phone-number"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <span>Is Primary?</span>&emsp;<input type="radio" model.bind="2" name="is-primary" checked.bind="model.primaryNumberId">
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-xs-2"><span>Mobile</span>&emsp;</div>
+                        <div class="col-xs-4">
+                            <div class="input-group input-group-flat">
+                                <input type="tel" class="form-control" placeholder="9999999999" value.bind="model.mobilePhoneNumber & validate" aria-describedby="mobile-phone-number">
+                                <span class="input-group-addon" id="mobile-phone-number"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <span>Is Primary?</span>&emsp;<input type="radio" model.bind="3" name="is-primary" checked.bind="model.primaryNumberId">
+                        </div>
+                    </li>
                 </ul>
             </div>
         </ai-dialog-body>
         <ai-dialog-footer class="modal-footer">
-            <button type="button" class="btn btn-success pull-right"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+            <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
             <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
         </ai-dialog-footer>
     </ai-dialog>
