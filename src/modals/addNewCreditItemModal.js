@@ -129,6 +129,10 @@ export class AddNewCreditItemModal {
         });
     }
 
+    sendToCDS() {
+        
+    }
+
     save() {
 
         let validateOptions = [];

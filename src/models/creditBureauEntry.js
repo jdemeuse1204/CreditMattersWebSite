@@ -39,7 +39,10 @@ let _item = kendo.data.Model.define({
             UserId: this.UserId,
             CreatedDate: moment(this.CreatedDate).isValid() ? moment(this.CreatedDate).format() : null,
             CreatedByUserId: this.CreatedByUserId,
-            Balance: this.Balance
+            Balance: this.Balance,
+
+            DisputeReasonAcceptedDateTime: moment(this.DisputeReasonAcceptedDateTime).isValid() ? moment(this.DisputeReasonAcceptedDateTime).format() : null,
+            DoesDisputeReasonNeedAcceptance: this.DoesDisputeReasonNeedAcceptance
         };
     },
 
@@ -150,7 +153,9 @@ let _item = kendo.data.Model.define({
         "UserId": { editable: true, type: "string", defaultValue: "00000000-0000-0000-0000-000000000000" },
         "CreatedDate": { editable: true, type: "string" },
         "CreatedByUserId": { editable: true, type: "string", defaultValue: "00000000-0000-0000-0000-000000000000" },
-        "Balance": { editable: true, type: "number" }
+        "Balance": { editable: true, type: "number" },
+        "DisputeReasonAcceptedDateTime": { editable: true, type: "string" },
+        "DoesDisputeReasonNeedAcceptance": { editable: true, type: "bool" },
     }
 });
 

@@ -115,6 +115,11 @@
   background-color: #d9534f;
   box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
 }
+.btn.btn-warning:hover {
+  border-color: #f0ad4e;
+  background-color: #f0ad4e;
+  box-shadow: 0 1px 1px #f0ad4e inset, 0 0 8px #f0ad4e;
+}
 .btn.btn-success:hover {
   border-color: #5cad3a;
   box-shadow: 0 1px 1px #5cad3a inset, 0 0 8px #5cad3a;
@@ -338,6 +343,10 @@ ai-dialog-body .cm-modal-header .cm-close-modal {
 .k-dropdown,
 .k-dropdown-wrap {
   border-radius: 0;
+}
+ai-dialog-container > div {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 /* #region Main */
 html {
@@ -1717,4 +1726,110 @@ ai-dialog ai-dialog-footer {
 }
 #my-profile-phone-numbers-modal .phone-number-global-error > span {
   margin-left: 30px;
+}
+#create-dispute-letter-from-manage-credit-items h4 {
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+#create-dispute-letter-from-manage-credit-items p {
+  margin-bottom: 20px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .sorting_1 {
+  padding: 0;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .dispute-reason {
+  width: 180px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .dispute-reason button:nth-child(1) {
+  margin-right: 5px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable.drag-left .cm-swipable-right-action {
+  display: none;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable.drag-left .cm-swipable-left-action {
+  display: block;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable.drag-right .cm-swipable-left-action {
+  display: none;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable.drag-right .cm-swipable-right-action {
+  display: block;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable.no-drag .cm-swipable-left-action {
+  display: none;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable.no-drag .cm-swipable-right-action {
+  display: none;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable {
+  padding: 15px;
+  margin: 0;
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay {
+  position: absolute;
+  background-color: white;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 10px 15px;
+  width: 100%;
+  height: 100px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay .row div:nth-child(1) {
+  float: left;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-drag-overlay .row div:nth-child(2) {
+  float: right;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-left-action {
+  background-color: #bd0000;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-left-action > div {
+  width: 25%;
+  margin: 30px 0 0 2px;
+  font-size: 14px;
+  color: white;
+  padding: 0 4px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-right-action > div {
+  width: 25%;
+  margin: 32px 0 0 2px;
+  font-size: 14px;
+  color: white;
+  padding: 0 4px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-right-action {
+  background-color: #00853e;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-left-action,
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .cm-swipable-right-action {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  height: 100px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable .row {
+  margin: 0;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable > div.row:nth-child(1) {
+  font-size: 18px;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable div.row > div:nth-child(1) {
+  float: left;
+}
+#create-dispute-letter-from-manage-credit-items #accept-dispute-reasons-table_wrapper > div:nth-child(2) .cm-swipable div.row > div:nth-child(2) {
+  float: right;
 }

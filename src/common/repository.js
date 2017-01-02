@@ -191,6 +191,9 @@ export const management = {
     getCreditItems: function (creditBureau) {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItems"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
+    getCreditItemsThatNeedDisputeReasonAcceptance: function(creditBureau) {
+        return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItemsThatNeedDisputeReasonAcceptance"), { bureau: constants.getCreditBureauId(creditBureau) });
+    },
     getCreditItem: function (id) {
 
         return new Promise((resolve, reject) => {
