@@ -4,6 +4,7 @@ import adverseType from "./adverseType";
 import disputeReason from "./disputeReason";
 import creditBureauStatus from "./creditBureauStatus";
 import moment from "moment";
+import {emptyGuid} from '../constants';
 
 let _item = kendo.data.Model.define({
     asJSON: function () {
@@ -87,7 +88,7 @@ let _item = kendo.data.Model.define({
 
     id: "Id",
     fields: {
-        "Id": { editable: true, type: "string", defaultValue: "00000000-0000-0000-0000-000000000000" },
+        "Id": { editable: true, type: "string", defaultValue: emptyGuid },
         "CreditorId": { editable: true, type: "number", defaultValue: 0 },
         "Creditor": {
             editable: true,
@@ -150,9 +151,9 @@ let _item = kendo.data.Model.define({
         },
 
         "IsDeleted": { editable: true, type: "boolean" },
-        "UserId": { editable: true, type: "string", defaultValue: "00000000-0000-0000-0000-000000000000" },
+        "UserId": { editable: true, type: "string", defaultValue: emptyGuid },
         "CreatedDate": { editable: true, type: "string" },
-        "CreatedByUserId": { editable: true, type: "string", defaultValue: "00000000-0000-0000-0000-000000000000" },
+        "CreatedByUserId": { editable: true, type: "string", defaultValue: emptyGuid },
         "Balance": { editable: true, type: "number" },
         "DisputeReasonAcceptedDateTime": { editable: true, type: "string" },
         "DoesDisputeReasonNeedAcceptance": { editable: true, type: "bool" },

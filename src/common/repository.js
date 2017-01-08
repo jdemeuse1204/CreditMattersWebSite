@@ -188,11 +188,21 @@ export const management = {
 
         return post(_getUrl(MANAGEMENT_CONTROLLER, "SaveCreditItem"), creditItem);
     },
+    sendToCds: function (creditItemId, creditBureauIds) {
+        
+        return post(_getUrl(MANAGEMENT_CONTROLLER, "SendToCds"), { 
+            creditBureaus: creditBureauIds,
+            creditItemId: creditItemId
+        });
+    },
     getCreditItems: function (creditBureau) {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItems"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
     getCreditItemsThatNeedDisputeReasonAcceptance: function(creditBureau) {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItemsThatNeedDisputeReasonAcceptance"), { bureau: constants.getCreditBureauId(creditBureau) });
+    },
+    getCustomerDisputeStatements: function() {
+        return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCustomerDisputeStatements"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
     getCreditItem: function (id) {
 

@@ -15,8 +15,19 @@ let reponseStatuses = {
     notReporting: "Not Reporting",
     negative: "Negative",
     positive: "Positive",
-    deleted: "Deleted"
+    deleted: "Deleted",
+    resolvedDispute: "Resolved Dispute",
+    openDispute: "Open Dispute"
 };
+
+export const creditBureauIds = {
+    transUnion: 1,
+    experian: 3,
+    equifax: 2,
+    all: 0
+};
+
+export const emptyGuid = "00000000-0000-0000-0000-000000000000";
 
 export const creditBureaus = creditBureauNames;
 
@@ -72,7 +83,31 @@ export function getCreditBureauResponseId(response) {
             return 3;
         case reponseStatuses.deleted:
             return 4;
-        case reponseStatuses.na:
+        case reponseStatuses.resolvedDispute:
             return 5;
+        case reponseStatuses.openDispute:
+            return 6;
+        case reponseStatuses.na: // null
+            return 7;
+    }
+}
+
+
+export function getCreditBureauResponseFromId(Id) {
+    switch (Id) {
+        case 1:
+            return 'Not Reporting';
+        case 2:
+            return 'Negative';
+        case 3:
+            return 'Positive';
+        case 4:
+            return 'Deleted';
+        case 5:
+            return 'Resolved Dispute';
+        case 6:
+            return 'Open Dispute';
+        default: // null
+            return 'N/A';
     }
 }

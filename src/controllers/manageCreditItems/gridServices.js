@@ -33,7 +33,10 @@ export class GridServices {
                     display: {
                         defaultDisputeReason: "none",
                         add: isNewItem ? "" : "none",
-                        edit: isNewItem ? "none" : ""
+                        edit: isNewItem ? "none" : "",
+                        sendingToCds: "none",
+                        addEdit: "",
+                        sentToCds: "none"
                     }
                 };
 

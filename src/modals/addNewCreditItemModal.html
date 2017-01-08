@@ -4,7 +4,7 @@
     <require from="aurelia-kendoui-bridge/common/template"></require>
 
     <ai-dialog class="modal-dialog modal-md" id="manage-credit-items-item-modal">
-        <ai-dialog-body>
+        <ai-dialog-body css.bind="{ display:model.display.addEdit }">
             <div class="cm-modal-header">
                 <h2>${model.title}</h2>
                 <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
@@ -175,10 +175,54 @@
 </div>
 </div>
 </ai-dialog-body>
-<ai-dialog-footer class="modal-footer">
+<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.addEdit }">
     <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
     <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
-    <button type="button" class="btn btn-warning pull-right" click.delegate="sendToCDS()"><i class="fa fa-send"></i>&nbsp;Send To CDS</button>
+    <button type="button" class="btn btn-warning pull-right" click.delegate="showSendToCds()"><i class="fa fa-send"></i>&nbsp;Send To CDS</button>
+</ai-dialog-footer>
+
+<ai-dialog-body css.bind="{ display:model.display.sendingToCds }">
+    <div class="cm-modal-header">
+        <h2>Send To CDS</h2>
+        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <p>Select which credit bureaus that you would like to open a customer dispute statement for.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 text-center">
+                <button type="button" class="btn btn-primary" click.delegate="sendToCds(0)"><i class="fa fa-send"></i>&nbsp;All</button>
+            </div>
+            <div class="col-sm-3 text-center">
+                <button type="button" class="btn btn-primary" click.delegate="sendToCds(1)"><i class="fa fa-send"></i>&nbsp;TransUnion</button>
+            </div>
+            <div class="col-sm-3 text-center">
+                <button type="button" class="btn btn-primary" click.delegate="sendToCds(2)"><i class="fa fa-send"></i>&nbsp;Equifax</button>
+            </div>
+            <div class="col-sm-3 text-center">
+                <button type="button" class="btn btn-primary" click.delegate="sendToCds(3)"><i class="fa fa-send"></i>&nbsp;Experian</button>
+            </div>
+        </div>
+    </div>
+</ai-dialog-body>
+<ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.sendingToCds }">
+    <button type="button" class="btn btn-danger pull-left" click.delegate="backToAddEdit()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+</ai-dialog-footer>
+
+<ai-dialog-body css.bind="{ display:model.display.sentToCds }">
+    <div class="cm-modal-header">
+        <h2>Send To CDS</h2>
+        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <p>Success, credit item was sent to Customer Dispute Statements.</p>
+        </div>
+    </div>
+</ai-dialog-body>
+<ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.sentToCds }">
+    <button type="button" class="btn btn-success pull-right" click.delegate="controller.ok()"><i class="fa fa-check"></i>&nbsp;Done</button>
 </ai-dialog-footer>
 </ai-dialog>
 </template>

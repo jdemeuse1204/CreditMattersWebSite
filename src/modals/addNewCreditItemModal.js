@@ -8,6 +8,7 @@ import { validateMultiple } from '../common/cmValidate';
 import disputeReason from '../models/disputeReason';
 import creditBureauEntry from '../models/creditBureauEntry';
 import {isGuidEmpty, isNumeric} from "../common/utils"
+import * as constants from '../constants';
 
 @inject(DialogController, ValidationControllerFactory)
 export class AddNewCreditItemModal {
@@ -129,8 +130,48 @@ export class AddNewCreditItemModal {
         });
     }
 
-    sendToCDS() {
-        
+    showSendToCds() {
+        this.model.display.sendingToCds = "",
+        this.model.display.addEdit = "none";
+    }
+
+    sendToCds(creditBureauId) {
+
+        let creditBureaus = [];
+        const that = this;
+
+        if (creditBureauId == constants.creditBureauIds.all) {
+            creditBureaus.push(constants.creditBureauIds.transUnion);
+            creditBureaus.push(constants.creditBureauIds.equifax);
+            creditBureaus.push(constants.creditBureauIds.experian);
+        } else {
+            creditBureaus.push(creditBureauId);
+        }
+
+        loadingScreen.show();
+
+        management.sendToCds(this.model.creditItem.Id, creditBureaus)
+        .then((response) => {
+
+            if (response.Data.success === true) {
+                that.model.display.sentToCds = "";
+                that.model.display.sendingToCds = "none",
+                that.model.display.addEdit = "none";
+                that.controller.ok();
+                loadingScreen.hide();
+            } else {
+                // send failed because its already added, show error message
+            }
+
+        })
+        .catch((error) => {
+            loadingScreen.hide();
+        });
+    }
+
+    backToAddEdit() {
+        this.model.display.sendingToCds = "none",
+        this.model.display.addEdit = ""; 
     }
 
     save() {

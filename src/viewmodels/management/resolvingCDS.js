@@ -19,7 +19,10 @@ export class ResolvingCDS {
     }
 
     attached() {
+        loadingScreen.show();
 
-
+        this.grid.load().then(() => {
+            loadingScreen.hide();
+        });
     }
 }

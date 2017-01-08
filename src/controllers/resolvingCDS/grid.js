@@ -72,14 +72,14 @@ export class Grid {
 
                     };
 
-                swipable("#manage-credit-items-table_wrapper .cm-swipable",
+                swipable("#resolving-cds-table_wrapper .cm-swipable",
                     onRightAction,
                     onLeftAction,
                     onTap);
 
                 //#region Desktop
-                $("#manage-credit-items-table_wrapper a[data-action=\"edit\"]").unbind("click");
-                $("#manage-credit-items-table_wrapper a[data-action=\"edit\"]").click(function (e) {
+                $("#resolving-cds-table_wrapper a[data-action=\"edit\"]").unbind("click");
+                $("#resolving-cds-table_wrapper a[data-action=\"edit\"]").click(function (e) {
 
                     const id = $(e.delegateTarget).parent().data("id");
 
@@ -92,17 +92,17 @@ export class Grid {
 
         return new Promise((resolve, reject) => {
 
-            let mobileTemplate = kendo.template(getTemplateHtml("#mobile-credit-item")),
-                desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-manage-credit-credit-bureaus"));
+            let mobileTemplate = kendo.template(getTemplateHtml("#mobile-cds-item")),
+                desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-cds-bureaus"));
         
             if (that.table) {
 
-                if ($("#manage-credit-items-table_wrapper").length === 0) {
+                if ($("#resolving-cds-table_wrapper").length === 0) {
                     that.table.destroy();
-                    $("#manage-credit-items-table").removeData();
-                    $("#manage-credit-items-table").empty();
+                    $("#resolving-cds-table").removeData();
+                    $("#resolving-cds-table").empty();
                 } else {
-                    management.getCreditItems(constants.creditBureaus.all).then(function (refreshResponse) {
+                    management.getCustomerDisputeStatements().then(function (refreshResponse) {
 
                         that.data = refreshResponse.Data.result;
 
@@ -119,11 +119,11 @@ export class Grid {
                 }
             }
 
-            management.getCreditItems(constants.creditBureaus.all).then(function (initResponse) {
+            management.getCustomerDisputeStatements().then(function (initResponse) {
 
                 that.data = initResponse.Data.result;
 
-                that.table = $("#manage-credit-items-table").DataTable({
+                that.table = $("#resolving-cds-table").DataTable({
                     data: that.data,
                     columns: [
                         {
@@ -134,7 +134,7 @@ export class Grid {
 
                                 const model = { dataId: e };
 
-                                return getTemplate("#desktop-manage-credit-items-actions", model);
+                                return getTemplate("#desktop-cds-actions", model);
                             }
                         },
                         { title: "Creditor", data: "Creditor.Name" },
@@ -163,10 +163,23 @@ export class Grid {
                             render: function (e) {
                                 try {
                                     const item = find(that.data, function (i) { return i.Id === e; });
-                                    if (!item) { debugger; }
-                                    item.Balance = kendo.toString(item.Balance, "c2");
+                                    const transUnionStatusId = item.TransUnionInitialStatusId == 1 ? item.TransUnionInitialStatusId : item.TransUnionResponseStatusId;
+                                    const model = {
+                                        Id: item.Id,
+                                        AccountNumber: item.AccountNumber,
+                                        CreditorName: item.Creditor.Name,
+                                        IsTransUnionResolved: item.TransUnionResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
+                                        IsEquifaxResolved: item.EquifaxResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
+                                        IsExperianResolved: item.ExperianResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
+                                        TransUnionStatus: constants.getCreditBureauResponseFromId(transUnionStatusId),
+                                        TransUnionStatusDate: "",
+                                        EquifaxStatus: constants.getCreditBureauResponseFromId(item.ExperianInitialStatusId == 1 ? item.ExperianInitialStatusId : item.ExperianResponseStatusId),
+                                        EquifaxStatusDate: "",
+                                        ExperianStatus: constants.getCreditBureauResponseFromId(item.EquifaxInitialStatusId == 1 ? item.EquifaxInitialStatusId : item.EquifaxResponseStatusId),
+                                        ExperianStatusDate: "",
+                                    };
 
-                                    return mobileTemplate(item);
+                                    return mobileTemplate(model);
                                 } catch (error) {
                                     debugger;
                                 }
@@ -198,7 +211,7 @@ export class Grid {
                 });
 
                 // modify table
-                const items = $("#manage-credit-items-table_wrapper > div.row .col-sm-6");
+                const items = $("#resolving-cds-table_wrapper > div.row .col-sm-6");
 
                 // remove search bar
                 $(items[0]).remove();
