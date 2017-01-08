@@ -41,12 +41,27 @@ export class Login {
 
     }
 
-    clearLoginMessage() { 
+    clearLoginMessage() {
         this.loginMessageDisplay = "none";
     }
 
+    resendRegistrationEmail() {
+
+        const modalModel = {
+            display: {
+                error: "none",
+                success: "none",
+                email: ""
+            },
+            errorText: "",
+            emailAddress: this.username
+        };
+
+        this.dialogService.open({ viewModel: 'modals/resendRegistrationEmail', model: modalModel });
+    }
+
     submit() {
-        
+
         const loginRules = ValidationRules.taggedRules(this.rules, 'login');
         const that = this;
 
@@ -55,14 +70,14 @@ export class Login {
         validate(this.controller, { object: this, rules: loginRules }).then(() => {
 
             loadingScreen.show();
-            
+
             login(this.username, this.password, this.rememberMe)
                 .then(response => {
 
                     rememberDevice(that.username);
                     setToken(response.token, response.firstName, response.addressCompletedDateTime);
                     window.location.href = routes.manageCreditItems;
-                    
+
                 })
                 .catch((result) => {
 
@@ -100,7 +115,7 @@ export class Login {
                 });
 
         }).catch(() => {
-            
+
         });
     }
 
