@@ -60,6 +60,20 @@ export class Login {
         this.dialogService.open({ viewModel: 'modals/resendRegistrationEmail', model: modalModel });
     }
 
+    forgotUsername() {
+        
+        const modalModel = {
+            emailAddress: this.username,
+            display: {
+                initialStep: "",
+                emailAddress: "none",
+                phoneNumber: "none"
+            }
+        };
+
+        this.dialogService.open({ viewModel: 'modals/forgotUsernameModal', model: modalModel });
+    }
+
     submit() {
 
         const loginRules = ValidationRules.taggedRules(this.rules, 'login');

@@ -36,8 +36,10 @@ export class GridServices {
                         edit: isNewItem ? "none" : "",
                         sendingToCds: "none",
                         addEdit: "",
-                        sentToCds: "none"
-                    }
+                        sentToCds: "none",
+                        errorSendingToCds: "none"
+                    },
+                    sendToCdsCreditBureau: ""
                 };
 
                 that.dialogService.open({

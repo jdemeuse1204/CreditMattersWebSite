@@ -7,7 +7,7 @@ import { CMRenderer } from '../common/cmRenderer';
 import { validateMultiple } from '../common/cmValidate';
 import disputeReason from '../models/disputeReason';
 import creditBureauEntry from '../models/creditBureauEntry';
-import {isGuidEmpty, isNumeric} from "../common/utils"
+import { isGuidEmpty, isNumeric } from "../common/utils"
 import * as constants from '../constants';
 
 @inject(DialogController, ValidationControllerFactory)
@@ -131,8 +131,9 @@ export class AddNewCreditItemModal {
     }
 
     showSendToCds() {
-        this.model.display.sendingToCds = "",
+        this.model.display.sendingToCds = "";
         this.model.display.addEdit = "none";
+        this.model.display.errorSendingToCds = "none";
     }
 
     sendToCds(creditBureauId) {
@@ -151,27 +152,32 @@ export class AddNewCreditItemModal {
         loadingScreen.show();
 
         management.sendToCds(this.model.creditItem.Id, creditBureaus)
-        .then((response) => {
+            .then((response) => {
 
-            if (response.Data.success === true) {
-                that.model.display.sentToCds = "";
-                that.model.display.sendingToCds = "none",
-                that.model.display.addEdit = "none";
-                that.controller.ok();
+                if (response.Data.success === true) {
+                    that.model.display.sentToCds = "";
+                    that.model.display.sendingToCds = "none";
+                    that.model.display.addEdit = "none";
+                    that.model.display.errorSendingToCds = "none";
+                    that.controller.ok();
+                    loadingScreen.hide();
+                } else {
+                    // send failed because its already added, show error message
+                    that.model.display.sentToCds = "none";
+                    that.model.display.sendingToCds = "none";
+                    that.model.display.addEdit = "none";
+                    that.model.display.errorSendingToCds = "";
+                }
+
+            })
+            .catch((error) => {
                 loadingScreen.hide();
-            } else {
-                // send failed because its already added, show error message
-            }
-
-        })
-        .catch((error) => {
-            loadingScreen.hide();
-        });
+            });
     }
 
     backToAddEdit() {
         this.model.display.sendingToCds = "none",
-        this.model.display.addEdit = ""; 
+            this.model.display.addEdit = "";
     }
 
     save() {

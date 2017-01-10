@@ -135,7 +135,7 @@
                     <input type="radio" model.bind="4" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Deleted</span>
                 </div>
                 <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="null" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>No Response</span>
+                    <input type="radio" model.bind="null" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Still Negative</span>
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
                     <input type="radio" model.bind="4" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
                 </div>
                 <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="null" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>No Response</span>
+                    <input type="radio" model.bind="null" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Still Negative</span>
                 </div>
             </div>
         </div>
@@ -167,7 +167,7 @@
                     <input type="radio" model.bind="4" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
                 </div>
                 <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="null" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>No Response</span>
+                    <input type="radio" model.bind="null" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Still Negative</span>
                 </div>
             </div>
         </div>
@@ -223,6 +223,21 @@
 </ai-dialog-body>
 <ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.sentToCds }">
     <button type="button" class="btn btn-success pull-right" click.delegate="controller.ok()"><i class="fa fa-check"></i>&nbsp;Done</button>
+</ai-dialog-footer>
+
+<ai-dialog-body css.bind="{ display:model.display.errorSendingToCds }">
+    <div class="cm-modal-header">
+        <h2>Error Sending To CDS</h2>
+        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <p>Credit Item already send to Customer Dispute Statements for ${model.sendToCdsCreditBureau}.</p>
+        </div>
+    </div>
+</ai-dialog-body>
+<ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.errorSendingToCds }">
+    <button type="button" class="btn btn-danger pull-left" click.delegate="showSendToCds()"><i class="fa fa-check"></i>&nbsp;Back</button>
 </ai-dialog-footer>
 </ai-dialog>
 </template>
