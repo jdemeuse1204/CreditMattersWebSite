@@ -195,7 +195,6 @@
 .kendo-dropdown .k-dropdown-wrap {
   height: 32px;
   border-radius: 0;
-  max-width: 280px;
 }
 .kendo-dropdown .k-input {
   padding-bottom: 0;
@@ -1937,4 +1936,10 @@ ai-dialog ai-dialog-footer {
 }
 #window-management-resolving-cds #resolving-cds-table_wrapper > div:nth-child(2) .cm-swipable div.row > div:nth-child(2) {
   float: right;
+}
+#edit-security-questions-modal .modal-body {
+  margin: 0 20px;
+}
+#edit-security-questions-modal .second-question {
+  margin-top: 20px;
 }

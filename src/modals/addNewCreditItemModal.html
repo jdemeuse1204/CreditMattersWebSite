@@ -206,8 +206,9 @@
         </div>
     </div>
 </ai-dialog-body>
-<ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.sendingToCds }">
+<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sendingToCds }">
     <button type="button" class="btn btn-danger pull-left" click.delegate="backToAddEdit()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+    <button type="button" class="btn btn-suiccess pull-right" click.delegate="send()"><i class="fa fa-send"></i>&nbsp;Send</button>
 </ai-dialog-footer>
 
 <ai-dialog-body css.bind="{ display:model.display.sentToCds }">

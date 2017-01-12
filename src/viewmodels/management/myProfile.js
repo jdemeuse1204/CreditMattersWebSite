@@ -6,7 +6,7 @@ import { account } from "../../common/repository";
 import * as loadingScreen from "../../common/loadingScreen";
 import { getUserInformation } from "../../common/dataFetchService";
 import * as constants from '../../constants';
-import { find } from 'lodash';
+import { find, isEmpty } from 'lodash';
 
 @useView('../../views/management/myProfile.html')
 @inject(DialogService)
@@ -36,6 +36,37 @@ export class MyProfile {
         this.openPhoneNumbersModal();
         break;
     };
+  }
+
+  editSecurityQuestions() {
+
+    const that = this;
+
+    loadingScreen.show();
+
+    account.getUserMembership().then((response) => {
+
+      // we never want to return security answers for security reasons, so they need to change
+      // their security questions
+      const membership = response.Data.result;
+      const hasSecurityQuestions = !!membership.SecurityQuestionOneId || !!membership.SecurityQuestionTwoId;
+      const modalModel = {
+        securityQuestionOneId: 1,
+        securityQuestionTwoId: 2,
+        display: {
+          editQuestions: hasSecurityQuestions ? "" : "none",
+          addQuestions: hasSecurityQuestions ? "none" : ""
+        },
+        securityAnswerOne: membership.SecurityAnswerOne,
+        securityAnswerTwo: membership.SecurityAnswerTwo
+      };
+
+      that.dialogService.open({
+        viewModel: 'modals/editSecurityQuestionsModal',
+        model: modalModel
+      });
+    });
+
   }
 
   openPhoneNumbersModal() {
