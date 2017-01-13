@@ -22,6 +22,12 @@ export class AddNewCreditItemModal {
     isUsingCustomReason = false;
     customReason = "";
     rules = [];
+    sendToCdsTransUnion = false;
+    wasSentToCdsTransUnion = false;
+    sendToCdsEquifax = false;
+    wasSentToCdsEquifax = false;
+    sendToCdsExperian = false;
+    wasSentToCdsExperian = false;
 
     constructor(controller, controllerFactory) {
         this.controller = controller;
@@ -64,7 +70,26 @@ export class AddNewCreditItemModal {
             this.customReason = model.creditItem.Dispute.Reason;
         }
 
-        this.model = model
+        this.model = model;
+        this.sendToCdsTransUnion = false;
+        this.wasSentToCdsTransUnion = false;
+        this.sendToCdsEquifax = false;
+        this.wasSentToCdsEquifax = false;
+        this.sendToCdsExperian = false;
+        this.wasSentToCdsExperian = false;
+
+        if (!constants.isCustomerDisputeReasonResponse(model.creditItem.TransUnionResponseStatusId)) {
+            this.wasSentToCdsTransUnion = true;
+        }
+
+        if (!constants.isCustomerDisputeReasonResponse(model.creditItem.ExperianResponseStatusId)) {
+            this.wasSentToCdsExperian = true;
+        }
+
+        if (!constants.isCustomerDisputeReasonResponse(model.creditItem.EquifaxResponseStatusId)) {
+            this.wasSentToCdsEquifax = true;
+        }
+
         this.creditBureauStatuses = await lookup.getCreditBureauStatuses();
 
         const creditorsResult = await lookup.getCreditors();
@@ -136,17 +161,21 @@ export class AddNewCreditItemModal {
         this.model.display.errorSendingToCds = "none";
     }
 
-    sendToCds(creditBureauId) {
+    sendToCds() {
 
         let creditBureaus = [];
         const that = this;
-
-        if (creditBureauId == constants.creditBureauIds.all) {
+// add status on CDS record for status, take it off of credit bureau entry..... maybe? Response status history table instead? I am thinking yes
+        if (this.sendToCdsTransUnion) {
             creditBureaus.push(constants.creditBureauIds.transUnion);
-            creditBureaus.push(constants.creditBureauIds.equifax);
+        }
+
+        if (this.sendToCdsExperian) {
             creditBureaus.push(constants.creditBureauIds.experian);
-        } else {
-            creditBureaus.push(creditBureauId);
+        }
+
+        if (this.sendToCdsEquifax) {
+            creditBureaus.push(constants.creditBureauIds.equifax);
         }
 
         loadingScreen.show();
@@ -159,7 +188,6 @@ export class AddNewCreditItemModal {
                     that.model.display.sendingToCds = "none";
                     that.model.display.addEdit = "none";
                     that.model.display.errorSendingToCds = "none";
-                    that.controller.ok();
                     loadingScreen.hide();
                 } else {
                     // send failed because its already added, show error message

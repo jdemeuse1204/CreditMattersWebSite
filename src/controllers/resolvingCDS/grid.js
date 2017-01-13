@@ -173,9 +173,9 @@ export class Grid {
                                         IsExperianResolved: item.ExperianResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
                                         TransUnionStatus: constants.getCreditBureauResponseFromId(transUnionStatusId),
                                         TransUnionStatusDate: "",
-                                        EquifaxStatus: constants.getCreditBureauResponseFromId(item.ExperianInitialStatusId == 1 ? item.ExperianInitialStatusId : item.ExperianResponseStatusId),
+                                        EquifaxStatus: constants.getCreditBureauResponseFromId(item.EquifaxInitialStatusId == 1 ? item.EquifaxInitialStatusId : item.EquifaxResponseStatusId),
                                         EquifaxStatusDate: "",
-                                        ExperianStatus: constants.getCreditBureauResponseFromId(item.EquifaxInitialStatusId == 1 ? item.EquifaxInitialStatusId : item.EquifaxResponseStatusId),
+                                        ExperianStatus: constants.getCreditBureauResponseFromId(item.ExperianInitialStatusId == 1 ? item.ExperianInitialStatusId : item.ExperianResponseStatusId),
                                         ExperianStatusDate: "",
                                     };
 

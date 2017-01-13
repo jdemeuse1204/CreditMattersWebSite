@@ -3,8 +3,9 @@ import creditor from "./creditor";
 import adverseType from "./adverseType";
 import disputeReason from "./disputeReason";
 import creditBureauStatus from "./creditBureauStatus";
+import customerDisputeStatement from "./customerDisputeStatement";
 import moment from "moment";
-import {emptyGuid} from '../constants';
+import { emptyGuid } from '../constants';
 
 let _item = kendo.data.Model.define({
     asJSON: function () {
@@ -43,7 +44,9 @@ let _item = kendo.data.Model.define({
             Balance: this.Balance,
 
             DisputeReasonAcceptedDateTime: moment(this.DisputeReasonAcceptedDateTime).isValid() ? moment(this.DisputeReasonAcceptedDateTime).format() : null,
-            DoesDisputeReasonNeedAcceptance: this.DoesDisputeReasonNeedAcceptance
+            DoesDisputeReasonNeedAcceptance: this.DoesDisputeReasonNeedAcceptance,
+
+            Customer: this.EquifaxInitialStatusId,
         };
     },
 
@@ -157,6 +160,12 @@ let _item = kendo.data.Model.define({
         "Balance": { editable: true, type: "number" },
         "DisputeReasonAcceptedDateTime": { editable: true, type: "string" },
         "DoesDisputeReasonNeedAcceptance": { editable: true, type: "bool" },
+        "CustomerDisputeStatementId": { editable: true, type: "string", defaultValue: emptyGuid },
+        "CustomerDisputeStatement": {
+            editable: true,
+            defaultValue: new customerDisputeStatement(),
+            parse: function (data) { return new customerDisputeStatement(data); }
+        },
     }
 });
 

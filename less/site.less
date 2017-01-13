@@ -20,6 +20,8 @@ body {
 input[type='checkbox'] {
     height: inherit !important;
     width: inherit !important;
+    height: 30px !important;
+    width: 30px !important;
 }
 
 input[type='text'],
@@ -2104,5 +2106,30 @@ ai-dialog {
 
     .second-question {
         margin-top: 20px;
+    }
+}
+
+.send-to-cds-checkbox {
+    height: 80px;
+    margin: 8px 0;
+
+    .cds-label {
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+    }
+
+    .send-container {
+        margin: 0 auto;
+        width: 85px;
+
+        input, label {
+            float:left;
+        }
+
+        label {
+            margin-top: 8px;
+            margin-left: 8px;
+        }
     }
 }

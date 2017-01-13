@@ -63,13 +63,26 @@ export const routes = {
 export function getCreditBureauId(creditBureau) {
     switch (creditBureau) {
         case creditBureauNames.transUnion:
-            return 1;
+            return creditBureauIds.transUnion;
         case creditBureauNames.equifax:
-            return 2;
+            return creditBureauIds.equifax;
         case creditBureauNames.experian:
-            return 3;
+            return creditBureauIds.experian;
         case creditBureauNames.all:
-            return 0;
+            return creditBureauIds.all;
+    }
+}
+
+export function getCreditBureauName(creditBureauId) {
+    switch (creditBureauId) {
+        case creditBureauIds.transUnion:
+            return creditBureauNames.transUnion;
+        case creditBureauIds.equifax:
+            return creditBureauNames.equifax;
+        case creditBureauIds.experian:
+            return creditBureauNames.experian;
+        case creditBureauIds.all:
+            return creditBureauNames.all;
     }
 }
 
@@ -110,4 +123,8 @@ export function getCreditBureauResponseFromId(Id) {
         default: // null
             return 'N/A';
     }
+}
+
+export function isCustomerDisputeReasonResponse(Id) {
+    return Id === 5 || Id === 6;
 }

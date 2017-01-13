@@ -465,6 +465,8 @@ body {
 input[type='checkbox'] {
   height: inherit !important;
   width: inherit !important;
+  height: 30px !important;
+  width: 30px !important;
 }
 input[type='text'],
 input[type='password'],
@@ -2047,4 +2049,25 @@ ai-dialog ai-dialog-footer {
 }
 #edit-security-questions-modal .second-question {
   margin-top: 20px;
+}
+.send-to-cds-checkbox {
+  height: 80px;
+  margin: 8px 0;
+}
+.send-to-cds-checkbox .cds-label {
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+}
+.send-to-cds-checkbox .send-container {
+  margin: 0 auto;
+  width: 85px;
+}
+.send-to-cds-checkbox .send-container input,
+.send-to-cds-checkbox .send-container label {
+  float: left;
+}
+.send-to-cds-checkbox .send-container label {
+  margin-top: 8px;
+  margin-left: 8px;
 }
