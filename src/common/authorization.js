@@ -66,3 +66,8 @@ function processLogin(token, firstName, addressCompletedDateTime, rememberMe, us
         addressCompletedDateTime: addressCompletedDateTime
     });
 }
+
+export function logout() {
+    loginFunctions(1000).removeToken();
+    window.location = "";
+}

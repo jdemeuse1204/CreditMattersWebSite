@@ -17,7 +17,7 @@ export function isGuidEmpty(guid) {
 }
 
 export function isNumeric(value) {
-    return !isNaN(parseFloat(w)) && isFinite(w);
+    return !isNaN(parseFloat(value)) && isFinite(value);
 }
 
 export function isNullOrEmpty(value) {

@@ -20,6 +20,8 @@ export class App {
       { route: ['', 'home'], name: 'home', moduleId: './home', nav: true, title: 'Home' },
       { route: 'login', name: 'login', moduleId: './login', nav: true, title: 'Login' },
       { route: 'register', name: 'register', moduleId: './register', nav: true, title: 'Register' },
+      { route: 'activate/:rid?', name: 'activate', moduleId: './activate', nav: true, href: "#/activate", title: 'Activate' },
+      { route: ['error'], name: 'error', moduleId: './error', nav: true, title: 'Error' },
 
       // management routes
       { route: 'Management/Courses', name: 'Courses', moduleId: './management/courses', nav: true, title: 'Courses', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
@@ -37,6 +39,8 @@ export class App {
       { route: 'Management/ExperianCreditItems', name: 'ExperianCreditItems', moduleId: './management/experianCreditItems', nav: true, title: 'Experian Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
     ]);
 
+    config.mapUnknownRoutes('Home');
+    config.fallbackRoute('Error');
     this.router = router;
   }
 }

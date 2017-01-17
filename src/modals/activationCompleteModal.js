@@ -1,8 +1,9 @@
 import { inject } from 'aurelia-dependency-injection';
 import {DialogController} from 'aurelia-dialog';
+import { routes } from '../constants';
 
 @inject(DialogController)
-export class Confirm {
+export class ActivationCompleteModal {
 
     controller = null;
     model = null;
@@ -15,15 +16,13 @@ export class Confirm {
         this.model = model
     }
 
-    login() {
-        window.location = "#/Login"
+    toHome() {
+        window.location.href = routes.home;
+        this.controller.ok()
     }
 
-    recoverPassword() {
-
-    }
-
-    resendAuthorizationEmail() {
-        
+    toDashboard() {
+        window.location.href = routes.manageCreditItems;
+        this.controller.ok()
     }
 }

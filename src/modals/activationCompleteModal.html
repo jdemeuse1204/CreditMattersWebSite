@@ -1,0 +1,20 @@
+<template>
+    <ai-dialog class="modal-dialog modal-md">
+        <ai-dialog-body>
+            <div class="cm-modal-header">
+                <h2>${model.title}</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <p>${model.message}</p>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer css.bind="{display:model.display.success}">
+            <button type="button" class="btn btn-primary pull-left" click.trigger="toHome()"><i class="fa fa-home"></i>&nbsp;To Home</button>
+            <button type="button" class="btn btn-success pull-right" click.trigger="toDashboard()"><i class="fa fa-dashboard"></i>&nbsp;To Dashboard</button>
+        </ai-dialog-footer>
+        <ai-dialog-footer css.bind="{display:model.display.fail}">
+            <button type="button" class="btn btn-danger pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

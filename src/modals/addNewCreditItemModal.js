@@ -7,7 +7,8 @@ import { CMRenderer } from '../common/cmRenderer';
 import { validateMultiple } from '../common/cmValidate';
 import disputeReason from '../models/disputeReason';
 import creditBureauEntry from '../models/creditBureauEntry';
-import {isGuidEmpty, isNumeric} from "../common/utils"
+import { isGuidEmpty, isNumeric } from "../common/utils"
+import * as constants from '../constants';
 
 @inject(DialogController, ValidationControllerFactory)
 export class AddNewCreditItemModal {
@@ -21,6 +22,12 @@ export class AddNewCreditItemModal {
     isUsingCustomReason = false;
     customReason = "";
     rules = [];
+    sendToCdsTransUnion = false;
+    wasSentToCdsTransUnion = false;
+    sendToCdsEquifax = false;
+    wasSentToCdsEquifax = false;
+    sendToCdsExperian = false;
+    wasSentToCdsExperian = false;
 
     constructor(controller, controllerFactory) {
         this.controller = controller;
@@ -63,7 +70,14 @@ export class AddNewCreditItemModal {
             this.customReason = model.creditItem.Dispute.Reason;
         }
 
-        this.model = model
+        this.model = model;
+        this.sendToCdsTransUnion = false;
+        this.wasSentToCdsTransUnion = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.transUnion);
+        this.sendToCdsEquifax = false;
+        this.wasSentToCdsEquifax = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.equifax);
+        this.sendToCdsExperian = false;
+        this.wasSentToCdsExperian = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.experian);
+
         this.creditBureauStatuses = await lookup.getCreditBureauStatuses();
 
         const creditorsResult = await lookup.getCreditors();
@@ -93,9 +107,10 @@ export class AddNewCreditItemModal {
 
         const that = this;
 
-        this.populateDisputeReasons(event.sender._old).then(response => {
+        this.populateDisputeReasons(event.sender._old).then((response) => {
+
             that.model.creditItem.Dispute = null;
-            that.model.creditItem.DisputeReasonId = 0;
+            that.model.creditItem.DisputeReasonId = response[0].Id;
             loadingScreen.hide();
         });
     }
@@ -118,15 +133,74 @@ export class AddNewCreditItemModal {
 
     populateDisputeReasons(adverseType) {
 
-        return lookup.getDisputeReasons(adverseType).then(response => {
+        return new Promise((resolve, reject) => {
+            lookup.getDisputeReasons(adverseType).then(response => {
 
-            const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
+                const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
 
-            if (!!element) {
-                element.dataSource.data(response.Data.result);
-                element.dataSource.transport.data = response.Data.result;
-            }
+                if (!!element) {
+                    element.dataSource.data(response.Data.result);
+                    element.dataSource.transport.data = response.Data.result;
+                }
+
+                resolve(response.Data.result);
+            }).catch((error) => { 
+                reject(error);
+            });
         });
+    }
+
+    showSendToCds() {
+        this.model.display.sendingToCds = "";
+        this.model.display.addEdit = "none";
+        this.model.display.errorSendingToCds = "none";
+    }
+
+    sendToCds() {
+
+        let creditBureaus = [];
+        const that = this;
+        // add status on CDS record for status, take it off of credit bureau entry..... maybe? Response status history table instead? I am thinking yes
+        if (this.sendToCdsTransUnion) {
+            creditBureaus.push(constants.creditBureauIds.transUnion);
+        }
+
+        if (this.sendToCdsExperian) {
+            creditBureaus.push(constants.creditBureauIds.experian);
+        }
+
+        if (this.sendToCdsEquifax) {
+            creditBureaus.push(constants.creditBureauIds.equifax);
+        }
+
+        loadingScreen.show();
+
+        management.sendToCds(this.model.creditItem.Id, creditBureaus)
+            .then((response) => {
+
+                if (response.Data.success === true) {
+                    that.model.display.sentToCds = "";
+                    that.model.display.sendingToCds = "none";
+                    that.model.display.addEdit = "none";
+                    that.model.display.errorSendingToCds = "none";
+                    loadingScreen.hide();
+                } else {
+                    // send failed because its already added, show error message
+                    that.model.display.sentToCds = "none";
+                    that.model.display.sendingToCds = "none";
+                    that.model.display.addEdit = "none";
+                    that.model.display.errorSendingToCds = "";
+                }
+
+            })
+            .catch((error) => {
+                loadingScreen.hide();
+            });
+    }
+
+    backToAddEdit() {
+        this.model.display.sendingToCds = "none",
+            this.model.display.addEdit = "";
     }
 
     save() {

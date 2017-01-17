@@ -20,6 +20,8 @@ body {
 input[type='checkbox'] {
     height: inherit !important;
     width: inherit !important;
+    height: 30px !important;
+    width: 30px !important;
 }
 
 input[type='text'],
@@ -51,6 +53,24 @@ input[type='search'] {
 
 .mobile-brand {
     background: url(/Content/images/CM-Green-Circles.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70px;
+    width: 70px;
+}
+
+.brand {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+}
+
+.desktop-brand {
+    background-image: url(/Content/images/CM-LOGO.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70px;
+    width: 150px;
 }
 
 .cm-label {
@@ -123,7 +143,11 @@ input[type='search'] {
 
     .login-help {
 
-        .col-xs-6 {
+        .col-xs-12 {
+            margin-top: 10px;
+        }
+
+        .col-xs-6, .col-xs-12 {
             padding: 0;
 
             div {
@@ -135,6 +159,10 @@ input[type='search'] {
                 a {
                     color: white;
                 }
+            }
+  
+            .login-help {
+                cursor: pointer;
             }
 
             .login-help-left {
@@ -894,20 +922,6 @@ input[type='search'] {
             padding: 7px 35px 7px 35px;
             margin: 10px 0 50px 0;
             box-shadow: none;
-        }
-
-        .brand {
-            position: absolute;
-            top: 20px;
-            left: 25px;
-        }
-
-        .desktop-brand {
-            background-image: url(/Content/images/CM-LOGO.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 70px;
-            width: 150px;
         }
 
         .button-container {
@@ -1805,4 +1819,323 @@ ai-dialog {
 
 
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(0,0,0,.075);
+}
+
+#my-profile-phone-numbers-modal {
+    ul {
+        list-style: none;
+        padding-left: 15px;
+
+        li {
+            margin: 20px 0;
+        }
+    }
+
+    .phone-number-global-error > span {
+        margin-left: 30px;
+    }
+}
+
+#create-dispute-letter-from-manage-credit-items {
+    h4 {
+        margin-bottom: 10px;
+        margin-left: 15px;
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    #accept-dispute-reasons-table_wrapper > div:nth-child(2) {
+
+        .sorting_1 {
+            padding: 0;
+        }
+
+        .dispute-reason {
+            button:nth-child(1) {
+                margin-right: 5px;
+            }
+            width: 180px;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        .cm-swipable.drag-left {
+            .cm-swipable-right-action {
+                display: none;
+            }
+
+            .cm-swipable-left-action {
+                display: block;
+            }
+        }
+
+        .cm-swipable.drag-right {
+            .cm-swipable-left-action {
+                display: none;
+            }
+
+            .cm-swipable-right-action {
+                display: block;
+            }
+        }
+
+        .cm-swipable.no-drag {
+
+            .cm-swipable-left-action {
+                display: none;
+            }
+
+            .cm-swipable-right-action {
+                display: none;
+            }
+        }
+
+        .cm-swipable {
+            padding: 15px;
+            margin: 0;
+            width: 100%;
+            height: 100px;
+            position: relative;
+
+            .cm-swipable-drag-overlay {
+                position: absolute;
+                background-color: white;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0;
+                padding: 10px 15px;
+                width: 100%;
+                height: 100px;
+
+                .row {
+                    div:nth-child(1) {
+                        float: left;
+                    }
+
+                    div:nth-child(2) {
+                        float: right;
+                    }
+                }
+            }
+
+            .cm-swipable-left-action {
+                background-color: @CMError;
+            }
+
+            .cm-swipable-left-action > div {
+                width: 25%;
+                margin: 30px 0 0 2px;
+                font-size: 14px;
+                color: white;
+                padding: 0 4px;
+            }
+
+            .cm-swipable-right-action > div {
+                width: 25%;
+                margin: 32px 0 0 2px;
+                font-size: 14px;
+                color: white;
+                padding: 0 4px;
+            }
+
+            .cm-swipable-right-action {
+                background-color: @CMDarkGreen;
+            }
+
+            .cm-swipable-left-action, .cm-swipable-right-action {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                height: 100px;
+            }
+
+            .row {
+                margin: 0;
+            }
+        }
+
+        .cm-swipable > div.row:nth-child(1) {
+            font-size: 18px;
+        }
+
+        .cm-swipable div.row > div:nth-child(1) {
+            float: left;
+        }
+
+        .cm-swipable div.row > div:nth-child(2) {
+            float: right;
+        }
+    }
+}
+
+
+#window-management-resolving-cds {
+
+    #resolving-cds-table_wrapper > div:nth-child(2) {
+
+        .cm-swipable.drag-left {
+            .cm-swipable-right-action {
+                display: none;
+            }
+
+            .cm-swipable-left-action {
+                display: block;
+            }
+        }
+
+        .cm-swipable.drag-right {
+            .cm-swipable-left-action {
+                display: none;
+            }
+
+            .cm-swipable-right-action {
+                display: block;
+            }
+        }
+
+        .cm-swipable.no-drag {
+
+            .cm-swipable-left-action {
+                display: none;
+            }
+
+            .cm-swipable-right-action {
+                display: none;
+            }
+        }
+
+        .cm-swipable {
+            padding: 15px;
+            margin: 0;
+            width: 100%;
+            height: 100px;
+            position: relative;
+
+            .cm-swipable-drag-overlay {
+                position: absolute;
+                background-color: white;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0;
+                padding: 10px 15px;
+                width: 100%;
+                height: 100px;
+
+                .row {
+                    div:nth-child(1) {
+                        float: left;
+                    }
+
+                    div:nth-child(2) {
+                        float: right;
+                    }
+                }
+            }
+
+            .cm-swipable-left-action {
+                background-color: @CMDarkGreen;
+            }
+
+            .cm-swipable-left-action > div {
+                width: 25%;
+                margin: 22px 0 0 2px;
+                font-size: 14px;
+                color: white;
+                padding: 0 4px;
+            }
+
+            .cm-swipable-right-action > div {
+                width: 25%;
+                margin: 32px 0 0 2px;
+                font-size: 14px;
+                color: white;
+                padding: 0 4px;
+            }
+
+            .cm-swipable-right-action {
+                background-color: @CMOrange;
+            }
+
+            .cm-swipable-left-action, .cm-swipable-right-action {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                height: 100px;
+            }
+
+            .row {
+                margin: 0;
+            }
+        }
+
+        .cm-swipable > div.row:nth-child(1) {
+            font-size: 18px;
+        }
+
+        .cm-swipable div.row > div:nth-child(1) {
+            float: left;
+        }
+
+        .cm-swipable div.row > div:nth-child(2) {
+            float: right;
+        }
+    }
+}
+
+#edit-security-questions-modal {
+    .modal-body {
+        margin: 0 20px;
+    }
+
+    .second-question {
+        margin-top: 20px;
+    }
+}
+
+.send-to-cds-checkbox {
+    height: 80px;
+    margin: 8px 0;
+
+    .cds-label {
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+    }
+
+    .send-container {
+        margin: 0 auto;
+        width: 85px;
+
+        input, label {
+            float:left;
+        }
+
+        label {
+            margin-top: 8px;
+            margin-left: 8px;
+        }
+    }
+}
+
+#activate-page {
+    background: linear-gradient(-180deg,rgba(0, 33, 15, 0.70) 0,rgba(0, 33, 15, 0.70) 100%),url(/Content/images/download.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }

@@ -70,6 +70,11 @@
   background-color: #d9534f;
   box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
 }
+.btn.btn-warning:hover {
+  border-color: #f0ad4e;
+  background-color: #f0ad4e;
+  box-shadow: 0 1px 1px #f0ad4e inset, 0 0 8px #f0ad4e;
+}
 .btn.btn-success:hover {
   border-color: #5cad3a;
   box-shadow: 0 1px 1px #5cad3a inset, 0 0 8px #5cad3a;
@@ -145,7 +150,6 @@
 .kendo-dropdown .k-dropdown-wrap {
   height: 32px;
   border-radius: 0;
-  max-width: 280px;
 }
 .kendo-dropdown .k-input {
   padding-bottom: 0;
@@ -293,4 +297,8 @@ ai-dialog-body .cm-modal-header .cm-close-modal {
 .k-dropdown,
 .k-dropdown-wrap {
   border-radius: 0;
+}
+ai-dialog-container > div {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }

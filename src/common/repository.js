@@ -116,20 +116,15 @@ export const account = {
     saveEmailAddresses: function (alternateEmailAddress) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "SaveEmailAddresses"), { AlternateEmailAddress: alternateEmailAddress });
     },
-    saveUserPhoneNumbers: function (mobileNumber,
-        homeNumber,
-        workNumber,
-        isMobilePrimary,
-        isHomePrimary,
-        isWorkPrimary) {
+    saveUserPhoneNumbers: function (numbers) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "SaveUserPhoneNumbers"),
             {
-                MobileNumber: mobileNumber,
-                HomeNumber: homeNumber,
-                WorkNumber: workNumber,
-                IsMobilePrimary: isMobilePrimary,
-                IsHomePrimary: isHomePrimary,
-                IsWorkPrimary: isWorkPrimary
+                MobileNumber: numbers.MobileNumber,
+                HomeNumber: numbers.HomeNumber,
+                WorkNumber: numbers.WorkNumber,
+                IsMobilePrimary: numbers.IsMobilePrimary,
+                IsHomePrimary: numbers.IsHomePrimary,
+                IsWorkPrimary: numbers.IsWorkPrimary
             });
     },
     isAdmin: function () {
@@ -183,7 +178,10 @@ export const register = {
         return get(_getUrl(REGISTER_CONTROLLER, "GetSecurityQuestions"));
     },
     authorizeUser: function (uid) {
-        return post(_getUrl(REGISTER_CONTROLLER, "AuthorizeUser"), { authorizationId: uid });
+        return post(_getUrl(REGISTER_CONTROLLER, "AuthorizeUser"), { authorizationString: uid });
+    },
+    resendRegistrationEmail: function(emailAddress) {
+        return post(_getUrl(REGISTER_CONTROLLER, "ResendRegistrationEmail"), { Email: emailAddress });
     }
 };
 
@@ -193,8 +191,21 @@ export const management = {
 
         return post(_getUrl(MANAGEMENT_CONTROLLER, "SaveCreditItem"), creditItem);
     },
+    sendToCds: function (creditItemId, creditBureauIds) {
+        
+        return post(_getUrl(MANAGEMENT_CONTROLLER, "SendToCds"), { 
+            creditBureaus: creditBureauIds,
+            creditItemId: creditItemId
+        });
+    },
     getCreditItems: function (creditBureau) {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItems"), { bureau: constants.getCreditBureauId(creditBureau) });
+    },
+    getCreditItemsThatNeedDisputeReasonAcceptance: function(creditBureau) {
+        return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItemsThatNeedDisputeReasonAcceptance"), { bureau: constants.getCreditBureauId(creditBureau) });
+    },
+    getCustomerDisputeStatements: function() {
+        return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCustomerDisputeStatements"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
     getCreditItem: function (id) {
 

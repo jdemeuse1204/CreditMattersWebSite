@@ -51,3 +51,23 @@ export function validateMultiple(controller, options) {
 
     return response;
 }
+
+export function isValidEmailAdddress(value) {
+    return !!value && value.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/) != null;
+}
+
+export function isPasswordCorrectLength(value) {
+    return !!value && value.length >= 8;
+}
+
+export function containsCapitalLetter(value) {
+    return !!value && value.match(/.*[A-Z]/) != null;
+}
+
+export function containsNumber(value) {
+    return !!value && value.match(/.*[0-9]/) != null;
+}
+
+export function containsSpecialCharacter(value) {
+    return !!value && value.match(/.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/) != null;
+}

@@ -2,7 +2,7 @@
 import '../../node_modules/kendo-ui-core/js/kendo.mobile.drawer';
 
 let _mobileDrawer,
-    _listenForRouteChange = function() {
+    _listenForRouteChange = function () {
         const listItems = _getListItems();
         const location = window.location.hash;
 
@@ -18,24 +18,24 @@ let _mobileDrawer,
             }
         }
     },
-    _getListItems = function() {
+    _getListItems = function () {
         return $("#main-layout-page .drawer li");
     },
-    _removeActiveLink = function() {
+    _removeActiveLink = function () {
         _getListItems().removeClass("active-selection");
     },
-    _expand = function() {
+    _expand = function () {
 
         _mobileDrawer.show();
     },
-    _collapse = function() {
+    _collapse = function () {
 
         _mobileDrawer.hide();
     },
-    _isDesktop = function() {
+    _isDesktop = function () {
         return document.documentElement.clientWidth >= 992;
     },
-    _processClientWidth = function() {
+    _processClientWidth = function () {
 
         if (_isDesktop()) {
 
@@ -44,22 +44,20 @@ let _mobileDrawer,
             return;
         }
     },
-    _createMobileDrawer = function() {
+    _createMobileDrawer = function () {
 
         let mobileDrawer = $("#mobile-drawer").data("kendoMobileDrawer");
 
         if (!mobileDrawer) {
-            mobileDrawer = $("#mobile-drawer")
-                .kendoMobileDrawer({
-                    container: "#main-layout-content",
-                    swipeToOpen: false
-                })
-                .data("kendoMobileDrawer");
+            mobileDrawer = $("#mobile-drawer").kendoMobileDrawer({
+                container: "#main-layout-content",
+                swipeToOpen: false
+            }).data("kendoMobileDrawer");
         }
 
         return mobileDrawer;
     },
-    _initialize = function() {
+    _initialize = function () {
 
         _mobileDrawer = _createMobileDrawer();
 
@@ -68,24 +66,20 @@ let _mobileDrawer,
         _processClientWidth();
 
         $(window).unbind("resize");
-        $(window)
-            .on("resize",
-                function() {
-                    _processClientWidth();
-                });
+        $(window).on("resize", function () {
+            _processClientWidth();
+        });
 
         $("#drawer-trigger").unbind("click");
-        $("#drawer-trigger")
-            .on("click",
-                function() {
+        $("#drawer-trigger").on("click", function () {
 
-                    if (_mobileDrawer.visible) {
-                        _collapse();
-                        return;
-                    }
+            if (_mobileDrawer.visible) {
+                _collapse();
+                return;
+            }
 
-                    _expand();
-                });
+            _expand();
+        });
     };
 
 let returnModel = {

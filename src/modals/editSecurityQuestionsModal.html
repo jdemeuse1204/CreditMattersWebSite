@@ -1,0 +1,58 @@
+<template>
+    <require from="aurelia-kendoui-bridge/dropdownlist/dropdownlist"></require>
+
+    <ai-dialog class="modal-dialog modal-md" id="edit-security-questions-modal">
+        <ai-dialog-body>
+            <div class="cm-modal-header">
+                <h2 css.bind="{display:model.display.editQuestions}">Change Security Questions</h2>
+                <h2 css.bind="{display:model.display.addQuestions}">Add Security Questions</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <p css.bind="{display:model.display.addQuestions}">Adding security questions to your profile allows for easier password recovery. Fill out the below two questions and
+                clock 'Save' to add security questions.</p>
+                <div class="row kendo-dropdown first-question">
+
+                    <label>Question One</label>
+                    <div class="input-group input-group-flat">
+                        <ak-drop-down-list k-data-text-field="Question" k-data-value-field="Id" k-data-source.bind="securityQuestions" k-value.two-way="model.securityQuestionOneId & validate"
+                                k-data-option-label="Select Question..." style="width: 100%;" aria-describedby="security-question-one">
+                        </ak-drop-down-list>
+                        <span class="input-group-addon" id="security-question-one"><i class="fa fa-asterisk"></i></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <label>Answer One</label>
+                    <div class="input-group input-group-flat">
+                        <input type="text" class="form-control" placeholder="Answer One" value.bind="model.securityAnswerOne & validate"
+                                aria-describedby="security-answer-one">
+                        <span class="input-group-addon" id="security-answer-one"><i class="fa fa-asterisk"></i></span>
+                    </div>
+                </div>
+
+                <div class="row kendo-dropdown second-question">
+
+                    <label>Question Two</label>
+                    <div class="input-group input-group-flat">
+                        <ak-drop-down-list k-data-text-field="Question" k-data-value-field="Id" k-data-source.bind="securityQuestions" k-value.two-way="model.securityQuestionTwoId & validate"
+                                k-data-option-label="Select Question..." style="width: 100%;" aria-describedby="security-question-two">
+                        </ak-drop-down-list>
+                        <span class="input-group-addon" id="security-question-two"><i class="fa fa-asterisk"></i></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <label>Answer Two</label>
+                    <div class="input-group input-group-flat">
+                        <input type="text" class="form-control" placeholder="Answer Two" value.bind="model.securityAnswerTwo & validate"
+                                aria-describedby="security-answer-two">
+                        <span class="input-group-addon" id="security-answer-two"><i class="fa fa-asterisk"></i></span>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer">
+            <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+            <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

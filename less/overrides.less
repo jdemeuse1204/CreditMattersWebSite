@@ -75,6 +75,12 @@
     box-shadow: 0 1px 1px #d9534f inset, 0 0 8px #d9534f;
 }
 
+.btn.btn-warning:hover {
+    border-color: #f0ad4e;
+    background-color: #f0ad4e;
+    box-shadow: 0 1px 1px #f0ad4e inset, 0 0 8px #f0ad4e;
+}
+
 .btn.btn-success:hover {
     border-color: @CMLightGreen;
     box-shadow: 0 1px 1px @CMLightGreen inset, 0 0 8px @CMLightGreen;
@@ -169,7 +175,6 @@
     .k-dropdown, .k-dropdown-wrap {
         height: 32px;
         border-radius: 0;
-        max-width: 280px;
     }
 
     .k-input {
@@ -352,4 +357,9 @@ ai-dialog-body {
 
 .k-dropdown, .k-dropdown-wrap {
     border-radius: 0;
+}
+
+ai-dialog-container > div {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }

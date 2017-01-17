@@ -1,4 +1,5 @@
 import { account } from '../../common/repository';
+import {logout} from '../../common/authorization';
 import drawer from '../../common/drawer';
 import {useView} from 'aurelia-framework';
 
@@ -14,7 +15,7 @@ export class Layout {
     }
 
     logout() {
-        
+        logout();
     }
 
     drawerNavigate() {

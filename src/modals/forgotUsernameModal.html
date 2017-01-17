@@ -1,0 +1,65 @@
+<template>
+    <ai-dialog class="modal-dialog modal-md" id="forgot-username-modal">
+        <ai-dialog-body css.bind="{ display:model.display.initialStep }">
+            <div class="cm-modal-header">
+                <h2>Step 1: Recover Username</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body text-center">
+                <p>Select which method you would like to recover your username.</p>
+                <div class="row">
+                    <div class="col-sm-6 text-center">
+                        <button type="button" class="btn btn-primary" click.delegate="recoverWithPhoneNumber()"><i class="fa fa-phone"></i>&nbsp;Phone Number</button>
+                    </div>
+                    <div class="col-sm-6 text-center">
+                        <button type="button" class="btn btn-primary" click.delegate="recoverWithEmailAddress()"><i class="fa fa-envelope-o"></i>&nbsp;Email Address</button>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+
+        <ai-dialog-body css.bind="{ display:model.display.emailAddress }">
+            <div class="cm-modal-header">
+                <h2>Step 2: Enter Email Address</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body text-center">
+                <p>Please enter your email address.</p>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="input-group input-group-flat">
+                            <input type="text" class="form-control" placeholder="Email Address" value.bind="model.emailAddress & validate" aria-describedby="recover-email-address">
+                            <span class="input-group-addon" id="recover-email-address"><i class="fa fa-asterisk"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.emailAddress }">
+            <button type="button" class="btn btn-danger pull-left" click.delegate="back()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+            <button type="button" class="btn btn-success pull-right" click.delegate="submitEmailAddress()"><i class="fa fa-check"></i>&nbsp;Submit</button>
+        </ai-dialog-footer>
+
+        <ai-dialog-body css.bind="{ display:model.display.phoneNumber }">
+            <div class="cm-modal-header">
+                <h2>Step 2: Enter Phone Number</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body text-center">
+                <p>Please enter your phone number.</p>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="input-group input-group-flat">
+                            <input type="tel" class="form-control" placeholder="Phone Number" value.bind="model.phoneNumber & validate" aria-describedby="recover-phone-number">
+                            <span class="input-group-addon" id="recover-phone-number"><i class="fa fa-asterisk"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.phoneNumber }">
+            <button type="button" class="btn btn-danger pull-left" click.delegate="back()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+            <button type="button" class="btn btn-success pull-right" click.delegate="submitPhoneNumber()"><i class="fa fa-check"></i>&nbsp;Submit</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>
