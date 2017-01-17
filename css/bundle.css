@@ -2071,3 +2071,8 @@ ai-dialog ai-dialog-footer {
   margin-top: 8px;
   margin-left: 8px;
 }
+#activate-page {
+  background: linear-gradient(-180deg, rgba(0, 33, 15, 0.7) 0, rgba(0, 33, 15, 0.7) 100%), url(/Content/images/download.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -4,7 +4,8 @@ import { DialogService } from 'aurelia-dialog';
 import { inject } from 'aurelia-dependency-injection';
 import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { CMRenderer } from '../common/cmRenderer';
-import { validate } from '../common/cmValidate';
+import * as validate from '../common/cmValidate';
+import * as loadingScreen from '../common/loadingScreen';
 import { routes } from '../constants';
 
 @inject(ValidationControllerFactory, DialogService)
@@ -21,6 +22,7 @@ export class Register {
     securityQuestionOneId = 0;
     securityQuestionTwoId = 0;
     securityQuestions = [];
+    rules;
 
     controller = null;
     dialogService = null;
@@ -30,6 +32,15 @@ export class Register {
         this.controller = controllerFactory.createForCurrentScope();
         this.controller.addRenderer(new CMRenderer());
         this.dialogService = dialogService;
+        this.rules = ValidationRules
+            .ensure('firstName').displayName("First Name").required()
+            .ensure('lastName').displayName("Last Name").required()
+            .ensure('email').displayName("Email Address").satisfies(w => validate.isValidEmailAdddress(w))
+            .ensure('password').displayName("Password").satisfies(w => validate.isPasswordCorrectLength(w)).withMessage(`\${$displayName} must be 8 characters long.`)
+            .ensure('password').displayName("Password").satisfies(w => validate.containsCapitalLetter(w)).withMessage(`\${$displayName} contain an uppercase character.`)
+            .ensure('password').displayName("Password").satisfies(w => validate.containsNumber(w)).withMessage(`\${$displayName} contain a number.`)
+            .ensure('password').displayName("Password").satisfies(w => validate.containsSpecialCharacter(w)).withMessage(`\${$displayName} contain a special character.`)
+            .on(Register).rules;
 
     }
 
@@ -37,16 +48,28 @@ export class Register {
 
         const that = this;
 
-        validate(this.controller).then(() => {
+        validate.validate(this.controller).then(() => {
+
+            loadingScreen.show();
 
             register.submitRegistration(that.firstName,
                 that.lastName,
                 that.email,
                 that.password).then(response => {
 
-                    if (response.Data.result.registrationResult === 3) {
+                    loadingScreen.hide();
 
-                        const modalModel = { title: "Success", message: "To complete the registration process, please verify your email address with instructions we just sent you." };
+                    let modalModel = {
+                        title: "Success",
+                        message: "To complete the registration process, please verify your email address with instructions we just sent you.",
+                        display: {
+                            default: "",
+                            alreadyRegistered: "none",
+                            resendAuthorization: "none",
+                        }
+                    };
+
+                    if (response.Data.result.registrationResult === 3) {
 
                         that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel })
                             .then(response => {
@@ -55,31 +78,37 @@ export class Register {
                                 that.email = "";
                                 that.firstName = "";
                                 that.lastName = "";
-                                
+
                                 window.location.href = routes.login;
                             });
                         return;
-                    }
+                    } 
 
-                    let errorMessage = "Unable to register.";
+                    modalModel.title = "Error";
+                    modalModel.message = "Oops, something went wrong.";
 
-                    if (response.Data.result.registrationResult) {
+                    if (response.Data.result.registrationResult != null) {
 
                         switch (response.Data.result.registrationResult) {
                             case 0:
-                                errorMessage = "Unable to register, email address is already registered.";
+                                modalModel.message = "Email address is already registered."; // ok, login, recover password
+                                modalModel.display.alreadyRegistered = "";
+                                modalModel.display.default = "none";
                                 break;
                             case 1:
-                                errorMessage = "Unable to register, failed to send registration email.";
+                                modalModel.message = "Failed to send registration email, please make sure the email address is correct."; // ok
                                 break;
                             case 2:
-                                errorMessage = "Unable to register, unable to create user.";
+                                modalModel.message = "Unable to create user."; // ok
+                                break;
+                            case 4:
+                                modalModel.message = "Email address is already registered, but it needs to be authorized."; // resend auth email, ok
+                                modalModel.display.resendAuthorization = "";
+                                modalModel.display.default = "none";
                                 break;
                         }
 
                     }
-
-                    const modalModel = { title: "Error", message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." };
 
                     that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel })
                         .then(response => {
@@ -96,12 +125,3 @@ export class Register {
     }
 }
 
-ValidationRules
-    .ensure('firstName').displayName("First Name").required()
-    .ensure('lastName').displayName("Last Name").required()
-    .ensure('email').displayName("Email Address").required().email()
-    .ensure('password').displayName("Password").required().minLength(8).withMessage(`\${$displayName} must be 8 characters long.`)
-    .ensure('password').displayName("Password").matches(/.*[A-Z]/).withMessage(`\${$displayName} contain an uppercase character.`)
-    .ensure('password').displayName("Password").matches(/.*[0-9]/).withMessage(`\${$displayName} contain a number.`)
-    .ensure('password').displayName("Password").matches(/.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/).withMessage(`\${$displayName} contain a special character.`)
-    .on(Register);

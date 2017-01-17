@@ -178,7 +178,7 @@ export const register = {
         return get(_getUrl(REGISTER_CONTROLLER, "GetSecurityQuestions"));
     },
     authorizeUser: function (uid) {
-        return post(_getUrl(REGISTER_CONTROLLER, "AuthorizeUser"), { authorizationId: uid });
+        return post(_getUrl(REGISTER_CONTROLLER, "AuthorizeUser"), { authorizationString: uid });
     },
     resendRegistrationEmail: function(emailAddress) {
         return post(_getUrl(REGISTER_CONTROLLER, "ResendRegistrationEmail"), { Email: emailAddress });

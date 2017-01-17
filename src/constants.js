@@ -15,9 +15,31 @@ let reponseStatuses = {
     notReporting: "Not Reporting",
     negative: "Negative",
     positive: "Positive",
-    deleted: "Deleted",
-    resolvedDispute: "Resolved Dispute",
-    openDispute: "Open Dispute"
+    deleted: "Deleted"
+};
+
+let _customerDisputeStatusIds = {
+    noDipsuteOpen: 1,
+    open: 2,
+    resolved: 3
+};
+
+let _customerDisputeStatuses = {
+    noDipsuteOpen: "No Dispute Open",
+    open: "Open Dispute",
+    resolved: "Resolved Dispute"
+};
+
+export const customerDisputeStatusIds = _customerDisputeStatusIds;
+
+export const customerDisputeStatuses = _customerDisputeStatuses;
+
+export const creditBureauStatusIds = {
+    na: 5,
+    notReporting: 1,
+    negative: 2,
+    positive: 3,
+    deleted: 4
 };
 
 export const creditBureauIds = {
@@ -57,7 +79,8 @@ export const phoneNumberTypeIds = {
 export const routes = {
     login: '/#/Login',
     manageCreditItems: '/#/Management/ManageCreditItems',
-    courses: '/#/Management/Courses'
+    courses: '/#/Management/Courses',
+    home: ''
 };
 
 export function getCreditBureauId(creditBureau) {
@@ -96,12 +119,9 @@ export function getCreditBureauResponseId(response) {
             return 3;
         case reponseStatuses.deleted:
             return 4;
-        case reponseStatuses.resolvedDispute:
-            return 5;
-        case reponseStatuses.openDispute:
-            return 6;
+        default:
         case reponseStatuses.na: // null
-            return 7;
+            return 5;
     }
 }
 
@@ -116,15 +136,38 @@ export function getCreditBureauResponseFromId(Id) {
             return 'Positive';
         case 4:
             return 'Deleted';
-        case 5:
-            return 'Resolved Dispute';
-        case 6:
-            return 'Open Dispute';
         default: // null
             return 'N/A';
     }
 }
 
-export function isCustomerDisputeReasonResponse(Id) {
-    return Id === 5 || Id === 6;
+export function getCustomerDisputeStatementStatusFromId(Id) {
+    switch (Id) {
+        case _customerDisputeStatusIds.noDipsuteOpen:
+            return _customerDisputeStatuses.noDipsuteOpen;
+        case _customerDisputeStatusIds.open:
+            return _customerDisputeStatuses.open;
+        case _customerDisputeStatusIds.resolved:
+            return  _customerDisputeStatuses.resolved;
+        default: // null
+            return 'N/A';
+    }
 }
+
+export function wasSentToCds(creditBureauEntry, creditBureauId) {
+
+    if (creditBureauEntry.CustomerDisputeStatementId == null) {
+        return false;
+    }
+
+    switch (creditBureauId) {
+        case creditBureauIds.transUnion:
+            return creditBureauEntry.CustomerDisputeStatement.TransUnionDisputeStatusId != _customerDisputeStatusIds.noDipsuteOpen;
+        case creditBureauIds.equifax:
+            return creditBureauEntry.CustomerDisputeStatement.EquifaxDisputeStatusId != _customerDisputeStatusIds.noDipsuteOpen;
+        case creditBureauIds.experian:
+            return creditBureauEntry.CustomerDisputeStatement.ExperianDisputeStatusId != _customerDisputeStatusIds.noDipsuteOpen;
+        default:
+            return false;
+    }
+};

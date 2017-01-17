@@ -72,23 +72,11 @@ export class AddNewCreditItemModal {
 
         this.model = model;
         this.sendToCdsTransUnion = false;
-        this.wasSentToCdsTransUnion = false;
+        this.wasSentToCdsTransUnion = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.transUnion);
         this.sendToCdsEquifax = false;
-        this.wasSentToCdsEquifax = false;
+        this.wasSentToCdsEquifax = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.equifax);
         this.sendToCdsExperian = false;
-        this.wasSentToCdsExperian = false;
-
-        if (!constants.isCustomerDisputeReasonResponse(model.creditItem.TransUnionResponseStatusId)) {
-            this.wasSentToCdsTransUnion = true;
-        }
-
-        if (!constants.isCustomerDisputeReasonResponse(model.creditItem.ExperianResponseStatusId)) {
-            this.wasSentToCdsExperian = true;
-        }
-
-        if (!constants.isCustomerDisputeReasonResponse(model.creditItem.EquifaxResponseStatusId)) {
-            this.wasSentToCdsEquifax = true;
-        }
+        this.wasSentToCdsExperian = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.experian);
 
         this.creditBureauStatuses = await lookup.getCreditBureauStatuses();
 
@@ -119,9 +107,10 @@ export class AddNewCreditItemModal {
 
         const that = this;
 
-        this.populateDisputeReasons(event.sender._old).then(response => {
+        this.populateDisputeReasons(event.sender._old).then((response) => {
+
             that.model.creditItem.Dispute = null;
-            that.model.creditItem.DisputeReasonId = 0;
+            that.model.creditItem.DisputeReasonId = response[0].Id;
             loadingScreen.hide();
         });
     }
@@ -144,14 +133,20 @@ export class AddNewCreditItemModal {
 
     populateDisputeReasons(adverseType) {
 
-        return lookup.getDisputeReasons(adverseType).then(response => {
+        return new Promise((resolve, reject) => {
+            lookup.getDisputeReasons(adverseType).then(response => {
 
-            const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
+                const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
 
-            if (!!element) {
-                element.dataSource.data(response.Data.result);
-                element.dataSource.transport.data = response.Data.result;
-            }
+                if (!!element) {
+                    element.dataSource.data(response.Data.result);
+                    element.dataSource.transport.data = response.Data.result;
+                }
+
+                resolve(response.Data.result);
+            }).catch((error) => { 
+                reject(error);
+            });
         });
     }
 
@@ -165,7 +160,7 @@ export class AddNewCreditItemModal {
 
         let creditBureaus = [];
         const that = this;
-// add status on CDS record for status, take it off of credit bureau entry..... maybe? Response status history table instead? I am thinking yes
+        // add status on CDS record for status, take it off of credit bureau entry..... maybe? Response status history table instead? I am thinking yes
         if (this.sendToCdsTransUnion) {
             creditBureaus.push(constants.creditBureauIds.transUnion);
         }

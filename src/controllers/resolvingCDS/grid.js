@@ -94,7 +94,7 @@ export class Grid {
 
             let mobileTemplate = kendo.template(getTemplateHtml("#mobile-cds-item")),
                 desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-cds-bureaus"));
-        
+
             if (that.table) {
 
                 if ($("#resolving-cds-table_wrapper").length === 0) {
@@ -163,7 +163,36 @@ export class Grid {
                             render: function (e) {
                                 try {
                                     const item = find(that.data, function (i) { return i.Id === e; });
-                                    const transUnionStatusId = item.TransUnionInitialStatusId == 1 ? item.TransUnionInitialStatusId : item.TransUnionResponseStatusId;
+                                    const getCreditBureauStatus = (creditBureauEntry, creditBureauId) => {
+
+                                        switch (creditBureauId) {
+                                            case constants.creditBureauIds.transUnion:
+
+                                                if (creditBureauEntry.TransUnionInitialStatusId == constants.creditBureauStatusIds.notReporting) {
+                                                    return constants.creditBureauStatuses.notReporting;
+                                                }
+
+                                                return constants.getCustomerDisputeStatementStatusFromId(creditBureauEntry.CustomerDisputeStatement.TransUnionDisputeStatusId);
+
+                                            case constants.creditBureauIds.equifax:
+
+                                                if (creditBureauEntry.EquifaxInitialStatusId == constants.creditBureauStatusIds.notReporting) {
+                                                    return constants.creditBureauStatuses.notReporting;
+                                                }
+
+                                                return constants.getCustomerDisputeStatementStatusFromId(creditBureauEntry.CustomerDisputeStatement.EquifaxDisputeStatusId);
+
+                                            case constants.creditBureauIds.experian:
+
+                                                if (creditBureauEntry.ExperianInitialStatusId == constants.creditBureauStatusIds.notReporting) {
+                                                    return constants.creditBureauStatuses.notReporting;
+                                                }
+
+                                                return constants.getCustomerDisputeStatementStatusFromId(creditBureauEntry.CustomerDisputeStatement.ExperianDisputeStatusId);
+                                            default:
+                                                return "";
+                                        };
+                                    };
                                     const model = {
                                         Id: item.Id,
                                         AccountNumber: item.AccountNumber,
@@ -171,11 +200,11 @@ export class Grid {
                                         IsTransUnionResolved: item.TransUnionResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
                                         IsEquifaxResolved: item.EquifaxResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
                                         IsExperianResolved: item.ExperianResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
-                                        TransUnionStatus: constants.getCreditBureauResponseFromId(transUnionStatusId),
+                                        TransUnionStatus: getCreditBureauStatus(item, constants.creditBureauIds.transUnion),
                                         TransUnionStatusDate: "",
-                                        EquifaxStatus: constants.getCreditBureauResponseFromId(item.EquifaxInitialStatusId == 1 ? item.EquifaxInitialStatusId : item.EquifaxResponseStatusId),
+                                        EquifaxStatus: getCreditBureauStatus(item, constants.creditBureauIds.equifax),
                                         EquifaxStatusDate: "",
-                                        ExperianStatus: constants.getCreditBureauResponseFromId(item.ExperianInitialStatusId == 1 ? item.ExperianInitialStatusId : item.ExperianResponseStatusId),
+                                        ExperianStatus: getCreditBureauStatus(item, constants.creditBureauIds.experian),
                                         ExperianStatusDate: "",
                                     };
 

@@ -194,45 +194,54 @@
             <div class="text-center send-to-cds-checkbox col-sm-4">
                 <div class="cds-label">TransUnion</div>
                 <div class="send-container">
-                    <input type="checkbox" if.bind="wasSentToCdsTransUnion" class="form-control" checked.bind="sendToCdsTransUnion"/>
-                    <label if.bind="wasSentToCdsTransUnion" >&nbsp;Send</label>
+                    <input type="checkbox" if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId !== 1" class="form-control"
+                        checked.bind="sendToCdsTransUnion" />
+                    <label if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId !== 1">&nbsp;Send</label>
                 </div>
-                <i if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId !== 1" class="fa fa-check fa-2x text-success"></i>
-                <span if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId !== 1" >&nbsp;Already Sent</span>
+                <i if.bind="wasSentToCdsTransUnion && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.TransUnionDisputeStatusId != 1"
+                    class="fa fa-check fa-2x text-success"></i>
+                <span if.bind="wasSentToCdsTransUnion && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.TransUnionDisputeStatusId != 1">&nbsp;Already Sent</span>
 
                 <i if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId === 1" class="fa fa-close fa-2x text-danger"></i>
-                <span if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId === 1" >&nbsp;Not Reporting</span>
+                <span if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId === 1">&nbsp;Not Reporting</span>
             </div>
+
             <div class="text-center send-to-cds-checkbox col-sm-4">
                 <div class="cds-label">Equifax</div>
                 <div class="send-container">
-                    <input type="checkbox" if.bind="wasSentToCdsEquifax" class="form-control" checked.bind="sendToCdsEquifax"/>
-                    <label if.bind="wasSentToCdsEquifax" >&nbsp;Send</label>
+                    <input type="checkbox" if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId !== 1" class="form-control"
+                        checked.bind="sendToCdsEquifax" />
+                    <label if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId !== 1">&nbsp;Send</label>
                 </div>
-                <i if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId !== 1" class="fa fa-check fa-2x text-success"></i>
-                <span if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId !== 1" >&nbsp;Already Sent</span>
+                <i if.bind="wasSentToCdsEquifax && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.EquifaxDisputeStatusId != 1"
+                    class="fa fa-check fa-2x text-success"></i>
+                <span if.bind="wasSentToCdsEquifax && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.EquifaxDisputeStatusId != 1">&nbsp;Already Sent</span>
 
                 <i if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId === 1" class="fa fa-close fa-2x text-danger"></i>
-                <span if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId === 1" >&nbsp;Not Reporting</span>
+                <span if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId === 1">&nbsp;Not Reporting</span>
             </div>
+
             <div class="text-center send-to-cds-checkbox col-sm-4">
                 <div class="cds-label">Experian</div>
                 <div class="send-container">
-                    <input type="checkbox" if.bind="wasSentToCdsExperian" class="form-control" checked.bind="sendToCdsExperian"/>
-                    <label if.bind="wasSentToCdsExperian" >&nbsp;Send</label>
+                    <input type="checkbox" if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId !== 1" class="form-control"
+                        checked.bind="sendToCdsExperian" />
+                    <label if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId !== 1">&nbsp;Send</label>
                 </div>
-                <i if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId !== 1" class="fa fa-check fa-2x text-success"></i>
-                <span if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId !== 1" >&nbsp;Already Sent</span>
+                <i if.bind="wasSentToCdsExperian && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.ExperianDisputeStatusId != 1"
+                    class="fa fa-check fa-2x text-success"></i>
+                <span if.bind="wasSentToCdsExperian && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.ExperianDisputeStatusId != 1">&nbsp;Already Sent</span>
 
                 <i if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId === 1" class="fa fa-close fa-2x text-danger"></i>
-                <span if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId === 1" >&nbsp;Not Reporting</span>
+                <span if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId === 1">&nbsp;Not Reporting</span>
             </div>
         </div>
     </div>
 </ai-dialog-body>
 <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sendingToCds }">
     <button type="button" class="btn btn-danger pull-left" click.delegate="backToAddEdit()"><i class="fa fa-backward"></i>&nbsp;Back</button>
-    <button type="button" class="btn btn-success pull-right" if.bind="sendToCdsTransUnion || sendToCdsEquifax || sendToCdsExperian" click.delegate="sendToCds()"><i class="fa fa-send"></i>&nbsp;Send</button>
+    <button type="button" class="btn btn-success pull-right" if.bind="sendToCdsTransUnion || sendToCdsEquifax || sendToCdsExperian"
+        click.delegate="sendToCds()"><i class="fa fa-send"></i>&nbsp;Send</button>
 </ai-dialog-footer>
 
 <ai-dialog-body css.bind="{ display:model.display.sentToCds }">
@@ -246,7 +255,7 @@
         </div>
     </div>
 </ai-dialog-body>
-<ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.sentToCds }">
+<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sentToCds }">
     <button type="button" class="btn btn-success pull-right" click.delegate="controller.ok()"><i class="fa fa-check"></i>&nbsp;Done</button>
 </ai-dialog-footer>
 
@@ -261,7 +270,7 @@
         </div>
     </div>
 </ai-dialog-body>
-<ai-dialog-footer class="modal-footer"  css.bind="{ display:model.display.errorSendingToCds }">
+<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.errorSendingToCds }">
     <button type="button" class="btn btn-danger pull-left" click.delegate="showSendToCds()"><i class="fa fa-check"></i>&nbsp;Back</button>
 </ai-dialog-footer>
 </ai-dialog>
