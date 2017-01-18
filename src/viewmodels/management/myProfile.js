@@ -55,7 +55,10 @@ export class MyProfile {
         securityQuestionTwoId: 2,
         display: {
           editQuestions: hasSecurityQuestions ? "" : "none",
-          addQuestions: hasSecurityQuestions ? "none" : ""
+          addQuestions: hasSecurityQuestions ? "none" : "",
+          questions: "",
+          success: "none",
+          fail: "none"
         },
         securityAnswerOne: membership.SecurityAnswerOne,
         securityAnswerTwo: membership.SecurityAnswerTwo

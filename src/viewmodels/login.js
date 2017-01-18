@@ -61,7 +61,7 @@ export class Login {
     }
 
     forgotUsername() {
-        
+
         const modalModel = {
             emailAddress: this.username,
             display: {
@@ -85,48 +85,46 @@ export class Login {
 
             loadingScreen.show();
 
-            login(this.username, this.password, this.rememberMe)
-                .then(response => {
+            login(this.username, this.password, this.rememberMe).then(response => {
 
-                    rememberDevice(that.username);
-                    setToken(response.token, response.firstName, response.addressCompletedDateTime);
-                    window.location.href = routes.manageCreditItems;
+                rememberDevice(that.username);
+                setToken(response.token, response.firstName, response.addressCompletedDateTime);
+                window.location.href = routes.manageCreditItems;
 
-                })
-                .catch((result) => {
+            }).catch((result) => {
 
-                    switch (result) {
-                        default:
-                        case loginResults.failed:
-                            that.loginMessage = "Username or password incorrect.";
-                            that.loginMessageDisplay = "block";
-                            break;
-                        case loginResults.lockedOut:
-                            that.loginMessage = "Account is locked.";
-                            that.loginMessageDisplay = "block";
-                            break;
-                        case loginResults.requiresVerification:
+                switch (result) {
+                    default:
+                    case loginResults.failed:
+                        that.loginMessage = "Username or password incorrect.";
+                        that.loginMessageDisplay = "block";
+                        break;
+                    case loginResults.lockedOut:
+                        that.loginMessage = "Account is locked.";
+                        that.loginMessageDisplay = "block";
+                        break;
+                    case loginResults.requiresVerification:
 
-                            break;
-                        case loginResults.hasTemporaryPassword:
+                        break;
+                    case loginResults.hasTemporaryPassword:
 
-                            break;
-                        case loginResults.requiresDeviceVerification:
+                        break;
+                    case loginResults.requiresDeviceVerification:
 
-                            account.sendAuthorizationCode(that.username);
+                        account.sendAuthorizationCode(that.username);
 
-                            const modalModel = { title: "Device Verification Required", message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." };
+                        const modalModel = { title: "Device Verification Required", message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." };
 
-                            that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {
-                                that.pinDisplay = "";
-                                that.loginDisplay = "none";
-                            });
-                            break;
-                    }
+                        that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {
+                            that.pinDisplay = "";
+                            that.loginDisplay = "none";
+                        });
+                        break;
+                }
 
-                }).finally(() => {
-                    loadingScreen.hide();
-                });
+            }).finally(() => {
+                loadingScreen.hide();
+            });
 
         }).catch(() => {
 

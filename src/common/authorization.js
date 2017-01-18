@@ -71,3 +71,29 @@ export function logout() {
     loginFunctions(1000).removeToken();
     window.location = "";
 }
+
+export function getClaims(token) {
+
+    const base64UrlDecode = (payload) => {
+
+        payload = payload.replace(new RegExp('-', 'g'), '+');
+        payload = payload.replace(new RegExp('_', 'g'), '/');
+
+        switch (payload.length % 4) {
+            case 0:
+                break; // No pad chars in this case
+            case 2:
+                payload += "==";
+                break; // Two pad chars
+            case 3:
+                payload += "=";
+                break; // One pad char
+            default:
+                throw new Exception("Illegal base64url string!");
+        };
+
+        return atob(payload);
+    };
+    var parts = token.split('.');
+    return JSON.parse(base64UrlDecode(parts[1]));
+}

@@ -84,6 +84,14 @@ export const lookup = {
 
 export const account = {
 
+    saveSecurityQuestions: function(payload) {
+        return post(_getUrl(ACCOUNT_CONTROLLER, "SaveSecurityQuestions"), { 
+            securityQuestionOneId: payload.securityQuestionOneId,
+            securityQuestionTwoId: payload.securityQuestionTwoId,
+            securityAnswerOne: payload.securityAnswerOne,
+            securityAnswerTwo: payload.securityAnswerTwo
+        });
+    },
     canAccessManagementPages: function () {
         return post(_getUrl(ACCOUNT_CONTROLLER, "CanAccessManagementPages"));
     },
