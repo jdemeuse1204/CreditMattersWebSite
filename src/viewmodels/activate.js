@@ -3,7 +3,7 @@ import { inject } from 'aurelia-dependency-injection';
 import { DialogService } from 'aurelia-dialog';
 import { register } from '../common/repository';
 import * as loadingScreen from '../common/loadingScreen';
-import { login, rememberDevice, setToken } from '../common/authorization';
+import { setAuthorizationToken } from '../common/authorization';
 import { loginResults, routes } from '../constants';
 
 @useView('../views/activate.html')
@@ -53,8 +53,7 @@ export class Activate {
 
         promise.then((response) => {
 
-            rememberDevice(response.Username);
-            setToken(response.Token, response.FirstName, response.AddressCompleteDateTime);
+            setAuthorizationToken(response.Token);
             
             modalModel.display.fail = "none";
             modalModel.display.success = "";

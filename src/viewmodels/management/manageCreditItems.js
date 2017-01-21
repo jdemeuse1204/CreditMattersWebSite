@@ -26,6 +26,10 @@ export class ManageCreditItems {
         loadingScreen.show();
 
         this.grid.load().then(() => {
+
+        }).catch(error => {
+            
+        }).finally(() => {
             loadingScreen.hide();
         });
     }
@@ -63,7 +67,7 @@ export class ManageCreditItems {
         }).then(response => {
 
             if (response.wasCancelled === false) {
-               
+
             }
         }).catch(error => {
 

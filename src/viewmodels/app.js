@@ -39,7 +39,7 @@ export class App {
       { route: 'Management/ExperianCreditItems', name: 'ExperianCreditItems', moduleId: './management/experianCreditItems', nav: true, title: 'Experian Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
     ]);
 
-    config.mapUnknownRoutes('Home');
+    config.mapUnknownRoutes('./home');
     config.fallbackRoute('Error');
     this.router = router;
   }
@@ -54,11 +54,11 @@ class AuthorizeStep {
 
         return account.canAccessManagementPages().then((response) => {
 
-          if (response.Data.success === true) {
+          if (!!response && response.Data.success === true) {
             return next();
           }
 
-          return next.cancel(new Redirect(routes.login));
+          return next.cancel(new Redirect('Login'));
         });
       }
 

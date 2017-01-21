@@ -1,0 +1,33 @@
+<template>
+    <ai-dialog class="modal-dialog modal-md">
+        <ai-dialog-body>
+            <div class="cm-modal-header">
+                <h2>Change Two Factor Authorization</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                    <p>Two factor authorization helps keep unwanted users from accessing your account. When Credit Matters detects
+                        a device you are using for the first time, you will need your password along with an PIN
+                        number. The PIN is emailed to you upon logging in. You will not be able to access your account until
+                        the PIN number is verified. Once verified, you will not need to verify your device again unless you
+                        have token expiration turned on. </p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="button" if.bind="!model.isTwoFactorAuthEnabled" class="btn btn-success" click.trigger="toggle()"><i class="fa fa-shield"></i>&nbsp;Turn On</button>
+                        <button type="button" if.bind="model.isTwoFactorAuthEnabled" class="btn btn-danger" click.trigger="toggle()"><i class="fa fa-power-off"></i>&nbsp;Turn Off</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" value.bind="model.twoFactorAuthTimeOut" if.bind="model.isTwoFactorAuthEnabled">
+                            <option repeat.for="item of deviceExpirationLimits" selected.bind="model.twoFactorAuthTimeOut" model.bind="item.limit">${item.name}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <button type="button" class="btn btn-success pull-right" click.trigger="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

@@ -9,17 +9,8 @@
                 <p>${model.message}</p>
             </div>
         </ai-dialog-body>
-        <ai-dialog-footer css.bind="{display:model.display.default}">
+        <ai-dialog-footer>
             <button type="button" class="btn btn-primary pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
-        </ai-dialog-footer>
-        <ai-dialog-footer css.bind="{display:model.display.alreadyRegistered}">
-            <button type="button" class="btn btn-primary pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
-            <button type="button" class="btn btn-default pull-left" click.trigger="login()"><i class="fa fa-sign-in"></i>&nbsp;Login</button>
-            <button type="button" class="btn btn-warning pull-left" click.trigger="recoverPassword()"><i class="fa fa-lock"></i>&nbsp;Recover Password</button>
-        </ai-dialog-footer>
-        <ai-dialog-footer css.bind="{display:model.display.resendAuthorization}">
-            <button type="button" class="btn btn-primary pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
-            <button type="button" class="btn btn-warning pull-left" click.trigger="resendAuthorizationEmail()"><i class="fa fa-envelope-o"></i>&nbsp;Resend Authorization Email</button>
         </ai-dialog-footer>
     </ai-dialog>
 </template>

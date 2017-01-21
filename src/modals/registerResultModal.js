@@ -2,7 +2,7 @@ import { inject } from 'aurelia-dependency-injection';
 import {DialogController} from 'aurelia-dialog';
 
 @inject(DialogController)
-export class Confirm {
+export class RegisterResultModal {
 
     controller = null;
     model = null;
@@ -13,5 +13,17 @@ export class Confirm {
 
     activate(model) {
         this.model = model
+    }
+
+    login() {
+        window.location = "#/Login"
+    }
+
+    recoverPassword() {
+
+    }
+
+    resendAuthorizationEmail() {
+        
     }
 }

@@ -112,4 +112,31 @@ export class MyProfile {
 
     });
   }
+
+  editTwoFactorAuthentication() {
+
+    loadingScreen.show();
+
+    account.getUserMembership().then((response) => {
+
+      const membership = response.Data.result;
+      const modalModel = {
+        isTwoFactorAuthEnabled: membership.Has2FAEnabled,
+        twoFactorAuthTimeOut: membership.TwoFactorAuthorizationTimeOut
+      };
+
+      this.dialogService.open({
+        viewModel: 'modals/editTwoFactorAuthModal',
+        model: modalModel
+      }).then(response => {
+
+
+      }).catch(error => {
+
+      });
+
+    }).catch(() => { }).finally(() => {
+      loadingScreen.hide();
+    });
+  }
 }

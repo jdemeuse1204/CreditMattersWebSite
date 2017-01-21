@@ -7,8 +7,8 @@ import creditBureau from "../models/creditBureau";
 import creditBureauStatus from "../models/creditBureauStatus";
 import * as constants from "../constants";
 import { post, get } from "./webApi";
-import loginFunctions from "./loginFunctions";
 import { createKendoDataSource } from "../common/webApi";
+import { getDeviceAuthorizationToken } from '../common/authorization';
 
 const LOOKUP_CONTROLLER = "Lookup";
 const ACCOUNT_CONTROLLER = "Account";
@@ -84,22 +84,28 @@ export const lookup = {
 
 export const account = {
 
-    saveSecurityQuestions: function(payload) {
-        return post(_getUrl(ACCOUNT_CONTROLLER, "SaveSecurityQuestions"), { 
+    saveSecurityQuestions: function (payload) {
+        return post(_getUrl(ACCOUNT_CONTROLLER, "SaveSecurityQuestions"), {
             securityQuestionOneId: payload.securityQuestionOneId,
             securityQuestionTwoId: payload.securityQuestionTwoId,
             securityAnswerOne: payload.securityAnswerOne,
             securityAnswerTwo: payload.securityAnswerTwo
         });
     },
+    enableTwoFactorAuthentication: function(timeOut) {
+        return post(_getUrl(ACCOUNT_CONTROLLER, "EnableTwoFactorAuthentication"), { timeOut: timeOut });
+    },
+    disableTwoFactorAuthentication: function() {
+        return post(_getUrl(ACCOUNT_CONTROLLER, "DisableTwoFactorAuthentication"));
+    },
     canAccessManagementPages: function () {
-        return post(_getUrl(ACCOUNT_CONTROLLER, "CanAccessManagementPages"));
+        return post(_getUrl(ACCOUNT_CONTROLLER, "CanAccessManagementPages"), null, { shouldRedirect: false });
     },
     sendAuthorizationCode: function (username) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "SendDeviceAuthorizationCode"), { username: username });
     },
     login: function (username, password) {
-        return post(_getUrl(ACCOUNT_CONTROLLER, "Login"), { username: username, password: password });
+        return post(_getUrl(ACCOUNT_CONTROLLER, "Login"), { username: username, password: password }, { addCustomClaimsCallback: addCustomClaimsCallback });
     },
     trySendResetPasswordEmail: function (username, securityAnswerOne, securityAnswerTwo) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "TrySendResetPasswordEmail"),
@@ -116,7 +122,7 @@ export const account = {
         return post(_getUrl(ACCOUNT_CONTROLLER, "IsUidValid"), { Uid: uid });
     },
     verifyVerificationCode: function (username, password, code) {
-        return post(_getUrl(ACCOUNT_CONTROLLER, "VerifyVerificationCode"), { Username: username, Password: password, PIN: code });
+        return post(_getUrl(ACCOUNT_CONTROLLER, "VerifyVerificationCode"), { Username: username, Password: password, PIN: code }, { addCustomClaimsCallback: addCustomClaimsCallback });
     },
     getUserMembership: function () {
         return post(_getUrl(ACCOUNT_CONTROLLER, "GetUserMembership"));
@@ -188,7 +194,7 @@ export const register = {
     authorizeUser: function (uid) {
         return post(_getUrl(REGISTER_CONTROLLER, "AuthorizeUser"), { authorizationString: uid });
     },
-    resendRegistrationEmail: function(emailAddress) {
+    resendRegistrationEmail: function (emailAddress) {
         return post(_getUrl(REGISTER_CONTROLLER, "ResendRegistrationEmail"), { Email: emailAddress });
     }
 };
@@ -200,8 +206,8 @@ export const management = {
         return post(_getUrl(MANAGEMENT_CONTROLLER, "SaveCreditItem"), creditItem);
     },
     sendToCds: function (creditItemId, creditBureauIds) {
-        
-        return post(_getUrl(MANAGEMENT_CONTROLLER, "SendToCds"), { 
+
+        return post(_getUrl(MANAGEMENT_CONTROLLER, "SendToCds"), {
             creditBureaus: creditBureauIds,
             creditItemId: creditItemId
         });
@@ -209,10 +215,10 @@ export const management = {
     getCreditItems: function (creditBureau) {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItems"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
-    getCreditItemsThatNeedDisputeReasonAcceptance: function(creditBureau) {
+    getCreditItemsThatNeedDisputeReasonAcceptance: function (creditBureau) {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCreditItemsThatNeedDisputeReasonAcceptance"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
-    getCustomerDisputeStatements: function() {
+    getCustomerDisputeStatements: function () {
         return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCustomerDisputeStatements"), { bureau: constants.getCreditBureauId(creditBureau) });
     },
     getCreditItem: function (id) {
@@ -269,3 +275,15 @@ export const management = {
         }
     }
 };
+
+function addCustomClaimsCallback(headersObject) {
+    if (!headersObject.headers) {
+        headersObject.headers = {};
+    }
+
+    var token = getDeviceAuthorizationToken() || "";
+
+    headersObject.headers['Two-Factor-Auth'] = `Bearer${token}`;
+
+    return headersObject;
+}

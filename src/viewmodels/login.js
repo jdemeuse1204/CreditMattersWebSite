@@ -4,7 +4,7 @@ import { inject } from 'aurelia-dependency-injection';
 import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { CMRenderer } from '../common/cmRenderer';
 import { validate } from '../common/cmValidate';
-import { login, rememberDevice, setToken } from '../common/authorization';
+import * as authorization from '../common/authorization';
 import { loginResults, routes } from '../constants';
 import { account } from '../common/repository';
 import * as loadingScreen from "../common/loadingScreen";
@@ -85,10 +85,9 @@ export class Login {
 
             loadingScreen.show();
 
-            login(this.username, this.password, this.rememberMe).then(response => {
+            authorization.login(this.username, this.password, this.rememberMe).then(response => {
 
-                rememberDevice(that.username);
-                setToken(response.token, response.firstName, response.addressCompletedDateTime);
+                authorization.setAuthorizationToken(response.token);
                 window.location.href = routes.manageCreditItems;
 
             }).catch((result) => {
@@ -113,7 +112,10 @@ export class Login {
 
                         account.sendAuthorizationCode(that.username);
 
-                        const modalModel = { title: "Device Verification Required", message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." };
+                        const modalModel = { 
+                            title: "Device Verification Required", 
+                            message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." 
+                        };
 
                         that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {
                             that.pinDisplay = "";
@@ -139,12 +141,14 @@ export class Login {
 
         validate(this.controller).then(() => {
 
+            loadingScreen.show();
+
             account.verifyVerificationCode(this.username, this.password, this.pin).then(response => {
 
                 if (response.Data.result.Success === true) {
 
-                    rememberDevice(that.username);
-                    setToken(response.Data.result.Token, response.Data.result.FirstName, response.Data.result.AddressCompletedDateTime);
+                    authorization.setDeviceAuthorizationToken(response.Data.result.DeviceAuthorizationToken);
+                    authorization.setAuthorizationToken(response.Data.result.Token);
                     window.location.href = routes.manageCreditItems;
 
                     return;
@@ -152,6 +156,8 @@ export class Login {
 
                 that.loginMessage = "PIN incorrect";
                 that.loginMessageDisplay = "block";
+            }).finally(() => {
+                loadingScreen.hide();
             });
 
         });

@@ -1,8 +1,8 @@
 import { account } from '../../common/repository';
-import {logout, getClaims} from '../../common/authorization';
+import {logout, getClaims,getAuthorizationToken} from '../../common/authorization';
 import drawer from '../../common/drawer';
 import {useView} from 'aurelia-framework';
-import loginFunctions from "../../common/loginFunctions";
+import { routes } from '../../constants';
 
 
 @useView('../views/layouts/layout.html')
@@ -16,7 +16,7 @@ export class Layout {
     }
 
     activate() {
-        const result = loginFunctions(1000).getToken();
+        const result = getAuthorizationToken();
 
         if (!!result && !!result.token) {
 
@@ -32,6 +32,7 @@ export class Layout {
 
     logout() {
         logout();
+        window.location.href = routes.home;
     }
 
     drawerNavigate() {

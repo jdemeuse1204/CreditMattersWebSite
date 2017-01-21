@@ -1,6 +1,9 @@
 import { account } from './repository';
 import { loginResults } from '../constants';
-import loginFunctions from './loginFunctions';
+import moment from "moment";
+import { isEmpty } from 'lodash';
+import ls from "./localStorage";
+import * as environment from '../environment';
 
 export function login(username, password, rememberMe = false) {
 
@@ -11,12 +14,9 @@ export function login(username, password, rememberMe = false) {
             switch (data.Data.result.SignInStatus) {
                 case 0: // Success
                     processLogin(data.Data.result.Token,
-                        data.Data.result.FirstName,
-                        data.Data.result.AddressCompleteDateTime,
                         rememberMe,
                         username,
-                        resolve,
-                        reject);
+                        resolve);
                     break;
                 default:
                 case 1: // Fail
@@ -31,45 +31,69 @@ export function login(username, password, rememberMe = false) {
                 case 4: // Has Temporary Password
                     reject(loginResults.hasTemporaryPassword);
                     break;
+                case 5: // Needs 2FA Verification
+                    reject(loginResults.requiresDeviceVerification);
+                    break;
             }
         });
     });
 }
 
-export function rememberDevice(username) {
-    loginFunctions(1000).rememberDevice(username);
+export function setAuthorizationToken(token) {
+    ls.set(token, environment.authorizationTokenKey);
 }
 
-export function setToken(token, firstName, addressCompletedDateTime) {
-    loginFunctions(1000).setToken(token, firstName, addressCompletedDateTime);
+export function getAuthorizationToken() {
+
+    try {
+
+        const token = ls.get(environment.authorizationTokenKey);
+
+        if (isEmpty(token)) {
+            return "";
+        }
+        return token;
+    } catch (error) {
+        return "";
+    }
 }
 
-function processLogin(token, firstName, addressCompletedDateTime, rememberMe, username, resolve, reject) {
+export function setDeviceAuthorizationToken(token) {
+    ls.set(token, environment.deviceTokenKey);
+}
 
-    if (rememberMe) {
-        loginFunctions(1000).setRememberedUsername(username);
+export function getDeviceAuthorizationToken(token) {
+
+    try {
+
+        const token = ls.get(environment.deviceTokenKey);
+
+        if (isEmpty(token)) {
+            return "";
+        }
+        return token;
+    } catch (error) {
+        return "";
+    }
+}
+
+function processLogin(token, rememberMe, username, resolve) {
+
+    if (rememberMe === true) {
+        setRememberedUsername(username);
     } else {
         // forget the user
-        loginFunctions(1000).forgetRememberedUser();
-    }
-
-    // const deviceNeedsAuthorization = loginFunctions(1000).deviceNeedsAuthorization(username);
-    const deviceNeedsAuthorization = false;
-    if (deviceNeedsAuthorization === true) {
-        reject(loginResults.requiresDeviceVerification);
+        forgetRememberedUser();
     }
 
     resolve({
         message: loginResults.success,
-        token: token,
-        firstName: firstName,
-        addressCompletedDateTime: addressCompletedDateTime
+        token: token
     });
 }
 
 export function logout() {
-    loginFunctions(1000).removeToken();
-    window.location = "";
+    ls.remove(environment.authorizationTokenKey);
 }
 
 export function getClaims(token) {
@@ -96,4 +120,23 @@ export function getClaims(token) {
     };
     var parts = token.split('.');
     return JSON.parse(base64UrlDecode(parts[1]));
+}
+
+export function setRememberedUsername(username) {
+    ls.set(username, environment.rememberMeKey);
+}
+
+export function getRememberedUsername() {
+
+    const username = ls.get(environment.rememberMeKey);
+
+    if (isEmpty(username)) {
+        return "";
+    }
+
+    return username;
+}
+
+export function forgetRememberedUser() {
+    ls.remove(environment.rememberMeKey);
 }

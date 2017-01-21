@@ -71,7 +71,7 @@ export class Register {
 
                     if (response.Data.result.registrationResult === 3) {
 
-                        that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel })
+                        that.dialogService.open({ viewModel: 'modals/registerResultModal', model: modalModel })
                             .then(response => {
 
                                 that.password = "";
@@ -110,7 +110,7 @@ export class Register {
 
                     }
 
-                    that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel })
+                    that.dialogService.open({ viewModel: 'modals/registerResultModal', model: modalModel })
                         .then(response => {
 
                             that.password = "";
