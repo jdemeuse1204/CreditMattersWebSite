@@ -122,7 +122,11 @@ export class MyProfile {
       const membership = response.Data.result;
       const modalModel = {
         isTwoFactorAuthEnabled: membership.Has2FAEnabled,
-        twoFactorAuthTimeOut: membership.TwoFactorAuthorizationTimeOut
+        twoFactorAuthTimeOut: membership.TwoFactorAuthorizationTimeOut,
+        display: {
+          edit: "",
+          done: "none"
+        }
       };
 
       this.dialogService.open({
@@ -137,6 +141,19 @@ export class MyProfile {
 
     }).catch(() => { }).finally(() => {
       loadingScreen.hide();
+    });
+  }
+
+  changePassword() {
+
+    this.dialogService.open({
+      viewModel: 'modals/changePasswordModal',
+      model: {}
+    }).then(response => {
+
+
+    }).catch(error => {
+
     });
   }
 }

@@ -45,8 +45,8 @@
                 </div>
                 <div class="profile-card-body">
                     <ul>
-                        <li>
-                            <i class="fa fa-shield"></i>&emsp;Change Password
+                        <li click.delegate="changePassword()">
+                            <i class="fa fa-lock"></i>&emsp;Change Password
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </li>
                         <li>
@@ -54,7 +54,7 @@
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </li>
                         <li click.delegate="editTwoFactorAuthentication()">
-                            <i class="fa fa-lock"></i>&emsp;Two Factor Authentication
+                            <i class="fa fa-shield"></i>&emsp;Two Factor Authentication
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </li>
                         <li click.delegate="editSecurityQuestions()">

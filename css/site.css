@@ -373,6 +373,9 @@ input[type='search'] {
 .window {
   min-height: 100%;
 }
+select.form-control {
+  border-radius: 0;
+}
 .phone-number {
   width: 190px;
 }
@@ -1977,4 +1980,8 @@ ai-dialog ai-dialog-footer {
   background: linear-gradient(-180deg, rgba(0, 33, 15, 0.7) 0, rgba(0, 33, 15, 0.7) 100%), url(/Content/images/download.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+}
+#change-password-modal .row {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

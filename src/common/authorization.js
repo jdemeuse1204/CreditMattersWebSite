@@ -77,21 +77,6 @@ export function getDeviceAuthorizationToken(token) {
     }
 }
 
-function processLogin(token, rememberMe, username, resolve) {
-
-    if (rememberMe === true) {
-        setRememberedUsername(username);
-    } else {
-        // forget the user
-        forgetRememberedUser();
-    }
-
-    resolve({
-        message: loginResults.success,
-        token: token
-    });
-}
-
 export function logout() {
     ls.remove(environment.authorizationTokenKey);
 }
@@ -139,4 +124,35 @@ export function getRememberedUsername() {
 
 export function forgetRememberedUser() {
     ls.remove(environment.rememberMeKey);
+}
+
+export function cleanAuthorizationToken() {
+    const authToken = getAuthorizationToken();
+
+    if (!!authToken && authToken.split('.').length != 3) {
+        ls.remove(environment.authorizationTokenKey);
+    }
+}
+
+export function cleanDeviceToken() {
+    const deviceToken = getDeviceAuthorizationToken();
+
+    if (!!deviceToken && deviceToken.split('.').length != 3) {
+        ls.remove(environment.deviceTokenKey);
+    }
+}
+
+function processLogin(token, rememberMe, username, resolve) {
+
+    if (rememberMe === true) {
+        setRememberedUsername(username);
+    } else {
+        // forget the user
+        forgetRememberedUser();
+    }
+
+    resolve({
+        message: loginResults.success,
+        token: token
+    });
 }

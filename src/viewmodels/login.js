@@ -39,6 +39,9 @@ export class Login {
         this.controller.addRenderer(new CMRenderer());
         this.dialogService = dialogService;
 
+        // clean tokens in case they are malformed
+        authorization.cleanDeviceToken();
+        authorization.cleanAuthorizationToken();
     }
 
     clearLoginMessage() {
@@ -112,9 +115,9 @@ export class Login {
 
                         account.sendAuthorizationCode(that.username);
 
-                        const modalModel = { 
-                            title: "Device Verification Required", 
-                            message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in." 
+                        const modalModel = {
+                            title: "Device Verification Required",
+                            message: "It looks like you are logging in with this device for the first time.  For your security, we sent you an email with instructions on verifying this device before your are able to log in."
                         };
 
                         that.dialogService.open({ viewModel: 'modals/confirm', model: modalModel }).then(response => {

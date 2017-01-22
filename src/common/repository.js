@@ -92,6 +92,12 @@ export const account = {
             securityAnswerTwo: payload.securityAnswerTwo
         });
     },
+    changePassword: function(oldPassword, newPassword) {
+        return post(_getUrl(ACCOUNT_CONTROLLER, "ChangePassword"), { 
+            OldPassword: oldPassword,
+            NewPassword: newPassword
+        });
+    },
     enableTwoFactorAuthentication: function(timeOut) {
         return post(_getUrl(ACCOUNT_CONTROLLER, "EnableTwoFactorAuthentication"), { timeOut: timeOut });
     },

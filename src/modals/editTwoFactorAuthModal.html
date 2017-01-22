@@ -1,6 +1,6 @@
 <template>
     <ai-dialog class="modal-dialog modal-md">
-        <ai-dialog-body>
+        <ai-dialog-body css.bind="{display:model.display.edit}">
             <div class="cm-modal-header">
                 <h2>Change Two Factor Authorization</h2>
                 <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
@@ -26,8 +26,22 @@
                 </div>
             </div>
         </ai-dialog-body>
-        <ai-dialog-footer>
+        <ai-dialog-body css.bind="{display:model.display.done}">
+            <div class="cm-modal-header">
+                <h2>${title}</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                    <p>${message}</p>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer css.bind="{display:model.display.edit}">
             <button type="button" class="btn btn-success pull-right" click.trigger="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+        </ai-dialog-footer>
+        <ai-dialog-footer css.bind="{display:model.display.done}">
+            <button type="button" class="btn btn-primary pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Done</button>
         </ai-dialog-footer>
     </ai-dialog>
 </template>

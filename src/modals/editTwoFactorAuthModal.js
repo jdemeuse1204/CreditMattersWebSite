@@ -9,6 +9,8 @@ export class EditTwoFactorAuthModal {
 
     controller = null;
     model = null;
+    title = "";
+    message = "";
     deviceExpirationLimits = [{ limit: 30, default: false, name: "30 Days" },
     { limit: 60, default: false, name: "60 Days" },
     { limit: 90, default: false, name: "90 Days" },
@@ -38,6 +40,7 @@ export class EditTwoFactorAuthModal {
     save() {
 
         loadingScreen.show();
+        const that = this;
 
         if (this.model.isTwoFactorAuthEnabled === true) {
 
@@ -45,9 +48,14 @@ export class EditTwoFactorAuthModal {
 
                 if (response.Data.success === true) {
                     setDeviceAuthorizationToken(response.Data.result.DeviceAuthorizationToken);
+                    that.settingsChangedSuccessfully(that);
+                } else {
+                    that.errorChangingSettings(that);
                 }
 
-            }).catch(() => { }).finally(() => {
+            }).catch(() => {
+                that.errorChangingSettings(that);
+            }).finally(() => {
                 loadingScreen.hide();
             });
             return;
@@ -57,10 +65,29 @@ export class EditTwoFactorAuthModal {
 
             if (response.Data.success === true) {
                 setDeviceAuthorizationToken(response.Data.result.DeviceAuthorizationToken);
+                that.settingsChangedSuccessfully(that);
+            } else {
+                that.errorChangingSettings(that);
             }
 
-        }).catch(() => { }).finally(() => {
+        }).catch(() => { 
+            that.errorChangingSettings(that);
+        }).finally(() => {
             loadingScreen.hide();
         });
+    }
+
+    errorChangingSettings(scope) {
+        scope.model.display.done = "";
+        scope.model.display.edit = "none";
+        scope.message = "Unable to change two factor authorization settings.";
+        scope.title = "Error";
+    }
+
+    settingsChangedSuccessfully(scope) {
+        scope.model.display.done = "";
+        scope.model.display.edit = "none";
+        scope.message = "Two factor authorization settings successfully changed.";
+        scope.title = "Success";
     }
 }

@@ -1,28 +1,31 @@
 import { account } from '../../common/repository';
-import {logout, getClaims,getAuthorizationToken} from '../../common/authorization';
+import { logout, getClaims, getAuthorizationToken } from '../../common/authorization';
 import drawer from '../../common/drawer';
-import {useView} from 'aurelia-framework';
+import { useView } from 'aurelia-framework';
 import { routes } from '../../constants';
-
+import ls from '../../common/localStorage';
 
 @useView('../views/layouts/layout.html')
 export class Layout {
 
     firstName = "";
     accountType = "Free Trial";
+    profileStatus = "";
 
     constructor() {
-        
+
     }
 
     activate() {
-        const result = getAuthorizationToken();
 
-        if (!!result && !!result.token) {
+        const token = getAuthorizationToken();
 
-            const claims = getClaims(result.token);
+        if (!!token) {
 
+            const claims = getClaims(token);
             this.firstName = claims.usr;
+            
+            // get profile status
         }
     }
 
@@ -36,6 +39,6 @@ export class Layout {
     }
 
     drawerNavigate() {
-       
+
     }
 }
