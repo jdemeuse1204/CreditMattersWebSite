@@ -40,7 +40,7 @@ export class App {
     ]);
 
     config.mapUnknownRoutes('./home');
-    config.fallbackRoute('Error');
+    config.fallbackRoute('./error');
     this.router = router;
   }
 }

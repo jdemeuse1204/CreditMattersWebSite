@@ -17,7 +17,7 @@ export class Home {
 
         account.isUserAuthorized().done((response) => {
 
-            if (isEmpty(response.Data.result.Token)) {
+            if (!!response && isEmpty(response.Data.result.Token)) {
                 this.loginDisplay = "block";
                 this.dashboardDisplay = "none";
                 return;
