@@ -2,7 +2,7 @@
     <require from="aurelia-kendoui-bridge/dropdownlist/dropdownlist"></require>
     <require from="aurelia-kendoui-bridge/autocomplete/autocomplete"></require>
     <require from="aurelia-kendoui-bridge/common/template"></require>
-    <require from="../customElements/input-validation.html"></require>
+    <require from="../customElements/c-input-validation.html"></require>
 
     <ai-dialog class="modal-dialog modal-md" id="manage-credit-items-item-modal">
         <ai-dialog-body css.bind="{ display:model.display.addEdit }">
@@ -14,12 +14,7 @@
                 <div class="row main-row">
                     <div class="col-xs-12">
                         <label>Account Number</label>
-                        <input-validation place-holder="Account Number" model.bind="model.creditItem.AccountNumber" described-by="manage-credit-items-account-number"></input-validation>
-                        <!--<div class="input-group input-group-flat" id="manage-credit-items-validate-account-number">
-                            <input type="text" class="form-control" placeholder="Account Number" value.bind="model.creditItem.AccountNumber & validate"
-                                aria-describedby="manage-credit-items-account-number">
-                            <span class="input-group-addon" id="manage-credit-items-account-number"><i class="fa fa-asterisk"></i></span>
-                        </div>-->
+                        <c-input-validation place-holder="Account Number" model.bind="model.creditItem" property-name="AccountNumber" described-by="manage-credit-items-account-number"></c-input-validation>
                     </div>
                 </div>
                 <div class="row main-row">
@@ -45,8 +40,9 @@
     <div class="col-sm-5 kendo-dropdown">
         <label>Type</label>
         <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type">
-            <select class="form-control" value.bind="model.twoFactorAuthTimeOut" if.bind="model.isTwoFactorAuthEnabled">
-                <option repeat.for="item of deviceExpirationLimits" selected.bind="model.twoFactorAuthTimeOut" model.bind="item.limit">${item.name}</option>
+            <select class="form-control" value.bind="model.creditItem.AdverseTypeId">
+                <option value="0"><i>... Select Type</i></option>
+                <option repeat.for="item of adverseTypes" model.bind="item.Id">${item.Type}</option>
             </select>
             <!--<ak-drop-down-list k-data-text-field="Type" k-data-value-field="Id" k-data-source.bind="adverseTypes" k-value.two-way="model.creditItem.AdverseTypeId & validate"
                 k-data-option-label="Select Type..." style="width: 100%;" aria-describedby="manage-credit-items-adverse-type" k-on-change.delegate="typeChange($event.detail)">

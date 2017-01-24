@@ -1,0 +1,8 @@
+<template bindable="model, describedBy, dataSource, propertyName, dataValueField, dataTextField">
+    <div class="input-group input-group-flat">
+        <select class="form-control" value.bind="model[propertyName] & validate" aria-describedby="${describedBy}">
+            <option repeat.for="item of dataSource" model.bind="item.Id">${item[dataTextField]}</option>
+        </select>
+        <span class="input-group-addon" id="${describedBy}"><i class="fa fa-asterisk"></i></span>
+    </div>
+</template>

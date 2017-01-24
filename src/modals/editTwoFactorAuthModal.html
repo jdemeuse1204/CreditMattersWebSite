@@ -1,4 +1,6 @@
 <template>
+    <require from="../customElements/c-select-validation.html"></require>
+
     <ai-dialog class="modal-dialog modal-md">
         <ai-dialog-body css.bind="{display:model.display.edit}">
             <div class="cm-modal-header">
@@ -8,10 +10,10 @@
             <div class="modal-body">
                 <div class="row text-center">
                     <p>Two factor authorization helps keep unwanted users from accessing your account. When Credit Matters detects
-                        a device you are using for the first time, you will need your password along with an PIN
-                        number. The PIN is emailed to you upon logging in. You will not be able to access your account until
-                        the PIN number is verified. Once verified, you will not need to verify your device again unless you
-                        have token expiration turned on. </p>
+                        a device you are using for the first time, you will need your password along with an PIN number.
+                        The PIN is emailed to you upon logging in. You will not be able to access your account until the
+                        PIN number is verified. Once verified, you will not need to verify your device again unless you have
+                        token expiration turned on. </p>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
@@ -19,6 +21,8 @@
                         <button type="button" if.bind="model.isTwoFactorAuthEnabled" class="btn btn-danger" click.trigger="toggle()"><i class="fa fa-power-off"></i>&nbsp;Turn Off</button>
                     </div>
                     <div class="col-sm-6">
+                        <!--<c-select-validation data-source.bind="deviceExpirationLimits" model="model" described-by="two-factor-auth-select" property-name="twoFactorAuthTimeOut"
+                            data-value-field="limit" data-text-field="name"></c-select-validation>-->
                         <select class="form-control" value.bind="model.twoFactorAuthTimeOut" if.bind="model.isTwoFactorAuthEnabled">
                             <option repeat.for="item of deviceExpirationLimits" selected.bind="model.twoFactorAuthTimeOut" model.bind="item.limit">${item.name}</option>
                         </select>
