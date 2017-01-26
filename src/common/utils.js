@@ -35,3 +35,13 @@ export function formatAddress(address) {
 
     return finalAddress;
 }
+
+export function toArrayFromKendoDataSource(source) {
+    var result = [];
+
+    for(let i = 0; i < source.length; i++) {
+        result.push(result[i]);
+    }
+
+    return result;
+}

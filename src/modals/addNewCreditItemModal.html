@@ -30,23 +30,17 @@
 </div>
 <div class="col-sm-6">
     <label>Balance</label>
-    <div class="input-group input-group-flat" id="manage-credit-items-validate-balance">
-        <input type="text" class="form-control" placeholder="Balance" value.bind="model.creditItem.Balance & validate" aria-describedby="manage-credit-items-balance">
-        <span class="input-group-addon" id="manage-credit-items-balance"><i class="fa fa-asterisk"></i></span>
-    </div>
+    <c-input-validation place-holder="Balance" model.bind="model.creditItem" property-name="Balance" described-by="manage-credit-items-balance"></c-input-validation>
 </div>
 </div>
 <div class="row main-row">
     <div class="col-sm-5 kendo-dropdown">
         <label>Type</label>
         <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type">
-            <select class="form-control" value.bind="model.creditItem.AdverseTypeId">
-                <option value="0"><i>... Select Type</i></option>
+            <select class="form-control" value.bind="model.creditItem.AdverseTypeId & validate" change.delegate="adverseTypeChange($event)">
+                <option value="0"><i>Select Type...</i></option>
                 <option repeat.for="item of adverseTypes" model.bind="item.Id">${item.Type}</option>
             </select>
-            <!--<ak-drop-down-list k-data-text-field="Type" k-data-value-field="Id" k-data-source.bind="adverseTypes" k-value.two-way="model.creditItem.AdverseTypeId & validate"
-                k-data-option-label="Select Type..." style="width: 100%;" aria-describedby="manage-credit-items-adverse-type" k-on-change.delegate="typeChange($event.detail)">
-</ak-drop-down-list>-->
             <span class="input-group-addon" id="manage-credit-items-adverse-type"><i class="fa fa-asterisk"></i></span>
         </div>
     </div>
@@ -61,20 +55,20 @@
         </div>
 
         <div class="row">
-            <div if.bind="isUsingCustomReason === false" class="input-group input-group-flat" id="manage-credit-items-default-dispute-reason-default-ddl">
-                <ak-drop-down-list k-data-text-field="Reason" k-data-value-field="Id" k-value.two-way="model.creditItem.DisputeReasonId & validate"
-                    k-data-option-label="Select Reason..." style="width: 100%;" aria-describedby="manage-credit-items-validate-dispute-reason-default">
-</ak-drop-down-list>
-<span class="input-group-addon" id="manage-credit-items-validate-dispute-reason-default"><i class="fa fa-asterisk"></i></span>
-</div>
-
-<div if.bind="isUsingCustomReason === true" class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom">
-    <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" value.bind="customReason & validate"
-        aria-describedby="manage-credit-items-dispute-reason-custom-addon" placeholder="Custom Reason" />
-    <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon"><i class="fa fa-asterisk"></i></span>
-</div>
-</div>
-</div>
+            <div if.bind="isUsingCustomReason === false" class="input-group input-group-flat">
+                <select class="form-control" value.two-way="model.creditItem.DisputeReasonId & validate" aria-describedby="manage-credit-items-validate-dispute-reason-default">
+                    <option value="0"><i>Select Reason...</i></option>
+                    <option repeat.for="reason of disputeReasons" model.bind="reason.Id">${reason.Reason}</option>
+                </select>
+                <span class="input-group-addon" id="manage-credit-items-validate-dispute-reason-default"><i class="fa fa-asterisk"></i></span>
+            </div>
+            <div if.bind="isUsingCustomReason === true" class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom">
+                <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" value.bind="customReason & validate"
+                    aria-describedby="manage-credit-items-dispute-reason-custom-addon" placeholder="Custom Reason" />
+                <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon"><i class="fa fa-asterisk"></i></span>
+            </div>
+        </div>
+    </div>
 </div>
 <div css.bind="{ display:model.display.add }">
     <h4>Credit Bureau Initial Status</h4>

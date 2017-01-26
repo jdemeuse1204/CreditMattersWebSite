@@ -19,6 +19,7 @@ export class AddNewCreditItemModal {
     creditBureauStatuses = [];
     creditors = [];
     adverseTypes = [];
+    disputeReasons = [];
     isUsingCustomReason = false;
     customReason = "";
     rules = [];
@@ -44,11 +45,6 @@ export class AddNewCreditItemModal {
 
             this.populateDisputeReasons(this.model.creditItem.AdverseTypeId).then(response => {
 
-                const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
-                // after the element is bound the dispute reason id is being updated and is not correct
-                that.model.creditItem.DisputeReasonId = that.model.creditItem.Dispute.Id;
-
-                element.value(that.model.creditItem.DisputeReasonId);
                 loadingScreen.hide();
             });
 
@@ -89,9 +85,8 @@ export class AddNewCreditItemModal {
         this.rules = ValidationRules
             .ensure('Balance').required().tag('core').satisfies(w => isNumeric(w))
             .ensure('AccountNumber').required().tag('core')
-            .ensure('AdverseTypeId').satisfies(w => w > 0).withMessage('Please select Type').tag('core:kendoDropDownList')
-            .on(this.model.creditItem)
-            .ensure('DisputeReasonId').satisfies(w => w > 0).withMessage('Please select Reason').tag('default:kendoDropDownList')
+            .ensure('AdverseTypeId').satisfies(w => w > 0).withMessage('Please select Type').tag('core')
+            .ensure('DisputeReasonId').satisfies(w => w > 0).withMessage('Please select Reason').tag('default')
             .on(this.model.creditItem)
             .ensure('Name').required().tag('creditItem')
             .on(this.model.creditItem.Creditor)
@@ -115,39 +110,32 @@ export class AddNewCreditItemModal {
         });
     }
 
+    adverseTypeChange(event) {
+
+        loadingScreen.show();
+        this.populateDisputeReasons(this.model.creditItem.AdverseTypeId).then(() => {
+            loadingScreen.hide();
+        });
+    }
+
     usingCustomReasonChange(event) {
 
         if (this.isUsingCustomReason === false) {
             loadingScreen.show();
-            this.populateDisputeReasons(this.model.creditItem.AdverseTypeId).then(() => {
-                const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
-
-                if (!!this.model.creditItem.Dispute.Id) {
-                    element.value(this.model.creditItem.Dispute.Id);
-                    loadingScreen.hide();
-                }
-            });
+            this.populateDisputeReasons(this.model.creditItem.AdverseTypeId);
         }
 
     }
 
     populateDisputeReasons(adverseType) {
 
-        return new Promise((resolve, reject) => {
-            lookup.getDisputeReasons(adverseType).then(response => {
+        const that = this;
 
-                const element = $("#manage-credit-items-default-dispute-reason-default-ddl ak-drop-down-list").data("kendoDropDownList");
+        return lookup.getDisputeReasons(adverseType).then(response => {
 
-                if (!!element) {
-                    element.dataSource.data(response.Data.result);
-                    element.dataSource.transport.data = response.Data.result;
-                }
+            that.disputeReasons = response.Data.result;
 
-                resolve(response.Data.result);
-            }).catch((error) => { 
-                reject(error);
-            });
-        });
+        }).catch((error) => {  });
     }
 
     showSendToCds() {
@@ -208,7 +196,6 @@ export class AddNewCreditItemModal {
         let validateOptions = [];
         const that = this;
         const coreRules = ValidationRules.taggedRules(this.rules, 'core');
-        const coreKendoDropDowns = ValidationRules.taggedRules(this.rules, 'core:kendoDropDownList');
         const creditItemRule = ValidationRules.taggedRules(this.rules, 'creditItem');
 
         if (this.isUsingCustomReason === true) {
@@ -223,16 +210,14 @@ export class AddNewCreditItemModal {
             const customRules = ValidationRules.taggedRules(this.rules, 'custom');
 
             validateOptions = [{ object: this.model.creditItem, rules: coreRules },
-            { object: this.model.creditItem, rules: coreKendoDropDowns },
             { object: this.model.creditItem.Creditor, rules: creditItemRule },
             { object: this, rules: customRules }];
 
         } else {
 
-            const defaultRules = ValidationRules.taggedRules(this.rules, 'default:kendoDropDownList');
+            const defaultRules = ValidationRules.taggedRules(this.rules, 'default');
 
             validateOptions = [{ object: this.model.creditItem, rules: coreRules },
-            { object: this.model.creditItem, rules: coreKendoDropDowns },
             { object: this.model.creditItem.Creditor, rules: creditItemRule },
             { object: this.model.creditItem, rules: defaultRules }];
         }

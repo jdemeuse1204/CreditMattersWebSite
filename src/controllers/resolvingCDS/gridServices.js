@@ -28,17 +28,14 @@ export class GridServices {
 
                 const addOrEdit = isNewItem === true ? "Add" : "Edit";
                 const modalModel = {
-                    title: `${addOrEdit} Credit Item`,
                     creditItem: item,
                     display: {
-                        defaultDisputeReason: "none",
-                        add: isNewItem ? "" : "none",
-                        edit: isNewItem ? "none" : ""
+                        
                     }
                 };
 
                 that.dialogService.open({
-                    viewModel: 'modals/addNewCreditItemModal',
+                    viewModel: 'modals/editCdsItemModal',
                     model: modalModel
                 }).then(response => {
                     resolve(response);

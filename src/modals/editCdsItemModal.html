@@ -1,0 +1,54 @@
+<template>
+    <require from="../customElements/c-readonly.html"></require>
+    <require from="../customElements/c-select-validation.html"></require>
+
+    <ai-dialog class="modal-dialog modal-md" id="edit-cds-modal">
+        <ai-dialog-body>
+            <div class="cm-modal-header">
+                <h2>Edit CDS Item</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Account Number</label>
+                        <c-readonly model.bind="model.creditItem" property-name="AccountNumber"></c-readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Creditor</label>
+                        <c-readonly model.bind="model.creditItem.Creditor" property-name="Name"></c-readonly>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <h4>CDS Status</h4>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>TransUnion</label>
+                        <div if.bind="model.creditItem.TransUnionResponseStatusId === 1">Not Reporting</div>
+                        <div class="input-group input-group-flat">
+                            <select class="form-control" value.bind="model.creditItem.TransUnionResponseStatusId" aria-describedby="edit-cds-transunion-response-status-id">
+                                <option value="0">Select Response...</option>
+                                <option repeat.for="item of responses" model.bind="item.Id">${item.Status}</option>
+                            </select>
+                            <span class="input-group-addon" id="edit-cds-transunion-response-status-id"><i class="fa fa-asterisk"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Equifax</label>
+                        <c-readonly model.bind="model.creditItem.Creditor" property-name="Name"></c-readonly>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Experian</label>
+                        <c-readonly model.bind="model.creditItem.Creditor" property-name="Name"></c-readonly>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <button type="button" class="btn btn-primary pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

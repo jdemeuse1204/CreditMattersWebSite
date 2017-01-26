@@ -9,6 +9,7 @@ import * as constants from "../constants";
 import { post, get } from "./webApi";
 import { createKendoDataSource } from "../common/webApi";
 import { getDeviceAuthorizationToken } from '../common/authorization';
+import { toArrayFromKendoDataSource } from './utils';
 
 const LOOKUP_CONTROLLER = "Lookup";
 const ACCOUNT_CONTROLLER = "Account";
@@ -74,7 +75,8 @@ export const lookup = {
             }, url);
 
             model.read().then(() => {
-                resolve(model.data()[0]);
+                var data = toArrayFromKendoDataSource(model.data());
+                resolve(data);
             }).fail(() => {
                 reject();
             });

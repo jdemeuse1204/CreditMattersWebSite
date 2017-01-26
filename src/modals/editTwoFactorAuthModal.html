@@ -20,12 +20,14 @@
                         <button type="button" if.bind="!model.isTwoFactorAuthEnabled" class="btn btn-success" click.trigger="toggle()"><i class="fa fa-shield"></i>&nbsp;Turn On</button>
                         <button type="button" if.bind="model.isTwoFactorAuthEnabled" class="btn btn-danger" click.trigger="toggle()"><i class="fa fa-power-off"></i>&nbsp;Turn Off</button>
                     </div>
-                    <div class="col-sm-6">
-                        <!--<c-select-validation data-source.bind="deviceExpirationLimits" model="model" described-by="two-factor-auth-select" property-name="twoFactorAuthTimeOut"
-                            data-value-field="limit" data-text-field="name"></c-select-validation>-->
-                        <select class="form-control" value.bind="model.twoFactorAuthTimeOut" if.bind="model.isTwoFactorAuthEnabled">
-                            <option repeat.for="item of deviceExpirationLimits" selected.bind="model.twoFactorAuthTimeOut" model.bind="item.limit">${item.name}</option>
-                        </select>
+                    <div class="col-sm-6" if.bind="model.isTwoFactorAuthEnabled">
+                        <label>Token Length</label>
+                        <div class="input-group input-group-flat">
+                            <select class="form-control" value.bind="model.twoFactorAuthTimeOut" aria-describedby="two-fa-length">
+                                <option repeat.for="item of deviceExpirationLimits" model.bind="item.limit">${item.name}</option>
+                            </select>
+                            <span class="input-group-addon" id="two-fa-length"><i class="fa fa-asterisk"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
