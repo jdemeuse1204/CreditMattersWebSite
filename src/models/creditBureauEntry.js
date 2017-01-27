@@ -4,6 +4,7 @@ import adverseType from "./adverseType";
 import disputeReason from "./disputeReason";
 import creditBureauStatus from "./creditBureauStatus";
 import customerDisputeStatement from "./customerDisputeStatement";
+import disputeReasonApproval from "./disputeReasonApproval";
 import moment from "moment";
 import { emptyGuid } from '../constants';
 
@@ -47,6 +48,7 @@ let _item = kendo.data.Model.define({
             DoesDisputeReasonNeedAcceptance: this.DoesDisputeReasonNeedAcceptance,
 
             Customer: this.EquifaxInitialStatusId,
+            DisputeReasonApprovals: this.DisputeReasonApprovals
         };
     },
 
@@ -166,6 +168,13 @@ let _item = kendo.data.Model.define({
             defaultValue: new customerDisputeStatement(),
             parse: function (data) { return new customerDisputeStatement(data); }
         },
+        "DisputeReasonApprovals": [
+            {
+                editable: true,
+                defaultValue: new disputeReasonApproval(),
+                parse: function (data) { return new disputeReasonApproval(data); }
+            }
+        ]
     }
 });
 

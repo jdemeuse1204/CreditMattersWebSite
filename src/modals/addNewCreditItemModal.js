@@ -1,5 +1,6 @@
 import { inject } from 'aurelia-dependency-injection';
 import { DialogController } from 'aurelia-dialog';
+import { find } from 'lodash';
 import { lookup, management } from '../common/repository';
 import * as loadingScreen from '../common/loadingScreen';
 import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
@@ -29,6 +30,8 @@ export class AddNewCreditItemModal {
     wasSentToCdsEquifax = false;
     sendToCdsExperian = false;
     wasSentToCdsExperian = false;
+    oldDisputeReasonId = 0;
+    currentDisputeReason = "";
 
     constructor(controller, controllerFactory) {
         this.controller = controller;
@@ -73,11 +76,20 @@ export class AddNewCreditItemModal {
         this.wasSentToCdsEquifax = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.equifax);
         this.sendToCdsExperian = false;
         this.wasSentToCdsExperian = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.experian);
+        this.oldDisputeReasonId = this.model.creditItem.DisputeReasonId;
 
         this.creditBureauStatuses = await lookup.getCreditBureauStatuses();
 
         const creditorsResult = await lookup.getCreditors();
         const adverseTypesResult = await lookup.getAdverseTypes();
+
+        this.transformResponseStatusIds();
+
+        if (isGuidEmpty(this.model.creditItem.Id) === true) {
+            this.creditBureauStatuses = this.filterStatusForAdd(this.creditBureauStatuses);
+        } else {
+            this.creditBureauStatuses = this.filterStatusForEdit(this.creditBureauStatuses);
+        }
 
         this.creditors = creditorsResult.Data.result;
         this.adverseTypes = adverseTypesResult.Data.result;
@@ -118,6 +130,14 @@ export class AddNewCreditItemModal {
         });
     }
 
+    disputeReasonChange(event) {
+        var reason = find(this.disputeReasons, { Id: this.model.creditItem.DisputeReasonId });
+
+        if (!!reason) {
+            this.currentDisputeReason = reason.Reason;
+        }
+    }
+
     usingCustomReasonChange(event) {
 
         if (this.isUsingCustomReason === false) {
@@ -135,7 +155,7 @@ export class AddNewCreditItemModal {
 
             that.disputeReasons = response.Data.result;
 
-        }).catch((error) => {  });
+        }).catch((error) => { });
     }
 
     showSendToCds() {
@@ -171,12 +191,14 @@ export class AddNewCreditItemModal {
                     that.model.display.sendingToCds = "none";
                     that.model.display.addEdit = "none";
                     that.model.display.errorSendingToCds = "none";
+                    that.model.display.approveDisputeReason = "none";
                     loadingScreen.hide();
                 } else {
                     // send failed because its already added, show error message
                     that.model.display.sentToCds = "none";
                     that.model.display.sendingToCds = "none";
                     that.model.display.addEdit = "none";
+                    that.model.display.approveDisputeReason = "none";
                     that.model.display.errorSendingToCds = "";
                 }
 
@@ -190,6 +212,8 @@ export class AddNewCreditItemModal {
         this.model.display.sendingToCds = "none",
             this.model.display.addEdit = "";
     }
+
+
 
     save() {
 
@@ -224,8 +248,18 @@ export class AddNewCreditItemModal {
 
         validateMultiple(this.validationController, validateOptions).then(() => {
 
+            // check to see if dispute reason changed
+            if (this.isUsingCustomReason === false && this.oldDisputeReasonId !== this.model.creditItem.DisputeReasonId) {
+                // dispute reason has changed, ask user to verify it
+                this.showDisputeReasonAcceptance(this);
+                return;
+            }
+
+            this.transformResponseStatusIdsForSaving();
+
             loadingScreen.show();
 
+            const that = this;
             this.model.creditItem.preSaveOps();
 
             management.saveCreditItem(this.model.creditItem).then(result => {
@@ -235,5 +269,76 @@ export class AddNewCreditItemModal {
             });
 
         }).catch(() => { });
+    }
+
+    saveCreditItem() {
+        loadingScreen.show();
+
+        const that = this;
+        this.model.creditItem.preSaveOps();
+
+        management.saveCreditItem(this.model.creditItem).then(result => {
+
+            management.approveDisputeReason(that.model.creditItem.DisputeReasonId, that.model.creditItem.Id).then(() => {
+                that.controller.ok();
+            }).finally(() => {
+                loadingScreen.hide();
+            })
+        });
+    }
+
+    showDisputeReasonAcceptance(scope) {
+        scope.model.display.sentToCds = "none";
+        scope.model.display.sendingToCds = "none";
+        scope.model.display.addEdit = "none";
+        scope.model.display.approveDisputeReason = "";
+        scope.model.display.errorSendingToCds = "none";
+    }
+
+    backToEdit() {
+        scope.model.display.sentToCds = "none";
+        scope.model.display.sendingToCds = "none";
+        scope.model.display.addEdit = "";
+        scope.model.display.approveDisputeReason = "none";
+        scope.model.display.errorSendingToCds = "none";
+    }
+
+    filterStatusForAdd(items) {
+        return items.filter(function (item) { return item.Type === 0 || item.Type === 1; });
+    }
+
+    filterStatusForEdit(items) {
+        items.push({ Id: -1, Status: "Still Negative", Type: 2 });
+        return items.filter(function (item) { return item.Type === 2; });
+    }
+
+    transformResponseStatusIds() {
+
+        if (this.model.creditItem.TransUnionResponseStatusId == null) {
+            this.model.creditItem.TransUnionResponseStatusId = -1;
+        }
+
+        if (this.model.creditItem.EquifaxResponseStatusId == null) {
+            this.model.creditItem.EquifaxResponseStatusId = -1;
+        }
+
+        if (this.model.creditItem.ExperianResponseStatusId == null) {
+            this.model.creditItem.ExperianResponseStatusId = -1;
+        }
+    }
+
+    transformResponseStatusIdsForSaving() {
+
+        if (this.model.creditItem.TransUnionResponseStatusId == -1) {
+            this.model.creditItem.TransUnionResponseStatusId = null;
+        }
+
+        if (this.model.creditItem.EquifaxResponseStatusId == -1) {
+            this.model.creditItem.EquifaxResponseStatusId = null;
+        }
+
+        if (this.model.creditItem.ExperianResponseStatusId == -1) {
+            this.model.creditItem.ExperianResponseStatusId = null;
+        }
     }
 }

@@ -3,6 +3,7 @@
     <require from="aurelia-kendoui-bridge/autocomplete/autocomplete"></require>
     <require from="aurelia-kendoui-bridge/common/template"></require>
     <require from="../customElements/c-input-validation.html"></require>
+    <require from="../customElements/c-select-validation.html"></require>
 
     <ai-dialog class="modal-dialog modal-md" id="manage-credit-items-item-modal">
         <ai-dialog-body css.bind="{ display:model.display.addEdit }">
@@ -56,7 +57,8 @@
 
         <div class="row">
             <div if.bind="isUsingCustomReason === false" class="input-group input-group-flat">
-                <select class="form-control" value.two-way="model.creditItem.DisputeReasonId & validate" aria-describedby="manage-credit-items-validate-dispute-reason-default">
+                <select class="form-control" value.two-way="model.creditItem.DisputeReasonId & validate" change.delegate="disputeReasonChange($event)"
+                    aria-describedby="manage-credit-items-validate-dispute-reason-default">
                     <option value="0"><i>Select Reason...</i></option>
                     <option repeat.for="reason of disputeReasons" model.bind="reason.Id">${reason.Reason}</option>
                 </select>
@@ -74,41 +76,24 @@
     <h4>Credit Bureau Initial Status</h4>
     <div class="row">
         <div class="col-md-4 mcr-radio-group">
-            <div class="text-center transUnion-logo">
-                <img src="/Content/images/transunion_logo.jpg" />
-            </div>
             <div class="row">
-                <div class="col-xs-6 text-center">
-                    <input type="radio" model.bind="1" name="mcr-transunion-initial-bureau-status" checked.bind="model.creditItem.TransUnionInitialStatusId">&nbsp;<span>Not Reporting</span>
+                <div class="col-sm-4">
+                    <label>TransUnion</label>
+                    <select class="form-control" value.bind="model.creditItem.TransUnionInitialStatusId & validate" aria-describedby="mcr-transunion-initial-bureau-status">
+                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
                 </div>
-                <div class="col-xs-6 text-center">
-                    <input type="radio" model.bind="2" name="mcr-transunion-initial-bureau-status" checked.bind="model.creditItem.TransUnionInitialStatusId">&nbsp;<span>Negative</span>
+                <div class="col-sm-4">
+                    <label>Equifax</label>
+                    <select class="form-control" value.bind="model.creditItem.EquifaxInitialStatusId & validate" aria-describedby="mcr-equifax-initial-bureau-status">
+                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4 mcr-radio-group">
-            <div class="text-center equifax-logo">
-                <img src="/Content/images/Equifax.svg" />
-            </div>
-            <div class="row">
-                <div class="col-xs-6 text-center">
-                    <input type="radio" model.bind="1" name="mcr-equifax-initial-bureau-status" checked.bind="model.creditItem.EquifaxInitialStatusId">&nbsp;<span>Not Reporting</span>
-                </div>
-                <div class="col-xs-6 text-center">
-                    <input type="radio" model.bind="2" name="mcr-equifax-initial-bureau-status" checked.bind="model.creditItem.EquifaxInitialStatusId">&nbsp;<span>Negative</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mcr-radio-group">
-            <div class="text-center experian-logo">
-                <img src="/Content/images/Experian.svg" />
-            </div>
-            <div class="row">
-                <div class="col-xs-6 text-center">
-                    <input type="radio" model.bind="1" name="mcr-experian-initial-bureau-status" checked.bind="model.creditItem.ExperianInitialStatusId">&nbsp;<span>Not Reporting</span>
-                </div>
-                <div class="col-xs-6 text-center">
-                    <input type="radio" model.bind="2" name="mcr-experian-initial-bureau-status" checked.bind="model.creditItem.ExperianInitialStatusId">&nbsp;<span>Negative</span>
+                <div class="col-sm-4">
+                    <label>Experian</label>
+                    <select class="form-control" value.bind="model.creditItem.ExperianInitialStatusId & validate" aria-describedby="mcr-experian-initial-bureau-status">
+                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -117,56 +102,26 @@
 </div>
 <div css.bind="{ display:model.display.edit }">
     <h4>Credit Bureau Response Status</h4>
-    <div class="row">
-        <div class="col-md-4 mcr-radio-group">
-            <div class="text-center transUnion-logo">
-                <img src="/Content/images/transunion_logo.jpg" />
-            </div>
             <div class="row">
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="3" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Positive</span>
+                <div class="col-sm-4">
+                    <label>TransUnion</label>
+                    <select class="form-control" value.bind="model.creditItem.TransUnionResponseStatusId & validate" aria-describedby="mcr-transunion-response-bureau-status">
+                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
                 </div>
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="4" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Deleted</span>
+                <div class="col-sm-4">
+                    <label>Equifax</label>
+                    <select class="form-control" value.bind="model.creditItem.EquifaxResponseStatusId & validate" aria-describedby="mcr-equifax-response-bureau-status">
+                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
                 </div>
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="null" name="mcr-transunion-response-bureau-status" checked.bind="model.creditItem.TransUnionResponseStatusId">&nbsp;<span>Still Negative</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mcr-radio-group">
-            <div class="text-center equifax-logo">
-                <img src="/Content/images/Equifax.svg" />
-            </div>
-            <div class="row">
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="3" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Positive</span>
-                </div>
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="4" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Deleted</span>
-                </div>
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="null" name="mcr-equifax-response-bureau-status" checked.bind="model.creditItem.EquifaxResponseStatusId">&nbsp;<span>Still Negative</span>
+                <div class="col-sm-4">
+                    <label>Experian</label>
+                    <select class="form-control" value.bind="model.creditItem.ExperianResponseStatusId & validate" aria-describedby="mcr-experian-response-bureau-status">
+                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mcr-radio-group">
-            <div class="text-center experian-logo">
-                <img src="/Content/images/Experian.svg" />
-            </div>
-            <div class="row">
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="3" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Positive</span>
-                </div>
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="4" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Deleted</span>
-                </div>
-                <div class="col-xs-4 text-center">
-                    <input type="radio" model.bind="null" name="mcr-experian-response-bureau-status" checked.bind="model.creditItem.ExperianResponseStatusId">&nbsp;<span>Still Negative</span>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 </div>
 </ai-dialog-body>
@@ -267,6 +222,27 @@
 </ai-dialog-body>
 <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.errorSendingToCds }">
     <button type="button" class="btn btn-danger pull-left" click.delegate="showSendToCds()"><i class="fa fa-check"></i>&nbsp;Back</button>
+</ai-dialog-footer>
+
+<ai-dialog-body css.bind="{ display:model.display.approveDisputeReason }">
+    <div class="cm-modal-header">
+        <h2>Approve Dispute Reason</h2>
+        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <p>You have selected a dispute reason that was generated by Credit Matters. Do you accept the below reason for your
+                dispute?
+                <br><br>
+                <b>Dispute Reason:</b> ${currentDisputeReason}
+                <br><br> By selecting 'Yes' you accept the terms.
+            </p>
+        </div>
+    </div>
+</ai-dialog-body>
+<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.approveDisputeReason }">
+    <button type="button" class="btn btn-danger pull-left" click.delegate="backToEdit()"><i class="fa fa-thumbs-down"></i>&nbsp;No</button>
+    <button type="button" class="btn btn-success pull-right" click.delegate="saveCreditItem()"><i class="fa fa-thumbs-up"></i>&nbsp;Yes</button>
 </ai-dialog-footer>
 </ai-dialog>
 </template>

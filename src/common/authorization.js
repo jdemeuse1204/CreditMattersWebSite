@@ -127,9 +127,10 @@ export function forgetRememberedUser() {
 }
 
 export function cleanAuthorizationToken() {
+debugger;
     const authToken = getAuthorizationToken();
 
-    if (!!authToken && authToken.split('.').length != 3) {
+    if (!!authToken && !!authToken.split && authToken.split('.').length != 3) {
         ls.remove(environment.authorizationTokenKey);
     }
 }
@@ -137,7 +138,7 @@ export function cleanAuthorizationToken() {
 export function cleanDeviceToken() {
     const deviceToken = getDeviceAuthorizationToken();
 
-    if (!!deviceToken && deviceToken.split('.').length != 3) {
+    if (!!deviceToken && !!authToken.split && deviceToken.split('.').length != 3) {
         ls.remove(environment.deviceTokenKey);
     }
 }

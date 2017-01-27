@@ -210,6 +210,10 @@ export const register = {
 
 export const management = {
 
+    approveDisputeReason: function(disputeReasonId, creditItemId) {
+
+        return post(_getUrl(MANAGEMENT_CONTROLLER, "ApproveDisputeReason"), { CreditBureauEntryId: creditItemId, DisputeReasonId: disputeReasonId });
+    },
     saveCreditItem: function (creditItem) {
 
         return post(_getUrl(MANAGEMENT_CONTROLLER, "SaveCreditItem"), creditItem);

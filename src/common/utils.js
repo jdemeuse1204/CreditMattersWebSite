@@ -40,7 +40,7 @@ export function toArrayFromKendoDataSource(source) {
     var result = [];
 
     for(let i = 0; i < source.length; i++) {
-        result.push(result[i]);
+        result.push(source[i]);
     }
 
     return result;

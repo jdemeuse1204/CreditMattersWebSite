@@ -37,7 +37,8 @@ export class GridServices {
                         sendingToCds: "none",
                         addEdit: "",
                         sentToCds: "none",
-                        errorSendingToCds: "none"
+                        errorSendingToCds: "none",
+                        approveDisputeReason: "none"
                     },
                     sendToCdsCreditBureau: ""
                 };
