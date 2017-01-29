@@ -57,6 +57,9 @@ export const lookup = {
 
         return d.promise;
     },
+    getDisputeStatuses: function() {
+        return get(_getUrl(LOOKUP_CONTROLLER, "GetDisputeStatuses"));
+    },
     getCreditBureauStatuses: function () {
 
         return new Promise((resolve, reject) => {

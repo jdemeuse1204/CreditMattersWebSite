@@ -12,7 +12,11 @@ let _customerDisputeStatemenmt = kendo.data.Model.define({
             CreditorAddressId: this.CreditorAddressId,
             TransUnionDisputeStatus: this.TransUnionDisputeStatus ? this.TransUnionDisputeStatus.asJSON() : null,
             EquifaxDisputeStatus: this.EquifaxDisputeStatus ? this.EquifaxDisputeStatus.asJSON() : null,
-            ExperianDisputeStatus: this.ExperianDisputeStatus ? this.ExperianDisputeStatus.asJSON() : null
+            ExperianDisputeStatus: this.ExperianDisputeStatus ? this.ExperianDisputeStatus.asJSON() : null,
+
+            TransUnionOpenedDate: moment(this.TransUnionOpenedDate).isValid() ? moment(this.TransUnionOpenedDate).format() : null,
+            EquifaxOpenedDate: moment(this.EquifaxOpenedDate).isValid() ? moment(this.EquifaxOpenedDate).format() : null,
+            ExperianOpenedDate: moment(this.ExperianOpenedDate).isValid() ? moment(this.ExperianOpenedDate).format() : null,
         };
     },
     id: "Id",
@@ -42,7 +46,10 @@ let _customerDisputeStatemenmt = kendo.data.Model.define({
             editable: true,
             defaultValue: new creditBureauDisputeStatus(),
             parse: function (data) { return new creditBureauDisputeStatus(data); }
-        }
+        },
+        "TransUnionOpenedDate": { editable: true, type: "string" },
+        "EquifaxOpenedDate": { editable: true, type: "string" },
+        "ExperianOpenedDate": { editable: true, type: "string" }
     }
 });
 

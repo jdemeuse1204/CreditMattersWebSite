@@ -138,7 +138,7 @@ debugger;
 export function cleanDeviceToken() {
     const deviceToken = getDeviceAuthorizationToken();
 
-    if (!!deviceToken && !!authToken.split && deviceToken.split('.').length != 3) {
+    if (!!deviceToken && !!deviceToken.split && deviceToken.split('.').length != 3) {
         ls.remove(environment.deviceTokenKey);
     }
 }

@@ -17,8 +17,9 @@ export class EditCdsItemModal {
     async activate(model) {
         this.model = model;
 
-        this.responses = await lookup.getCreditBureauStatuses();
-debugger;
+        const response = await lookup.getDisputeStatuses();
+        
+        this.responses = response.Data.result;
     }
 
     attached() {
