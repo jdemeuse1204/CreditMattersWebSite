@@ -217,6 +217,9 @@ export const management = {
 
         return post(_getUrl(MANAGEMENT_CONTROLLER, "ApproveDisputeReason"), { CreditBureauEntryId: creditItemId, DisputeReasonId: disputeReasonId });
     },
+    getCustomerDipsuteStatementAddress: function(customerDisputeStatementId) {
+        return get(_getUrl(MANAGEMENT_CONTROLLER, "GetCustomerDipsuteStatementAddress"), { id: customerDisputeStatementId });
+    },
     saveCreditItem: function (creditItem) {
 
         return post(_getUrl(MANAGEMENT_CONTROLLER, "SaveCreditItem"), creditItem);

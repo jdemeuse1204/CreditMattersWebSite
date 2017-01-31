@@ -1,10 +1,10 @@
 <template>
     <require from="../customElements/c-readonly.html"></require>
-    <require from="../customElements/c-select-validation.html"></require>
+    <require from="../customElements/c-input-validation.html"></require>
     <require from="../views/formatters/date"></require>
 
     <ai-dialog class="modal-dialog modal-md" id="edit-cds-modal">
-        <ai-dialog-body>
+        <ai-dialog-body css.bind="{display:model.display.edit}">
             <div class="cm-modal-header">
                 <h2>Edit CDS Item</h2>
                 <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
@@ -17,9 +17,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-sm-5">
                         <label>Creditor</label>
                         <c-readonly model.bind="model.creditItem.Creditor" property-name="Name"></c-readonly>
+                    </div>
+                    <div class="col-sm-7">
+                        <label>Creditor Address</label>
+                        <c-readonly if.bind="hasCreditorAddress" model.bind="model.creditItem.Creditor" property-name="Name"></c-readonly>
+                        <div if.bind="!hasCreditorAddress" class="text-danger"><i class="fa fa-exclamation-triangle">&emsp;</i>Creditor Address Missing&emsp;
+                            <button type="button" class="btn btn-danger" click.trigger="addAddress()"><i class="fa fa-plus"></i>&nbsp;Add</button>
+                        </div>
                     </div>
                 </div>
                 <div class="row text-center">
@@ -101,8 +108,24 @@
                 </div>
             </div>
         </ai-dialog-body>
-        <ai-dialog-footer>
-            <button type="button" class="btn btn-primary pull-right" click.trigger="controller.ok()"><i class="fa fa-check"></i>&nbsp;Ok</button>
+        <ai-dialog-footer css.bind="{display:model.display.edit}">
+            <button type="button" class="btn btn-danger pull-left" click.trigger="controller.cancel()"><i class="fa fa-ban"></i>&nbsp;Cancel</button>
+            <button type="button" class="btn btn-success pull-right" click.trigger="controller.ok()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+        </ai-dialog-footer>
+
+
+        <ai-dialog-body css.bind="{display:model.display.address}">
+            <div class="cm-modal-header">
+                <h2>Add Address</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <!--<c-input-validation></c-input-validation>-->
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer css.bind="{display:model.display.address}">
+            <button type="button" class="btn btn-danger pull-left" click.trigger="back()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+            <button type="button" class="btn btn-success pull-right" click.trigger="saveAddress()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save Address</button>
         </ai-dialog-footer>
     </ai-dialog>
 </template>

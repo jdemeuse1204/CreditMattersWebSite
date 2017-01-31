@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-dependency-injection';
 import {DialogController} from 'aurelia-dialog';
 import * as loadingScreen from '../common/loadingScreen';
-import { lookup } from '../common/repository';
+import { lookup, management } from '../common/repository';
 
 @inject(DialogController)
 export class EditCdsItemModal {
@@ -9,6 +9,7 @@ export class EditCdsItemModal {
     controller = null;
     model = null;
     responses = [];
+    hasCreditorAddress = false;
 
     constructor(controller) {
         this.controller = controller;
@@ -17,12 +18,28 @@ export class EditCdsItemModal {
     async activate(model) {
         this.model = model;
 
-        const response = await lookup.getDisputeStatuses();
+        const disputesResponse = await lookup.getDisputeStatuses();
+        const addressResponse = await management.getCustomerDipsuteStatementAddress(this.model.creditItem.CustomerDisputeStatementId);
         
-        this.responses = response.Data.result;
+        this.responses = disputesResponse.Data.result;
+        this.hasCreditorAddress == !!addressResponse.Data.result;
     }
 
     attached() {
         loadingScreen.hide();
+    }
+
+    addAddress() {
+        this.model.display.edit = "none";
+        this.model.display.address = "";
+    }
+
+    saveAddress() {
+
+    }
+
+    back() {
+        this.model.display.edit = "";
+        this.model.display.address = "none";
     }
 }

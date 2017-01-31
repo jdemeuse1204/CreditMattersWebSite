@@ -30,7 +30,8 @@ export class GridServices {
                 const modalModel = {
                     creditItem: item,
                     display: {
-                        
+                        edit: "",
+                        address: "none"
                     }
                 };
 
