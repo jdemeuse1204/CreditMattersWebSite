@@ -1,0 +1,70 @@
+<template>
+    <div class="container-full" id="window-admin" slot="page-content">
+        <h3 class="cm-page-header">Administrator</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-card-header">
+                    <span>User Actions</span>
+                </div>
+                <div class="profile-card-body">
+                    <ul>
+                        <li>
+                            <i class="fa fa-key"></i>&emsp;Add/Remove Rights
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                        <li>
+                            <i class="fa fa-cart-arrow-down"></i>&emsp;Edit Info
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="profile-card-header">
+                    <span>Letters</span>
+                </div>
+                <div class="profile-card-body">
+                    <ul>
+                        <li>
+                            <i class="fa fa-credit-card"></i>&emsp;Payments
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                        <li>
+                            <i class="fa fa-cart-arrow-down"></i>&emsp;My Service Plan
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                        <li>
+                            <i class="fa fa-users"></i>&emsp;My Linked Users
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="profile-card-header">
+                    <span>Security & Settings</span>
+                </div>
+                <div class="profile-card-body">
+                    <ul>
+                        <li click.delegate="changePassword()">
+                            <i class="fa fa-lock"></i>&emsp;Change Password
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                        <li>
+                            <i class="fa fa-toggle-on"></i>&emsp;Notifications
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                        <li click.delegate="editTwoFactorAuthentication()">
+                            <i class="fa fa-shield"></i>&emsp;Two Factor Authentication
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                        <li click.delegate="editSecurityQuestions()">
+                            <i class="fa fa-question"></i>&emsp;Security Questions
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

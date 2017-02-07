@@ -25,224 +25,229 @@
                             <ak-autocomplete k-data-source.bind="creditors" k-min-length.bind="2" k-virtual.bind="virtual" k-data-text-field="Name" k-value.two-way="model.creditItem.Creditor.Name & validate"
                                 aria-describedby="manage-credit-items-creditor">
                                 <input style="width: 100%;" placeholder="Type to find..." value.bind="model.creditItem.Creditor.Name">
-</ak-autocomplete>
-<span class="input-group-addon" id="manage-credit-items-creditor"><i class="fa fa-asterisk"></i></span>
-</div>
-</div>
-<div class="col-sm-6">
-    <label>Balance</label>
-    <c-input-validation place-holder="Balance" model.bind="model.creditItem" property-name="Balance" described-by="manage-credit-items-balance"></c-input-validation>
-</div>
-</div>
-<div class="row main-row">
-    <div class="col-sm-5 kendo-dropdown">
-        <label>Type</label>
-        <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type">
-            <select class="form-control" value.bind="model.creditItem.AdverseTypeId & validate" change.delegate="adverseTypeChange($event)">
-                <option value="0"><i>Select Type...</i></option>
-                <option repeat.for="item of adverseTypes" model.bind="item.Id">${item.Type}</option>
-            </select>
-            <span class="input-group-addon" id="manage-credit-items-adverse-type"><i class="fa fa-asterisk"></i></span>
-        </div>
-    </div>
-    <div class="col-sm-7 kendo-dropdown dispute-reason">
-        <div class="row">
-            <label>Dispute Reason</label>
-            <div>
-                <label if.bind="isUsingCustomReason === true">Un-Customize It?</label><label if.bind="isUsingCustomReason === false">Customize It?</label>&nbsp;<input
-                    id="manage-credit-items-dispute-reason-user-custom-reason" checked.bind="isUsingCustomReason" type="checkbox"
-                    class="form-control" change.delegate="usingCustomReasonChange($event)" />
-            </div>
-        </div>
+                                </ak-autocomplete>
+                                <span class="input-group-addon" id="manage-credit-items-creditor"><i class="fa fa-asterisk"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Balance</label>
+                        <c-input-validation place-holder="Balance" model.bind="model.creditItem" property-name="Balance" described-by="manage-credit-items-balance"></c-input-validation>
+                    </div>
+                </div>
+                <div class="row main-row">
+                    <div class="col-sm-5 kendo-dropdown">
+                        <label>Type</label>
+                        <div class="input-group input-group-flat" id="manage-credit-items-validate-adverse-type">
+                            <select class="form-control" value.bind="model.creditItem.AdverseTypeId & validate" change.delegate="adverseTypeChange($event)">
+                                <option value="0"><i>Select Type...</i></option>
+                                <option repeat.for="item of adverseTypes" model.bind="item.Id">${item.Type}</option>
+                            </select>
+                            <span class="input-group-addon" id="manage-credit-items-adverse-type"><i class="fa fa-asterisk"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 kendo-dropdown dispute-reason">
+                        <div class="row">
+                            <label>Dispute Reason</label>
+                            <div>
+                                <label if.bind="isUsingCustomReason === true">Un-Customize It?</label><label if.bind="isUsingCustomReason === false">Customize It?</label>&nbsp;<input
+                                    id="manage-credit-items-dispute-reason-user-custom-reason" checked.bind="isUsingCustomReason"
+                                    type="checkbox" class="form-control" change.delegate="usingCustomReasonChange($event)" />
+                            </div>
+                        </div>
 
-        <div class="row">
-            <div if.bind="isUsingCustomReason === false" class="input-group input-group-flat">
-                <select class="form-control" value.two-way="model.creditItem.DisputeReasonId & validate" change.delegate="disputeReasonChange($event)"
-                    aria-describedby="manage-credit-items-validate-dispute-reason-default">
-                    <option value="0"><i>Select Reason...</i></option>
-                    <option repeat.for="reason of disputeReasons" model.bind="reason.Id">${reason.Reason}</option>
-                </select>
-                <span class="input-group-addon" id="manage-credit-items-validate-dispute-reason-default"><i class="fa fa-asterisk"></i></span>
-            </div>
-            <div if.bind="isUsingCustomReason === true" class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom">
-                <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" value.bind="customReason & validate"
-                    aria-describedby="manage-credit-items-dispute-reason-custom-addon" placeholder="Custom Reason" />
-                <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon"><i class="fa fa-asterisk"></i></span>
-            </div>
-        </div>
-    </div>
-</div>
-<div css.bind="{ display:model.display.add }">
-    <h4>Credit Bureau Initial Status</h4>
-    <div class="row">
-        <div class="col-md-4 mcr-radio-group">
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>TransUnion</label>
-                    <select class="form-control" value.bind="model.creditItem.TransUnionInitialStatusId & validate" aria-describedby="mcr-transunion-initial-bureau-status">
-                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                        <div class="row">
+                            <div if.bind="isUsingCustomReason === false" class="input-group input-group-flat">
+                                <select class="form-control" value.two-way="model.creditItem.DisputeReasonId & validate" change.delegate="disputeReasonChange($event)"
+                                    aria-describedby="manage-credit-items-validate-dispute-reason-default">
+                                    <option value="0"><i>Select Reason...</i></option>
+                                    <option repeat.for="reason of disputeReasons" model.bind="reason.Id">${reason.Reason}</option>
+                                    </select>
+                                    <span class="input-group-addon" id="manage-credit-items-validate-dispute-reason-default"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                            <div if.bind="isUsingCustomReason === true" class="input-group input-group-flat" id="manage-credit-items-validate-dispute-reason-custom">
+                                <input type="text" id="manage-credit-items-dispute-reason-custom" class="form-control" value.bind="customReason & validate"
+                                    aria-describedby="manage-credit-items-dispute-reason-custom-addon" placeholder="Custom Reason"
+                                />
+                                <span class="input-group-addon" id="manage-credit-items-dispute-reason-custom-addon"><i class="fa fa-asterisk"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div css.bind="{ display:model.display.add }">
+                    <h4>Credit Bureau Initial Status</h4>
+                    <div class="row">
+                        <div class="col-md-4 mcr-radio-group">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>TransUnion</label>
+                                    <select class="form-control" value.bind="model.creditItem.TransUnionInitialStatusId & validate" aria-describedby="mcr-transunion-initial-bureau-status">
+                        <option repeat.for="item of creditBureauInitialStatuses" model.bind="item.Id">${item.Status}</option>
                     </select>
-                </div>
-                <div class="col-sm-4">
-                    <label>Equifax</label>
-                    <select class="form-control" value.bind="model.creditItem.EquifaxInitialStatusId & validate" aria-describedby="mcr-equifax-initial-bureau-status">
-                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Equifax</label>
+                                    <select class="form-control" value.bind="model.creditItem.EquifaxInitialStatusId & validate" aria-describedby="mcr-equifax-initial-bureau-status">
+                        <option repeat.for="item of creditBureauInitialStatuses" model.bind="item.Id">${item.Status}</option>
                     </select>
-                </div>
-                <div class="col-sm-4">
-                    <label>Experian</label>
-                    <select class="form-control" value.bind="model.creditItem.ExperianInitialStatusId & validate" aria-describedby="mcr-experian-initial-bureau-status">
-                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Experian</label>
+                                    <select class="form-control" value.bind="model.creditItem.ExperianInitialStatusId & validate" aria-describedby="mcr-experian-initial-bureau-status">
+                        <option repeat.for="item of creditBureauInitialStatuses" model.bind="item.Id">${item.Status}</option>
                     </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div css.bind="{ display:model.display.edit }">
+                    <h4>Credit Bureau Response Status</h4>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>TransUnion</label>
+                            <select class="form-control" value.bind="model.creditItem.TransUnionResponseStatusId & validate" aria-describedby="mcr-transunion-response-bureau-status">
+                        <option repeat.for="item of creditBureauResponseStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Equifax</label>
+                            <select class="form-control" value.bind="model.creditItem.EquifaxResponseStatusId & validate" aria-describedby="mcr-equifax-response-bureau-status">
+                        <option repeat.for="item of creditBureauResponseStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Experian</label>
+                            <select class="form-control" value.bind="model.creditItem.ExperianResponseStatusId & validate" aria-describedby="mcr-experian-response-bureau-status">
+                        <option repeat.for="item of creditBureauResponseStatuses" model.bind="item.Id">${item.Status}</option>
+                    </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.addEdit }">
+            <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
+            <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+            <button type="button" class="btn btn-warning pull-right" click.delegate="showSendToCds()"><i class="fa fa-send"></i>&nbsp;Send To CDS</button>
+        </ai-dialog-footer>
 
-</div>
-<div css.bind="{ display:model.display.edit }">
-    <h4>Credit Bureau Response Status</h4>
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>TransUnion</label>
-                    <select class="form-control" value.bind="model.creditItem.TransUnionResponseStatusId & validate" aria-describedby="mcr-transunion-response-bureau-status">
-                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
-                    </select>
+        <ai-dialog-body css.bind="{ display:model.display.sendingToCds }">
+            <div class="cm-modal-header">
+                <h2>Send To CDS</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>Select which credit bureaus that you would like to open a customer dispute statement for.</p>
                 </div>
-                <div class="col-sm-4">
-                    <label>Equifax</label>
-                    <select class="form-control" value.bind="model.creditItem.EquifaxResponseStatusId & validate" aria-describedby="mcr-equifax-response-bureau-status">
-                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
-                    </select>
-                </div>
-                <div class="col-sm-4">
-                    <label>Experian</label>
-                    <select class="form-control" value.bind="model.creditItem.ExperianResponseStatusId & validate" aria-describedby="mcr-experian-response-bureau-status">
-                        <option repeat.for="item of creditBureauStatuses" model.bind="item.Id">${item.Status}</option>
-                    </select>
+                <div class="row">
+                    <div class="text-center send-to-cds-checkbox col-sm-4">
+                        <div class="cds-label">TransUnion</div>
+                        <span>Status:&nbsp;${transUnionStatus}</span>
+                        <div class="send-container">
+                            <input type="checkbox" if.bind="transUnionSendToCdsStatus === 1" class="form-control" checked.bind="sendToCdsTransUnion"
+                            />
+                            <label if.bind="transUnionSendToCdsStatus === 1">&nbsp;Send</label>
+                        </div>
+
+                        <i if.bind="transUnionSendToCdsStatus === 2" class="fa fa-check fa-2x text-success"></i>
+                        <span if.bind="transUnionSendToCdsStatus === 2">&nbsp;Already Sent</span>
+
+                        <i if.bind="transUnionSendToCdsStatus === 3" class="fa fa-close fa-2x text-danger"></i>
+                        <span if.bind="transUnionSendToCdsStatus === 3">&nbsp;Not Reporting</span>
+                    </div>
+
+                    <div class="text-center send-to-cds-checkbox col-sm-4">
+                        <div class="cds-label">Equifax</div>
+                        <span>Status:&nbsp;${equifaxStatus}</span>
+                        <div class="send-container">
+                            <input type="checkbox" if.bind="equifaxSendToCdsStatus === 1" class="form-control" checked.bind="sendToCdsEquifax" />
+                            <label if.bind="equifaxSendToCdsStatus === 1">&nbsp;Send</label>
+                        </div>
+
+                        <i if.bind="equifaxSendToCdsStatus === 2" class="fa fa-check fa-2x text-success"></i>
+                        <span if.bind="equifaxSendToCdsStatus === 2">&nbsp;Already Sent</span>
+
+                        <i if.bind="equifaxSendToCdsStatus === 3" class="fa fa-close fa-2x text-danger"></i>
+                        <span if.bind="equifaxSendToCdsStatus === 3">&nbsp;Not Reporting</span>
+                    </div>
+
+                    <div class="text-center send-to-cds-checkbox col-sm-4">
+                        <div class="cds-label">Experian</div>
+                        <span>Status:&nbsp;${experianStatus}</span>
+                        <div class="send-container">
+                            <input type="checkbox" if.bind="experianSendToCdsStatus === 1" class="form-control" checked.bind="sendToCdsExperian" />
+                            <label if.bind="experianSendToCdsStatus === 1">&nbsp;Send</label>
+                        </div>
+
+                        <i if.bind="experianSendToCdsStatus === 2" class="fa fa-check fa-2x text-success"></i>
+                        <span if.bind="experianSendToCdsStatus === 2">&nbsp;Already Sent</span>
+
+                        <i if.bind="experianSendToCdsStatus === 3" class="fa fa-close fa-2x text-danger"></i>
+                        <span if.bind="experianSendToCdsStatus === 3">&nbsp;Not Reporting</span>
+                    </div>
                 </div>
             </div>
-</div>
-</div>
-</ai-dialog-body>
-<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.addEdit }">
-    <button type="button" class="btn btn-success pull-right" click.delegate="save()"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save</button>
-    <button type="button" class="btn btn-danger pull-left" click.delegate="controller.cancel()"><i class="fa fa-close"></i>&nbsp;Cancel</button>
-    <button type="button" class="btn btn-warning pull-right" click.delegate="showSendToCds()"><i class="fa fa-send"></i>&nbsp;Send To CDS</button>
-</ai-dialog-footer>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sendingToCds }">
+            <button type="button" class="btn btn-danger pull-left" click.delegate="backToAddEdit()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+            <button type="button" class="btn btn-success pull-right" if.bind="sendToCdsTransUnion || sendToCdsEquifax || sendToCdsExperian"
+                click.delegate="sendToCds()"><i class="fa fa-send"></i>&nbsp;Send</button>
+        </ai-dialog-footer>
 
-<ai-dialog-body css.bind="{ display:model.display.sendingToCds }">
-    <div class="cm-modal-header">
-        <h2>Send To CDS</h2>
-        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <p>Select which credit bureaus that you would like to open a customer dispute statement for.</p>
-        </div>
-        <div class="row">
-            <div class="text-center send-to-cds-checkbox col-sm-4">
-                <div class="cds-label">TransUnion</div>
-                <div class="send-container">
-                    <input type="checkbox" if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId !== 1" class="form-control"
-                        checked.bind="sendToCdsTransUnion" />
-                    <label if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId !== 1">&nbsp;Send</label>
-                </div>
-                <i if.bind="wasSentToCdsTransUnion && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.TransUnionDisputeStatusId != 1"
-                    class="fa fa-check fa-2x text-success"></i>
-                <span if.bind="wasSentToCdsTransUnion && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.TransUnionDisputeStatusId != 1">&nbsp;Already Sent</span>
-
-                <i if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId === 1" class="fa fa-close fa-2x text-danger"></i>
-                <span if.bind="!wasSentToCdsTransUnion && model.creditItem.TransUnionInitialStatusId === 1">&nbsp;Not Reporting</span>
+        <ai-dialog-body css.bind="{ display:model.display.sentToCds }">
+            <div class="cm-modal-header">
+                <h2>Send To CDS</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
             </div>
-
-            <div class="text-center send-to-cds-checkbox col-sm-4">
-                <div class="cds-label">Equifax</div>
-                <div class="send-container">
-                    <input type="checkbox" if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId !== 1" class="form-control"
-                        checked.bind="sendToCdsEquifax" />
-                    <label if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId !== 1">&nbsp;Send</label>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>Success, credit item was sent to Customer Dispute Statements.</p>
+                        <button type="button" class="btn btn-primary pull-right" click.delegate="goToCds()"><i class="glyphicon glyphicon-hand-right"></i>&nbsp;Go To CDS</button>
+                    </div>
                 </div>
-                <i if.bind="wasSentToCdsEquifax && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.EquifaxDisputeStatusId != 1"
-                    class="fa fa-check fa-2x text-success"></i>
-                <span if.bind="wasSentToCdsEquifax && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.EquifaxDisputeStatusId != 1">&nbsp;Already Sent</span>
-
-                <i if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId === 1" class="fa fa-close fa-2x text-danger"></i>
-                <span if.bind="!wasSentToCdsEquifax && model.creditItem.EquifaxInitialStatusId === 1">&nbsp;Not Reporting</span>
             </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sentToCds }">
+            <button type="button" class="btn btn-success pull-right" click.delegate="controller.ok()"><i class="fa fa-check"></i>&nbsp;Done</button>
+        </ai-dialog-footer>
 
-            <div class="text-center send-to-cds-checkbox col-sm-4">
-                <div class="cds-label">Experian</div>
-                <div class="send-container">
-                    <input type="checkbox" if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId !== 1" class="form-control"
-                        checked.bind="sendToCdsExperian" />
-                    <label if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId !== 1">&nbsp;Send</label>
+        <ai-dialog-body css.bind="{ display:model.display.errorSendingToCds }">
+            <div class="cm-modal-header">
+                <h2>Error Sending To CDS</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>Credit Item already send to Customer Dispute Statements for ${model.sendToCdsCreditBureau}.</p>
                 </div>
-                <i if.bind="wasSentToCdsExperian && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.ExperianDisputeStatusId != 1"
-                    class="fa fa-check fa-2x text-success"></i>
-                <span if.bind="wasSentToCdsExperian && model.creditItem.CustomerDisputeStatement != null && model.creditItem.CustomerDisputeStatement.ExperianDisputeStatusId != 1">&nbsp;Already Sent</span>
-
-                <i if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId === 1" class="fa fa-close fa-2x text-danger"></i>
-                <span if.bind="!wasSentToCdsExperian && model.creditItem.ExperianInitialStatusId === 1">&nbsp;Not Reporting</span>
             </div>
-        </div>
-    </div>
-</ai-dialog-body>
-<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sendingToCds }">
-    <button type="button" class="btn btn-danger pull-left" click.delegate="backToAddEdit()"><i class="fa fa-backward"></i>&nbsp;Back</button>
-    <button type="button" class="btn btn-success pull-right" if.bind="sendToCdsTransUnion || sendToCdsEquifax || sendToCdsExperian"
-        click.delegate="sendToCds()"><i class="fa fa-send"></i>&nbsp;Send</button>
-</ai-dialog-footer>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.errorSendingToCds }">
+            <button type="button" class="btn btn-danger pull-left" click.delegate="showSendToCds()"><i class="fa fa-check"></i>&nbsp;Back</button>
+        </ai-dialog-footer>
 
-<ai-dialog-body css.bind="{ display:model.display.sentToCds }">
-    <div class="cm-modal-header">
-        <h2>Send To CDS</h2>
-        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <p>Success, credit item was sent to Customer Dispute Statements.</p>
-        </div>
-    </div>
-</ai-dialog-body>
-<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.sentToCds }">
-    <button type="button" class="btn btn-success pull-right" click.delegate="controller.ok()"><i class="fa fa-check"></i>&nbsp;Done</button>
-</ai-dialog-footer>
-
-<ai-dialog-body css.bind="{ display:model.display.errorSendingToCds }">
-    <div class="cm-modal-header">
-        <h2>Error Sending To CDS</h2>
-        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <p>Credit Item already send to Customer Dispute Statements for ${model.sendToCdsCreditBureau}.</p>
-        </div>
-    </div>
-</ai-dialog-body>
-<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.errorSendingToCds }">
-    <button type="button" class="btn btn-danger pull-left" click.delegate="showSendToCds()"><i class="fa fa-check"></i>&nbsp;Back</button>
-</ai-dialog-footer>
-
-<ai-dialog-body css.bind="{ display:model.display.approveDisputeReason }">
-    <div class="cm-modal-header">
-        <h2>Approve Dispute Reason</h2>
-        <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <p>You have selected a dispute reason that was generated by Credit Matters. Do you accept the below reason for your
-                dispute?
-                <br><br>
-                <b>Dispute Reason:</b> ${currentDisputeReason}
-                <br><br> By selecting 'Yes' you accept the terms.
-            </p>
-        </div>
-    </div>
-</ai-dialog-body>
-<ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.approveDisputeReason }">
-    <button type="button" class="btn btn-danger pull-left" click.delegate="backToEdit()"><i class="fa fa-thumbs-down"></i>&nbsp;No</button>
-    <button type="button" class="btn btn-success pull-right" click.delegate="saveCreditItem()"><i class="fa fa-thumbs-up"></i>&nbsp;Yes</button>
-</ai-dialog-footer>
-</ai-dialog>
+        <ai-dialog-body css.bind="{ display:model.display.approveDisputeReason }">
+            <div class="cm-modal-header">
+                <h2>Approve Dispute Reason</h2>
+                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p>You have selected a dispute reason that was generated by Credit Matters. Do you accept the below reason
+                        for your dispute?
+                        <br><br>
+                        <b>Dispute Reason:</b> ${currentDisputeReason}
+                        <br><br> By selecting 'Yes' you accept the terms.
+                    </p>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{ display:model.display.approveDisputeReason }">
+            <button type="button" class="btn btn-danger pull-left" click.delegate="backToEdit()"><i class="fa fa-thumbs-down"></i>&nbsp;No</button>
+            <button type="button" class="btn btn-success pull-right" click.delegate="saveCreditItem()"><i class="fa fa-thumbs-up"></i>&nbsp;Yes</button>
+        </ai-dialog-footer>
+    </ai-dialog>
 </template>

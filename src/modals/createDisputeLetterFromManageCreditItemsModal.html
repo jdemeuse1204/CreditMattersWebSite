@@ -7,114 +7,77 @@
             </div>
             <div class="modal-body" css.bind="{display:model.display.stepOne}">
                 <div class="row">
+                    <p>Create a letter to send to a credit bureau for disputing credit items. Please choose which credit bureau
+                        you would like to send a letter to.</p>
+                </div>
+                <div class="row">
                     <div class="col-xs-4 text-center">
-                        <button type="button" class="btn btn-primary" click.delegate="stepOneTransUnion()"><i class="fa fa-forward"></i>&nbsp;TransUnion</button>
+                        <button type="button" class="btn btn-primary" click.delegate="stepOneTransUnion()"><i class="fa fa-send"></i>&nbsp;TransUnion</button>
                     </div>
                     <div class="col-xs-4 text-center">
-                        <button type="button" class="btn btn-primary" click.delegate="stepOneEquifax()"><i class="fa fa-forward"></i>&nbsp;Equifax</button>
+                        <button type="button" class="btn btn-primary" click.delegate="stepOneEquifax()"><i class="fa fa-send"></i>&nbsp;Equifax</button>
                     </div>
                     <div class="col-xs-4 text-center">
-                        <button type="button" class="btn btn-primary" click.delegate="stepOneExperian()"><i class="fa fa-forward"></i>&nbsp;Experian</button>
+                        <button type="button" class="btn btn-primary" click.delegate="stepOneExperian()"><i class="fa fa-send"></i>&nbsp;Experian</button>
                     </div>
                 </div>
             </div>
 
             <div class="cm-modal-header" css.bind="{display:model.display.stepTwo}">
-                <h2>Step Two: Choose Items</h2>
+                <h2>Step Two: Dispute Reason Acceptance</h2>
                 <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
             </div>
             <div class="modal-body" css.bind="{display:model.display.stepTwo}">
                 <div class="row">
                     <div class="col-xs-12">
                         <h4>Creating Letter for ${model.creditBureau}</h4>
-                        <p><b>Description:</b>&nbsp;Please choose the credit bureau items you would like to appear on the letter.
-                            If you would like all ${model.creditBureau} items to appear on the letter please choose 'Select
-                            All Items', to choose specific items please choose 'Choose Specific Items'.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 text-center">
-                        <button type="button" class="btn btn-primary" click.delegate="selectAllItems()"><i class="fa fa-forward"></i>&nbsp;Select All Items</button>
-                    </div>
-                    <div class="col-xs-6 text-center">
-                        <button type="button" class="btn btn-primary" click.delegate="chooseSpecificItems()"><i class="fa fa-forward"></i>&nbsp;Choose Specific Items</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cm-modal-header" css.bind="{display:model.display.stepThree}">
-                <h2>Step Three: Select Items</h2>
-                <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
-            </div>
-            <div class="modal-body" css.bind="{display:model.display.stepThree}">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h4>Creating Letter for ${model.creditBureau}</h4>
-                        <p><b>Description:</b>&nbsp;Please choose the credit bureau items you would like to appear on the letter.</p>
+                        <p><b>Description:</b>&nbsp;Please take a look at the dispute reason's and accept them before continuing.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <table id="credit-bureau-items-table" class="display" style="width: 100%;"></table>
-</div>
-</div>
-</div>
+                        <table id="accept-dispute-reasons-table" class="display" style="width: 100%;"></table>
+                    </div>
+                </div>
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer class="modal-footer" css.bind="{display:model.display.footer}">
+            <button type="button" class="btn btn-danger pull-left" click.delegate="back()"><i class="fa fa-backward"></i>&nbsp;Back</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+    <script type="text/x-kendo-template" id="credit-item-dispute-reason-acceptance">
+        <div class="cm-swipable">
+            <div class="cm-swipable-left-action">
+                <div class="pull-left text-center">
+                    <div>Decline</div>
+                    <i class="fa fa-close"></i>
+                </div>
+            </div>
+            <div class="cm-swipable-right-action">
+                <div class="pull-right text-center">
+                    <div>Accept</div>
+                    <i class="fa fa-check"></i>
+                </div>
+            </div>
 
-<div class="cm-modal-header" css.bind="{display:model.display.stepFour}">
-    <h2>Step Four: Dispute Reason Acceptance</h2>
-    <div class="cm-close-modal" click.delegate="controller.cancel()"></div>
-</div>
-<div class="modal-body" css.bind="{display:model.display.stepFour}">
-    <div class="row">
-        <div class="col-xs-12">
-            <h4>Creating Letter for ${model.creditBureau}</h4>
-            <p><b>Description:</b>&nbsp;Please take a look at the dispute reason's and accept them before continuing.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <table id="accept-dispute-reasons-table" class="display" style="width: 100%;"></table>
-</div>
-</div>
-</div>
-</ai-dialog-body>
-<ai-dialog-footer class="modal-footer" css.bind="{display:model.display.footer}">
-    <button type="button" class="btn btn-danger pull-left" click.delegate="back()"><i class="fa fa-backward"></i>&nbsp;Back</button>
-</ai-dialog-footer>
-</ai-dialog>
-<script type="text/x-kendo-template" id="credit-item-dispute-reason-acceptance">
-    <div class="cm-swipable">
-        <div class="cm-swipable-left-action">
-            <div class="pull-left text-center">
-                <div>Decline</div>
-                <i class="fa fa-close"></i>
+            <div class="cm-swipable-drag-overlay" data-id="#=Id#">
+                <div class="dispute-reason">
+                    <button type="button" class="btn btn-success pull-left"><i class="fa fa-check"></i>&nbsp;Accept</button>
+                    <button type="button" class="btn btn-danger pull-left"><i class="fa fa-close"></i>&nbsp;Decline</button>
+                </div>
+                <div class="row">
+                    <div>#=AccountNumber#</div>
+                </div>
+                <div class="row">
+                    <div>#=Creditor.Name#</div>
+                </div>
+                <div class="row">
+                    <div>#=Balance#</div>
+                </div>
+                <div class="row">
+                    <div>Reason:&nbsp;#=Dispute.Reason#</div>
+                </div>
             </div>
         </div>
-        <div class="cm-swipable-right-action">
-            <div class="pull-right text-center">
-                <div>Accept</div>
-                <i class="fa fa-check"></i>
-            </div>
-        </div>
-
-        <div class="cm-swipable-drag-overlay" data-id="#=Id#">
-            <div class="dispute-reason">
-                <button type="button" class="btn btn-success pull-left"><i class="fa fa-check"></i>&nbsp;Accept</button>
-                <button type="button" class="btn btn-danger pull-left"><i class="fa fa-close"></i>&nbsp;Decline</button>
-            </div>
-            <div class="row">
-                <div>#=AccountNumber#</div>
-            </div>
-            <div class="row">
-                <div>#=Creditor.Name#</div>
-            </div>
-            <div class="row">
-                <div>#=Balance#</div>
-            </div>
-            <div class="row">
-                <div>Reason:&nbsp;#=Dispute.Reason#</div>
-            </div>
-        </div>
-    </div>
-</script>
+    </script>
 </template>

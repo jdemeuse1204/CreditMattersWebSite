@@ -857,9 +857,28 @@ select.form-control {
   left: 260px;
   padding: 0;
   position: fixed;
-  height: 60px;
+  height: 70px;
   box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.1);
-  background-color: rgba(146, 228, 184, 0.7);
+  background-color: #9ed4b7;
+}
+.page-header-row-desktop .desktop-button {
+  float: right;
+  width: 120px;
+  display: block;
+  height: 70px;
+  padding: 0;
+  cursor: pointer;
+  color: #485965;
+  border-bottom: 3px solid rgba(0, 133, 62, 0.44);
+  margin-right: 3px;
+}
+.page-header-row-desktop .desktop-button i {
+  margin-top: 0px;
+  color: #485965;
+}
+.page-header-row-desktop .desktop-label {
+  color: white;
+  margin: 3px;
 }
 .page-header-row-mobile {
   display: block;
@@ -870,8 +889,11 @@ select.form-control {
   position: fixed;
   height: 60px;
   box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.1);
-  background-color: rgba(146, 228, 184, 0.7);
+  background-color: #9ed4b7;
   z-index: 998;
+}
+.page-header-row-mobile i {
+  color: #485965;
 }
 .page-header-row-mobile .header-button-mobile {
   float: right;
@@ -881,7 +903,7 @@ select.form-control {
   padding: 6px 8px 3px 8px;
   cursor: pointer;
   color: #485965;
-  border-bottom: 2px solid rgba(0, 133, 62, 0.44);
+  border-bottom: 3px solid rgba(0, 133, 62, 0.44);
   margin-right: 3px;
 }
 .page-header-row-mobile .header-button-no-border {
@@ -1041,7 +1063,9 @@ select.form-control {
   border-bottom: 1px solid lightgray;
 }
 #window-my-profile .col-md-4,
-#window-my-profile .col-xs-12 {
+#window-admin .col-md-4,
+#window-my-profile .col-xs-12,
+#window-admin .col-xs-12 {
   padding-top: 20px;
 }
 .fa-twitter {
@@ -1320,6 +1344,22 @@ select.form-control {
   color: white;
   font-size: 16px;
 }
+.btn-help {
+  position: absolute;
+  right: 15px;
+  top: 76px;
+}
+.card {
+  width: 110px;
+  height: 180px;
+}
+.card img {
+  width: 110px;
+  height: 150px;
+}
+.card button {
+  width: 110px;
+}
 #window-management-manage-credit-items #manage-credit-items-table_wrapper > div:nth-child(2) .cm-swipable.drag-left .cm-swipable-right-action {
   display: none;
 }
@@ -1413,7 +1453,8 @@ select.form-control {
   height: 100%;
 }
 #main-layout-content {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   background-color: white;
 }
 /*#region My Profile*/
@@ -1988,4 +2029,9 @@ ai-dialog ai-dialog-footer {
 #edit-cds-modal .row {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.cm-swipable-drag-overlay:hover,
+.cm-swipable:hover {
+  cursor: pointer;
+  background-color: #ffebde !important;
 }

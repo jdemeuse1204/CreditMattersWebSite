@@ -94,7 +94,7 @@ export class Grid {
 
             let mobileTemplate = kendo.template(getTemplateHtml("#mobile-credit-item")),
                 desktopCreditItemsTemplate = kendo.template(getTemplateHtml("#desktop-manage-credit-credit-bureaus"));
-        
+
             if (that.table) {
 
                 if ($("#manage-credit-items-table_wrapper").length === 0) {
@@ -163,8 +163,17 @@ export class Grid {
                             render: function (e) {
                                 try {
                                     const item = find(that.data, function (i) { return i.Id === e; });
+         
                                     if (!item) { debugger; }
+
                                     item.Balance = kendo.toString(item.Balance, "c2");
+                                    item["TransUnionStatus"] = constants.getCreditBureauStatus(item, constants.creditBureaus.transUnion);
+                                    item["EquifaxStatus"] = constants.getCreditBureauStatus(item, constants.creditBureaus.equifax);
+                                    item["ExperianStatus"] = constants.getCreditBureauStatus(item, constants.creditBureaus.experian);
+                                    
+                                    item["TransUnionHasSuccessStatus"] = item.TransUnionInitialStatusId !== 1 && (item.TransUnionResponseStatusId === 3 || item.TransUnionResponseStatusId);
+                                    item["EquifaxHasSuccessStatus"] = item.EquifaxInitialStatusId !== 1 && (item.EquifaxResponseStatusId === 3 || item.EquifaxResponseStatusId);
+                                    item["ExperianHasSuccessStatus"] = item.ExperianInitialStatusId !== 1 && (item.ExperianResponseStatusId === 3 || item.ExperianResponseStatusId);
 
                                     return mobileTemplate(item);
                                 } catch (error) {

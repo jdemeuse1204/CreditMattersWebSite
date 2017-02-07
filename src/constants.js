@@ -64,6 +64,12 @@ export const loginResults = {
     requiresDeviceVerification: 'requires device verification'
 };
 
+export const sendToCdsStatuses = {
+    send: 1,
+    alreadySent: 2,
+    notReporting: 3
+}
+
 export const phoneNumberTypes = {
     home: 'HomePhoneNumber',
     work: 'WorkPhoneNumber',
@@ -79,6 +85,7 @@ export const phoneNumberTypeIds = {
 export const routes = {
     login: '/#/Login',
     manageCreditItems: '/#/Management/ManageCreditItems',
+    resolvingCds: '/#/Management/ResolvingCDS',
     courses: '/#/Management/Courses',
     home: ''
 };
@@ -137,7 +144,7 @@ export function getCreditBureauResponseFromId(Id) {
         case 4:
             return 'Deleted';
         default: // null
-            return 'N/A';
+            return 'Still Negative';
     }
 }
 
@@ -148,9 +155,9 @@ export function getCustomerDisputeStatementStatusFromId(Id) {
         case _customerDisputeStatusIds.open:
             return _customerDisputeStatuses.open;
         case _customerDisputeStatusIds.resolved:
-            return  _customerDisputeStatuses.resolved;
+            return _customerDisputeStatuses.resolved;
         default: // null
-            return 'N/A';
+            return 'Still Negative';
     }
 }
 
@@ -171,3 +178,24 @@ export function wasSentToCds(creditBureauEntry, creditBureauId) {
             return false;
     }
 };
+
+export function getCreditBureauStatus(item, creditBureau) {
+    let creditId = item[`${creditBureau}ResponseStatusId`];
+
+    if (item[`${creditBureau}InitialStatusId`] === 1) {
+        creditId = item[`${creditBureau}InitialStatusId`];
+    }
+
+    return getCreditBureauResponseFromId(creditId);
+}
+
+export function getSendToCdsStatus(item, creditBureau) {
+
+    if (item[`${creditBureau}InitialStatusId`] === 1) {
+        return sendToCdsStatuses.notReporting;
+    }
+
+    return !!item.CustomerDisputeStatement &&
+        !!item.CustomerDisputeStatement[`${creditBureau}DisputeStatusId`] &&
+        item.CustomerDisputeStatement[`${creditBureau}DisputeStatusId`] > 1 ? sendToCdsStatuses.alreadySent : sendToCdsStatuses.send;
+}

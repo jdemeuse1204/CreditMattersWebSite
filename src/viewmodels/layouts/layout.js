@@ -11,14 +11,18 @@ export class Layout {
     firstName = "";
     accountType = "Free Trial";
     profileStatus = "";
+    userIsAdmin = false;
 
     constructor() {
 
     }
 
-    activate() {
+    async activate() {
 
         const token = getAuthorizationToken();
+        const userIsAdminResponse = await account.isAdmin();
+
+        this.userIsAdmin = userIsAdminResponse.Data.success;
 
         if (!!token) {
 

@@ -660,9 +660,31 @@ select.form-control {
     left: 260px;
     padding: 0;
     position: fixed;
-    height: 60px;
+    height: 70px;
     box-shadow: 1px 1px 8px 2px rgba(0,0,0,.1);
     background-color: @CMHeader;
+
+    .desktop-button {
+        float: right;
+        width: 120px;
+        display: block;
+        height: 70px;
+        padding: 0;
+        cursor: pointer;
+        color: @CMFontAlt;
+        border-bottom: 3px solid rgba(0, 133, 62, 0.44);
+        margin-right: 3px;
+
+        i {
+            margin-top: 0px;
+            color: @CMFontAlt;
+        }
+    }
+
+    .desktop-label {
+        color: white;
+        margin: 3px;
+    }
 }
 
 .page-header-row-mobile {
@@ -674,8 +696,12 @@ select.form-control {
     position: fixed;
     height: 60px;
     box-shadow: 1px 1px 8px 2px rgba(0,0,0,.1);
-    background-color: rgba(146, 228, 184, .7);
+    background-color: @CMHeader;
     z-index: 998;
+
+    i {
+        color: @CMFontAlt;
+    }
 
     .header-button-mobile {
         float: right;
@@ -685,7 +711,7 @@ select.form-control {
         padding: 6px 8px 3px 8px;
         cursor: pointer;
         color: @CMFontAlt;
-        border-bottom: 2px solid rgba(0, 133, 62, 0.44);
+        border-bottom: 3px solid rgba(0, 133, 62, 0.44);
         margin-right: 3px;
     }
 
@@ -882,7 +908,7 @@ select.form-control {
     }
 }
 
-#window-my-profile {
+#window-my-profile, #window-admin {
     .col-md-4, .col-xs-12 {
         padding-top: 20px;
     }
@@ -1222,6 +1248,26 @@ select.form-control {
     font-size: 16px;
 }
 
+.btn-help {
+    position: absolute;
+    right: 15px;
+    top: 76px;
+}
+
+.card {
+    width: 110px;
+    height: 180px;
+
+    img {
+        width: 110px;
+        height: 150px;
+    }
+
+    button {
+        width: 110px;
+    }
+}
+
 #window-management-manage-credit-items {
 
     #manage-credit-items-table_wrapper > div:nth-child(2) {
@@ -1350,7 +1396,8 @@ select.form-control {
 }
 
 #main-layout-content {
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     background-color: white;
 }
 
@@ -2165,4 +2212,9 @@ ai-dialog {
         margin-top: 20px;
         margin-bottom: 20px;
     }
+}
+
+.cm-swipable-drag-overlay:hover, .cm-swipable:hover {
+    cursor: pointer;
+    background-color: @CMHover !important; 
 }

@@ -17,7 +17,8 @@ export class AddNewCreditItemModal {
     controller = null;
     validationController = null;
     model = null;
-    creditBureauStatuses = [];
+    creditBureauInitialStatuses = [];
+    creditBureauResponseStatuses = [];
     creditors = [];
     adverseTypes = [];
     disputeReasons = [];
@@ -32,6 +33,13 @@ export class AddNewCreditItemModal {
     wasSentToCdsExperian = false;
     oldDisputeReasonId = 0;
     currentDisputeReason = "";
+
+    transUnionStatus = "";
+    equifaxStatus = "";
+    experianStatus = "";
+    transUnionSendToCdsStatus = 1;
+    equifaxSendToCdsStatus = 1;
+    experianSendToCdsStatus = 1;
 
     constructor(controller, controllerFactory) {
         this.controller = controller;
@@ -78,19 +86,15 @@ export class AddNewCreditItemModal {
         this.wasSentToCdsExperian = constants.wasSentToCds(model.creditItem, constants.creditBureauIds.experian);
         this.oldDisputeReasonId = this.model.creditItem.DisputeReasonId;
 
-        this.creditBureauStatuses = await lookup.getCreditBureauStatuses();
+        const creditBureauStatusesUnfiltered = await lookup.getCreditBureauStatuses();
 
         const creditorsResult = await lookup.getCreditors();
         const adverseTypesResult = await lookup.getAdverseTypes();
 
         this.transformResponseStatusIds();
 
-        if (isGuidEmpty(this.model.creditItem.Id) === true) {
-            this.creditBureauStatuses = this.filterStatusForAdd(this.creditBureauStatuses);
-        } else {
-            this.creditBureauStatuses = this.filterStatusForEdit(this.creditBureauStatuses);
-        }
-
+        this.creditBureauInitialStatuses = this.filterStatusForAdd(creditBureauStatusesUnfiltered);
+        this.creditBureauResponseStatuses = this.filterStatusForEdit(creditBureauStatusesUnfiltered);
         this.creditors = creditorsResult.Data.result;
         this.adverseTypes = adverseTypesResult.Data.result;
 
@@ -152,13 +156,39 @@ export class AddNewCreditItemModal {
         const that = this;
 
         return lookup.getDisputeReasons(adverseType).then(response => {
-
-            that.disputeReasons = response.Data.result;
+            const data = response.Data.result;
+            that.disputeReasons = data;
+            that.model.creditItem.DisputeReasonId = data[0].Id;
 
         }).catch((error) => { });
     }
 
+    goToCds() {
+        this.controller.ok();
+        window.location.href = constants.routes.resolvingCds;
+    }
+
     showSendToCds() {
+
+        const getStatus = (creditBureau) => {
+
+            let creditId = this.model.creditItem[`${creditBureau}ResponseStatusId`];
+
+            if (this.model.creditItem[`${creditBureau}InitialStatusId`] === 1) {
+                creditId = this.model.creditItem[`${creditBureau}InitialStatusId`];
+            }
+
+            return constants.getCreditBureauResponseFromId(creditId);
+        };
+
+        this.transUnionStatus = getStatus(constants.creditBureaus.transUnion);
+        this.equifaxStatus = getStatus(constants.creditBureaus.equifax);
+        this.experianStatus = getStatus(constants.creditBureaus.experian);
+
+        this.transUnionSendToCdsStatus = constants.getSendToCdsStatus(this.model.creditItem, constants.creditBureaus.transUnion);
+        this.equifaxSendToCdsStatus = constants.getSendToCdsStatus(this.model.creditItem, constants.creditBureaus.equifax);
+        this.experianSendToCdsStatus = constants.getSendToCdsStatus(this.model.creditItem, constants.creditBureaus.experian);
+
         this.model.display.sendingToCds = "";
         this.model.display.addEdit = "none";
         this.model.display.errorSendingToCds = "none";
@@ -212,8 +242,6 @@ export class AddNewCreditItemModal {
         this.model.display.sendingToCds = "none",
             this.model.display.addEdit = "";
     }
-
-
 
     save() {
 

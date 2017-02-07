@@ -163,36 +163,6 @@ export class Grid {
                             render: function (e) {
                                 try {
                                     const item = find(that.data, function (i) { return i.Id === e; });
-                                    const getCreditBureauStatus = (creditBureauEntry, creditBureauId) => {
-
-                                        switch (creditBureauId) {
-                                            case constants.creditBureauIds.transUnion:
-
-                                                if (creditBureauEntry.TransUnionInitialStatusId == constants.creditBureauStatusIds.notReporting) {
-                                                    return constants.creditBureauStatuses.notReporting;
-                                                }
-
-                                                return constants.getCustomerDisputeStatementStatusFromId(creditBureauEntry.CustomerDisputeStatement.TransUnionDisputeStatusId);
-
-                                            case constants.creditBureauIds.equifax:
-
-                                                if (creditBureauEntry.EquifaxInitialStatusId == constants.creditBureauStatusIds.notReporting) {
-                                                    return constants.creditBureauStatuses.notReporting;
-                                                }
-
-                                                return constants.getCustomerDisputeStatementStatusFromId(creditBureauEntry.CustomerDisputeStatement.EquifaxDisputeStatusId);
-
-                                            case constants.creditBureauIds.experian:
-
-                                                if (creditBureauEntry.ExperianInitialStatusId == constants.creditBureauStatusIds.notReporting) {
-                                                    return constants.creditBureauStatuses.notReporting;
-                                                }
-
-                                                return constants.getCustomerDisputeStatementStatusFromId(creditBureauEntry.CustomerDisputeStatement.ExperianDisputeStatusId);
-                                            default:
-                                                return "";
-                                        };
-                                    };
                                     const model = {
                                         Id: item.Id,
                                         AccountNumber: item.AccountNumber,
@@ -200,12 +170,13 @@ export class Grid {
                                         IsTransUnionResolved: item.TransUnionResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
                                         IsEquifaxResolved: item.EquifaxResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
                                         IsExperianResolved: item.ExperianResponseStatusId == constants.getCreditBureauResponseId(constants.creditBureauStatuses.resolvedDispute),
-                                        TransUnionStatus: getCreditBureauStatus(item, constants.creditBureauIds.transUnion),
+                                        TransUnionStatus: constants.getCreditBureauStatus(item, constants.creditBureaus.transUnion),
                                         TransUnionStatusDate: "",
-                                        EquifaxStatus: getCreditBureauStatus(item, constants.creditBureauIds.equifax),
+                                        EquifaxStatus: constants.getCreditBureauStatus(item, constants.creditBureaus.equifax),
                                         EquifaxStatusDate: "",
-                                        ExperianStatus: getCreditBureauStatus(item, constants.creditBureauIds.experian),
+                                        ExperianStatus: constants.getCreditBureauStatus(item, constants.creditBureaus.experian),
                                         ExperianStatusDate: "",
+                                        IsMissingAddress: !item.CustomerDisputeStatement.CreditorAddressId
                                     };
 
                                     return mobileTemplate(model);

@@ -1,0 +1,14 @@
+<template>
+    <div class="container-full" id="window-upload-files" slot="page-content">
+        <h3 class="cm-page-header">Upload Files</h3>
+        <button type="button" class="btn btn-primary btn-help hidden-xs" click.delegate="help()"><i class="fa fa-question"></i>&nbsp;Help</button>
+        <button type="button" class="btn btn-primary btn-help hidden-lg hidden-md hidden-sm" click.delegate="help()"><i class="fa fa-question"></i></button>
+        <div class="row">
+            <section class="container">
+                <image-files-picker files.bind="files"></image-files-picker>
+            </section>
+        </div>
+    </div>
+    <section slot="scripts">
+    </section>
+</template>

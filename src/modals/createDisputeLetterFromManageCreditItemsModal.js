@@ -12,8 +12,7 @@ export class CreateDisputeLetterFromManageCreditItemsModal {
     controller = null;
     model = null;
     activeStep = 1;
-    steps = ["stepOne", "stepTwo", "stepThree", "stepFour"];
-    table = null;
+    steps = ["stepOne", "stepTwo", "stepThree"];
     data = [];
 
     constructor(controller, controllerFactory) {
@@ -32,50 +31,6 @@ export class CreateDisputeLetterFromManageCreditItemsModal {
         this.activeStep = stepNumber;
         this.model.display.footer = stepNumber === 1 ? "none" : "";
 
-        if (stepNumber === 4) {
-
-            const that = this;
-
-            if (!that.table) {
-                loadingScreen.show();
-                management.getCreditItemsThatNeedDisputeReasonAcceptance(this.model.creditBureau).then((response) => {
-
-                    let mobileTemplate = kendo.template(getTemplateHtml("#credit-item-dispute-reason-acceptance"));
-                    that.data = response.Data.result;
-
-                    that.table = $("#accept-dispute-reasons-table").DataTable({
-                        data: that.data,
-                        columns: [
-                            {
-                                title: "Credit Items",
-                                data: "Id",
-                                render: function (e) {
-                                    const item = find(that.data, function (i) { return i.Id === e; });
-                                    if (!item) { debugger; }
-                                    item.Balance = kendo.toString(item.Balance, "c2");
-
-                                    return mobileTemplate(item);
-                                }
-                            }
-                        ],
-                        scrollY: '50vh',
-                        scrollCollapse: true,
-                        paging: false,
-                        initComplete: function () {
-
-                            const items = $("#accept-dispute-reasons-table_wrapper > div.row .col-sm-6");
-
-                            // remove search bar
-                            $(items[0]).remove();
-                            $(items[1]).remove();
-
-                            loadingScreen.hide();
-                        }
-                    });
-                });
-            }
-
-        }
 
         for (let i = 1; i < this.steps.length + 1; i++) {
             const step = this.steps[i - 1];

@@ -1,0 +1,6 @@
+<template>
+    <input type="file" accept.bind="accept" multiple.bind="multiple" files.bind="files" ref="input" style="visibility: hidden; width: 0; height: 0;">
+    <button class="btn btn-primary" click.delegate="input.click()">
+    <slot>Select</slot>
+  </button>
+</template>

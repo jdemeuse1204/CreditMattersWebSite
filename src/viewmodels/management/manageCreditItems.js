@@ -55,7 +55,6 @@ export class ManageCreditItems {
                 stepOne: "",
                 stepTwo: "none",
                 stepThree: "none",
-                stepFour: "none",
                 footer: "none"
             },
             creditBureau: ""

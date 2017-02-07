@@ -25,6 +25,7 @@ export class App {
 
       // management routes
       { route: 'Management/Courses', name: 'Courses', moduleId: './management/courses', nav: true, title: 'Courses', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+      { route: 'Management/UploadFiles', name: 'Upload Files', moduleId: './management/uploadFiles', nav: true, title: 'Upload Files', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/ManageCreditItems', name: 'ManageCreditItems', moduleId: './management/manageCreditItems', nav: true, title: 'Manage Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/LinkedProfessional', name: 'LinkedProfessional', moduleId: './management/linkedProfessional', nav: true, title: 'Linked Professional', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/StallLetters', name: 'StallLetters', moduleId: './management/stallLetters', nav: true, title: 'Stall Letters', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
@@ -36,7 +37,10 @@ export class App {
       { route: 'Management/MyProfile', name: 'MyProfile', moduleId: './management/myProfile', nav: true, title: 'My Profile', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/TransUnionCreditItems', name: 'TransUnionCreditItems', moduleId: './management/transUnionCreditItems', nav: true, title: 'TransUnion Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
       { route: 'Management/EquifaxCreditItems', name: 'EquifaxCreditItems', moduleId: './management/equifaxCreditItems', nav: true, title: 'Equifax Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
-      { route: 'Management/ExperianCreditItems', name: 'ExperianCreditItems', moduleId: './management/experianCreditItems', nav: true, title: 'Experian Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
+      { route: 'Management/ExperianCreditItems', name: 'ExperianCreditItems', moduleId: './management/experianCreditItems', nav: true, title: 'Experian Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
+
+      // admin
+      { route: 'Management/Admin', name: 'Admin', moduleId: './management/admin', nav: true, title: 'Admin', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
     ]);
 
     config.mapUnknownRoutes('./home');
@@ -62,7 +66,7 @@ class AuthorizeStep {
         });
       }
 
-      return next(); 
+      return next();
     }
 
     return next();

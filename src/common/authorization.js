@@ -127,7 +127,6 @@ export function forgetRememberedUser() {
 }
 
 export function cleanAuthorizationToken() {
-debugger;
     const authToken = getAuthorizationToken();
 
     if (!!authToken && !!authToken.split && authToken.split('.').length != 3) {

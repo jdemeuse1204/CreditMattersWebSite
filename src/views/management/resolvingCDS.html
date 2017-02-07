@@ -57,8 +57,12 @@
             <div class="row">
                 <div></div>
                 <div><span class="hidden-xs">Experian:</span><span class="hidden-lg hidden-md hidden-sm">EX:</span>&nbsp;<span class="#=IsExperianResolved === true ? 'text-cm-success' : ''#">#=ExperianStatus#</span></div>
-
             </div>
+            # if (IsMissingAddress) { #
+            <div class="row warning-row">
+                <div class="text-danger"><i class="fa fa-exclamation-triangle"></i>&nbsp;Missing Creditor Address</div>
+            </div>
+            # } #
         </div>
     </div>
 </script>

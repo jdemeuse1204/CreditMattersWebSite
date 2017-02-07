@@ -19,6 +19,7 @@
                 <li><a href="#/Management/EstablishAccounts">Establish Accounts</a></li>
                 <li><a href="#/Management/ResolvingCDS">Resolving CDS</a></li>
                 <li><a href="#/Management/TrackingDisputeActivity">Tracking Dispute Activity</a></li>
+                <li><a href="#/Management/UploadFiles">Upload Files</a></li>
             </ul>
             <div class="text-center">
                 <button class="btn btn-danger log-out" click.trigger="logout()">Log Out</button>
@@ -43,6 +44,7 @@
                 <li click.trigger="drawerNavigate($event)">Establish Accounts</li>
                 <li click.trigger="drawerNavigate($event)">Resolving CDS</li>
                 <li click.trigger="drawerNavigate($event)">Tracking Dispute Activity</li>
+                <li click.trigger="drawerNavigate($event)">Upload Files</li>
             </ul>
             <div class="text-center">
                 <button class="btn btn-danger log-out" click.trigger="logout()">Log Out</button>
@@ -59,12 +61,13 @@
             <div class="page-header-row-desktop hidden-sm hidden-xs">
 
                 <div class="user-profile-desktop" id="user-profile-desktop">
-                    <div>
-                        <i class="fa fa-user fa-5x"></i>
+                    <div class="text-center desktop-button">
+                        <i class="fa fa-user fa-3x"></i>
+                        <div class="desktop-label">Profile & Settings</div>
                     </div>
-                    <div class="text-center">
-                        <div class="username"></div>
-                        <div class="profile-and-settings">Profile & Settings</div>
+                    <div class="text-center desktop-button">
+                        <i class="fa fa-key fa-3x"></i>
+                        <div class="desktop-label">Administrator</div>
                     </div>
                 </div>
             </div>
@@ -75,11 +78,12 @@
                 <a class="header-button-no-border" href="/">
                     <img alt="Credit Matters" src="/Content/images/CM-Green-Circles.png" width="43" height="43" />
                 </a>
+                <a class="text-center header-button-mobile" if.bind="userIsAdmin === true" href="#/Management/Admin">
+                    <i class="fa fa-key fa-3x"></i>
+                </a>
                 <a class="text-center header-button-mobile" href="#/Management/MyProfile">
                     <i class="fa fa-user fa-3x"></i>
                 </a>
-                <div id="layout-admin-options"></div>
-
             </div>
             <!--End Mobile-->
             <div class="page-content-row container-full">
