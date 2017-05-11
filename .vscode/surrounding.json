@@ -1,0 +1,104 @@
+{
+  "settings": [
+    {
+      "index": 0,
+      "prefix": "/* beautify preserve:start */",
+      "postfix": "/* beautify preserve:end */"
+    },
+    {
+      "index": 1,
+      "prefix": "/*eslint-disable no-unused-vars*/",
+      "postfix": "/*eslint-enable no-unused-vars*/"
+    },
+    {
+      "index": 2,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 3,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 4,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 5,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 6,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 7,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 8,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 9,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 10,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 11,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 12,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 13,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 14,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 15,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 16,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 17,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 18,
+      "prefix": "{",
+      "postfix": "}"
+    },
+    {
+      "index": 19,
+      "prefix": "{",
+      "postfix": "}"
+    }
+  ]
+}

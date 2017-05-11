@@ -1,9 +1,11 @@
+/* beautify preserve:start */
 import * as environment from '../environment';
 import { HttpClient as FetchClient, json } from 'aurelia-fetch-client';
 import { HttpClient } from 'aurelia-http-client';
 import { getAuthorizationToken } from "./authorization";
 import { merge } from "lodash";
 import { routes } from '../constants';
+/* beautify preserve:end */
 
 export function post(url, payload, options) {
 

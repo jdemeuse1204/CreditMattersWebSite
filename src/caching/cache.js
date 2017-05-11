@@ -1,5 +1,4 @@
-import * as fetchServices from '../apis/fetchServices';
-import { find } from 'lodash';
+import * as webApi from '../common/webApi';
 
 const cache = {}; // only get request data (obviously!)
 const postUrlMap = {} // map the post to the get request
@@ -12,7 +11,7 @@ export function map(getUrl, postUrl) {
   postUrlMap[wrappedPostUrl] = wrappedGetUrl;
 }
 
-export function postRequest(url, body) {
+export function postRequest(url, body, options) {
 
   // bust the cache for the get/post url combo
   const wrappedGetUrl = postUrlMap[wrap(url)];
@@ -23,13 +22,13 @@ export function postRequest(url, body) {
     delete cache[wrappedGetUrl];
   }
 
-  return fetchServices.getRequest(url).then(response => {
+  return webApi.post(url, body, options).then(response => {
     cache[wrappedGetUrl] = response;
     return response;
   });
 }
 
-export function getRequest(url) {
+export function getRequest(url, payload) {
 
   const wrappedUrl = wrap(url);
 
@@ -39,7 +38,7 @@ export function getRequest(url) {
     });
   }
 
-  return fetchServices.getRequest(wrappedUrl).then(response => {
+  return webApi.get(url, payload).then(response => {
     cache[wrappedUrl] = response;
     return response;
   });

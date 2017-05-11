@@ -177,7 +177,7 @@ export function wasSentToCds(creditBureauEntry, creditBureauId) {
         default:
             return false;
     }
-};
+}
 
 export function getCreditBureauStatus(item, creditBureau) {
     let creditId = item[`${creditBureau}ResponseStatusId`];
