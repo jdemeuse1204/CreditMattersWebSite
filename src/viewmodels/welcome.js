@@ -1,7 +1,8 @@
 //import {computedFrom} from 'aurelia-framework';
 import {useView} from 'aurelia-framework';
+import { PLATFORM } from 'aurelia-pal';
 
-@useView('../views/welcome.html')
+@useView(PLATFORM.moduleName('../views/welcome.html'))
 export class Welcome {
   heading = 'Welcome to the Aurelia Navigation App!';
   firstName = 'John';

@@ -1,33 +1,33 @@
-import "bootstrap";
-
+/* beautify preserve:start */
+import 'bootstrap';
 import { useView } from 'aurelia-framework';
 import { EquifaxGrid } from '../../controllers/manageCreditItems/equifaxGrid';
 import { inject } from 'aurelia-dependency-injection';
-import * as loadingScreen from "../../common/loadingScreen";
+import * as loadingScreen from '../../common/loadingScreen';
+import { PLATFORM } from 'aurelia-pal';
+/* beautify preserve:end */
 
-@useView('../../views/management/equifaxCreditItems.html')
+@useView(PLATFORM.moduleName('../../views/management/equifaxCreditItems.html'))
 @inject(EquifaxGrid)
 export class EquifaxCreditItems {
 
-    grid = null;
+  grid = null;
 
-    constructor(grid) {
-        this.grid = grid;
+  constructor(grid) {
+    this.grid = grid;
+  }
+
+  attached() {
+    loadingScreen.show();
+
+    this.grid.load().then(() => {
+      loadingScreen.hide();
+    });
+  }
+
+  createLetter() {
+    if (this.grid.anyItemsSelected() === false) {
+      return;
     }
-
-    attached() {
-
-        loadingScreen.show();
-
-        this.grid.load().then(() => {
-            loadingScreen.hide();
-        });
-    }
-
-    createLetter() {
-
-        if (this.grid.anyItemsSelected() === false) {
-            return;
-        }
-    }
+  }
 }

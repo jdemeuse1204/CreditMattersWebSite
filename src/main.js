@@ -1,10 +1,17 @@
 // we want font-awesome to load as soon as possible to show the fa-spinner
-import 'bootstrap';
+import 'font-awesome/css/font-awesome.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'babel-polyfill';
 import 'whatwg-fetch';
-
-// comment out if you don't want a Promise polyfill (remove also from webpack.common.js)
 import * as Bluebird from 'bluebird';
-Bluebird.config({ warnings: false });
+import { PLATFORM } from 'aurelia-pal';
+
+// remove out if you don't want a Promise polyfill (remove also from webpack.config.js)
+Bluebird.config({
+  warnings: {
+    wForgottenReturn: false
+  }
+});
 
 export async function configure(aurelia) {
   aurelia.use
@@ -17,10 +24,8 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 9999;
     })
     .plugin('aurelia-validation')
-    .plugin("aurelia-validatejs")
-    .plugin('aurelia-kendoui-bridge')
-    .feature('resources');
+    .plugin('aurelia-validatejs');
 
   await aurelia.start();
-  aurelia.setRoot('viewmodels/app');
+  await aurelia.setRoot(PLATFORM.moduleName('viewmodels/app'));
 }

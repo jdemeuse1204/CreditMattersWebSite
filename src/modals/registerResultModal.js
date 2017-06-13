@@ -1,29 +1,31 @@
+/* beautify preserve:start */
 import { inject } from 'aurelia-dependency-injection';
 import {DialogController} from 'aurelia-dialog';
+/* beautify preserve:end */
 
 @inject(DialogController)
 export class RegisterResultModal {
 
-    controller = null;
-    model = null;
+  controller = null;
+  model = null;
 
-    constructor(controller) {
-        this.controller = controller;
-    }
+  constructor(controller) {
+    this.controller = controller;
+  }
 
-    activate(model) {
-        this.model = model
-    }
+  activate(model) {
+    this.model = model;
+  }
 
-    login() {
-        window.location = "#/Login"
-    }
+  login() {
+    window.location = '#/Login';
+  }
 
-    recoverPassword() {
+  recoverPassword() {
 
-    }
+  }
 
-    resendAuthorizationEmail() {
-        
-    }
+  resendAuthorizationEmail() {
+
+  }
 }

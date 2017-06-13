@@ -1,28 +1,28 @@
-import "bootstrap";
-
+import 'bootstrap';
 import { useView } from 'aurelia-framework';
 import { Grid } from '../../controllers/resolvingCDS/grid';
 import { inject } from 'aurelia-dependency-injection';
-import * as loadingScreen from "../../common/loadingScreen";
+import * as loadingScreen from '../../common/loadingScreen';
 import { GridServices } from '../../controllers/resolvingCDS/gridServices';
+import { PLATFORM } from 'aurelia-pal';
 
-@useView('../../views/management/resolvingCDS.html')
+@useView(PLATFORM.moduleName('../../views/management/resolvingCDS.html'))
 @inject(Grid, GridServices)
 export class ResolvingCDS {
 
-    Grid = null;
-    gridServices = null;
+  Grid = null;
+  gridServices = null;
 
-    constructor(grid, gridServices) {
-        this.grid = grid;
-        this.gridServices = gridServices;
-    }
+  constructor(grid, gridServices) {
+    this.grid = grid;
+    this.gridServices = gridServices;
+  }
 
-    attached() {
-        loadingScreen.show();
+  attached() {
+    loadingScreen.show();
 
-        this.grid.load().then(() => {
-            loadingScreen.hide();
-        });
-    }
+    this.grid.load().then(() => {
+      loadingScreen.hide();
+    });
+  }
 }

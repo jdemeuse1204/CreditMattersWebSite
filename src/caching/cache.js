@@ -1,10 +1,9 @@
 import * as webApi from '../common/webApi';
 
 const cache = {}; // only get request data (obviously!)
-const postUrlMap = {} // map the post to the get request
+const postUrlMap = {}; // map the post to the get request
 
 export function map(getUrl, postUrl) {
-
   const wrappedGetUrl = wrap(getUrl);
   const wrappedPostUrl = wrap(postUrl);
 
@@ -12,7 +11,6 @@ export function map(getUrl, postUrl) {
 }
 
 export function postRequest(url, body, options) {
-
   // bust the cache for the get/post url combo
   const wrappedGetUrl = postUrlMap[wrap(url)];
 
@@ -53,7 +51,6 @@ export function bust() {
 }
 
 export function bustOne(url) {
-
   const wrappedUrl = wrap(url);
 
   if (!cache.hasOwnProperty(wrappedUrl)) return;

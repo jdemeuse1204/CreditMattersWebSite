@@ -1,8 +1,0 @@
-{
-    "name": "credit matters web site",
-    "description" : "fix your credit",
-    "repository" : "https://github.com/jdemeuse1204/CreditMattersWebSite",
-    "logo" : "",
-    "keywords" : ["node", "express"],
-    "image" : "heroku/nodejs"
-}

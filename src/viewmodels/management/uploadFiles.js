@@ -1,18 +1,19 @@
 import { useView } from 'aurelia-framework';
 import { inject } from 'aurelia-dependency-injection';
-import * as loadingScreen from "../../common/loadingScreen";
+import * as loadingScreen from '../../common/loadingScreen';
+import { PLATFORM } from 'aurelia-pal';
 
-@useView('../../views/management/uploadFiles.html')
+@useView(PLATFORM.moduleName('../../views/management/uploadFiles.html'))
 export class UploadFiles {
 
-    files = [];
+  files = [];
 
-    constructor() {
+  constructor() {
 
-    }
+  }
 
-    attached() {
+  attached() {
 
 
-    }
+  }
 }

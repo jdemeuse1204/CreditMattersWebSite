@@ -1,75 +1,72 @@
-import "bootstrap";
-
+/* beautify preserve:start */
+import 'bootstrap';
 import { useView } from 'aurelia-framework';
 import { Grid } from '../../controllers/manageCreditItems/grid';
 import { inject } from 'aurelia-dependency-injection';
 import { DialogService } from 'aurelia-dialog';
-import * as loadingScreen from "../../common/loadingScreen";
+import * as loadingScreen from '../../common/loadingScreen';
 import { GridServices } from '../../controllers/manageCreditItems/gridServices';
+import { PLATFORM } from 'aurelia-pal';
+/* beautify preserve:end */
 
-@useView('../../views/management/manageCreditItems.html')
+@useView(PLATFORM.moduleName('../../views/management/manageCreditItems.html'))
 @inject(Grid, GridServices, DialogService)
 export class ManageCreditItems {
 
-    Grid = null;
-    gridServices = null;
-    dialogController = null;
+  Grid = null;
+  gridServices = null;
+  dialogController = null;
 
-    constructor(grid, gridServices, dialogController) {
-        this.grid = grid;
-        this.gridServices = gridServices;
-        this.dialogController = dialogController;
-    }
+  constructor(grid, gridServices, dialogController) {
+    this.grid = grid;
+    this.gridServices = gridServices;
+    this.dialogController = dialogController;
+  }
 
-    attached() {
+  attached() {
+    loadingScreen.show();
 
-        loadingScreen.show();
+    this.grid.load().then(() => {
 
-        this.grid.load().then(() => {
+    }).catch(error => {
 
-        }).catch(error => {
-            
-        }).finally(() => {
-            loadingScreen.hide();
-        });
-    }
+    }).finally(() => {
+      loadingScreen.hide();
+    });
+  }
 
-    addItem() {
+  addItem() {
+    const that = this;
 
-        const that = this;
+    this.gridServices.openModal().then(response => {
+      if (response.wasCancelled === false) {
+        that.grid.load();
+      }
+    }).catch(() => {});
+  }
 
-        this.gridServices.openModal().then(response => {
+  createLetter() {
+    loadingScreen.show();
 
-            if (response.wasCancelled === false) {
-                that.grid.load();
-            }
-        }).catch(() => { });
-    }
+    const modalModel = {
+      display: {
+        stepOne: '',
+        stepTwo: 'none',
+        stepThree: 'none',
+        footer: 'none'
+      },
+      creditBureau: ''
+    };
 
-    createLetter() {
+    this.dialogController.open({
+      viewModel: 'modals/createDisputeLetterFromManageCreditItemsModal',
+      model: modalModel
+    }).then(response => {
+      if (response.wasCancelled === false) {
 
-        loadingScreen.show();
+      }
+    }).catch(error => {
 
-        const modalModel = {
-            display: {
-                stepOne: "",
-                stepTwo: "none",
-                stepThree: "none",
-                footer: "none"
-            },
-            creditBureau: ""
-        };
-
-        this.dialogController.open({
-            viewModel: 'modals/createDisputeLetterFromManageCreditItemsModal',
-            model: modalModel
-        }).then(response => {
-
-            if (response.wasCancelled === false) {
-
-            }
-        }).catch(error => {
-
-        });
-    }
+    });
+  }
 }

@@ -6,6 +6,6 @@ export function configure(config) {
     '../attributes/file-drop-target',
     '../customElements/file-picker',
     '../customElements/image-files-picker',
-    '../valueConverters/chunk',
+    '../valueConverters/chunk'
   ]);
 }

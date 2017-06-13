@@ -1,4 +1,6 @@
+/* beautify preserve:start */
 import {customAttribute, inject} from 'aurelia-framework';
+/* beautify preserve:end */
 
 @customAttribute('blob-src')
 @inject(Element)
