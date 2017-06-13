@@ -2,7 +2,6 @@ import { useView } from 'aurelia-framework';
 import { Redirect } from 'aurelia-router';
 import { account } from '../common/repository';
 import { includes } from 'lodash';
-import { routes } from '../constants';
 import { PLATFORM } from 'aurelia-pal';
 
 @useView(PLATFORM.moduleName('../views/app.html'))

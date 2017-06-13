@@ -6,6 +6,7 @@ import { useView } from 'aurelia-framework';
 import { routes } from '../../constants';
 import ls from '../../common/localStorage';
 import { PLATFORM } from 'aurelia-pal';
+import '../../styles/layouts/layout.less';
 /* beautify preserve:end */
 
 @useView(PLATFORM.moduleName('../views/layouts/layout.html'))

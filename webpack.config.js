@@ -82,7 +82,8 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } },
       // load these fonts normally, as files:
       { test: /\.(ttf|eot|svg|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'file-loader' },
-      { test: /\.scss$/, use: [{ loader: 'style-loader' }, {loader: 'css-loader' }, { loader: 'sass-loader' }]}
+      { test: /\.scss$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]},
+      { test: /\.less$/, use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'less-loader' }]}
     ]
   },
   plugins: [

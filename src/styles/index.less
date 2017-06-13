@@ -1,0 +1,105 @@
+@import "colors.less";
+@import "overrides.less";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* #region Main */
+
+// do not want modals to be round
+html {
+    font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+    height: 100%;
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    height: 100%;
+}
+
+input[type='checkbox'] {
+    height: inherit !important;
+    width: inherit !important;
+    height: 30px !important;
+    width: 30px !important;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='tel'],
+input[type='search'] {
+    border-radius: 0;
+}
+
+.window {
+    min-height: 100%;
+}
+
+select.form-control {
+    border-radius: 0;
+}
+
+.phone-number {
+    width: 190px;
+}
+
+.page-content-row {
+    display: block;
+    overflow: hidden;
+    padding: 60px 15px 50px 15px;
+}
+
+.cm-page-header {
+    margin: 15px 0 15px 0;
+    padding: 0;
+}
+
+.mobile-brand {
+    background: url(/Content/images/CM-Green-Circles.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70px;
+    width: 70px;
+}
+
+.brand {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+}
+
+.desktop-brand {
+    background-image: url(/Content/images/CM-LOGO.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70px;
+    width: 150px;
+}
+
+.cm-label {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.splash {
+    text-align: center;
+    margin: 0 0 0 0;
+    box-sizing: border-box;
+    cursor: wait;
+}
+
+.splash .message {
+    font-size: 72px;
+    line-height: 72px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.splash .fa-spinner {
+    text-align: center;
+    display: inline-block;
+    font-size: 72px;
+    margin-top: 50px;
+}

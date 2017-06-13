@@ -1,0 +1,115 @@
+@import "colors.less";
+#home-page {
+    .row {
+        margin: 0;
+    }
+    .home-page-first-row {
+        background: linear-gradient(-180deg, rgba(0, 33, 15, 0.70) 0, rgba(0, 33, 15, 0.70) 100%), url(/Content/images/family.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        @media (max-width: 1080px) {
+            .chevron-one, .chevron-two {
+                display: none;
+            }
+        }
+        .chevron-one,
+        .chevron-two {
+            position: absolute;
+            top: 100px;
+        }
+        .chevron-one {
+            left: 0;
+        }
+        .chevron-two {
+            right: 0;
+        }
+        .btn-primary {
+            background-color: @CMOrange;
+            border: 1px solid @CMOrange;
+            padding: 7px 35px 7px 35px;
+            margin: 10px 0 50px 0;
+        }
+        .btn-primary:hover {
+            background-color: @CMOrange;
+            border: 1px solid @CMOrange;
+            padding: 7px 35px 7px 35px;
+            margin: 10px 0 50px 0;
+            box-shadow: none;
+        }
+        .button-container {
+            position: absolute;
+            right: 35px;
+            top: 35px;
+            color: white;
+            text-decoration: none;
+            .home-button-login {
+                border: 1px solid white;
+                border-radius: 4px;
+            }
+            .home-button {
+                padding: 7px 15px 7px 15px;
+                color: white;
+            }
+            .home-button:hover {
+                text-decoration: none;
+            }
+            a[name='register'] {
+                float: left;
+            }
+            a[name='login'],
+            a[name='dashboard'] {
+                float: left;
+            }
+        }
+        div:nth-child(2) {
+            h1 {
+                margin: 105px 10px 30px 10px;
+                color: @CMLightGreen;
+            }
+        }
+        .better-credit {
+            background-color: rgba(211, 228, 196, .76);
+            h1 {
+                color: @CMDarkGreen;
+                margin: 20px 10px 20px 10px;
+            }
+            i {
+                color: @CMDarkGreen;
+            }
+            h4 {
+                font-weight: bold;
+                margin-top: 60px;
+            }
+            p {
+                color: @CMDarkGreen;
+                margin: 0 10px 0 10px;
+                font-size: 18px;
+            }
+            .btn-primary {
+                background-color: @CMDarkGreen;
+                border: 1px solid @CMDarkGreen;
+                padding: 7px 35px 7px 35px;
+                margin: 10px 0 50px 0;
+            }
+            .btn-primary:hover {
+                background-color: @CMDarkGreen;
+                border: 1px solid @CMDarkGreen;
+                padding: 7px 35px 7px 35px;
+                margin: 10px 0 50px 0;
+                box-shadow: none;
+            }
+            input {
+                height: 38px;
+                border-radius: 0;
+            }
+            .six-steps {
+                h4 {
+                    margin-top: 55px;
+                }
+            }
+            .col-md-4 {
+                padding: 20px;
+            }
+        }
+    }
+}

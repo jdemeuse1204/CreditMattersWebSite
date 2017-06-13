@@ -1,0 +1,67 @@
+@import "colors.less";
+
+.k-validation-error {
+    color: @CMError;
+    position: absolute;
+    top: 8px;
+}
+
+
+.k-ddl-validation-error {
+    &:extend(.k-validation-error);
+
+    right: 25px;
+}
+
+.k-dp-validation-error {
+    &:extend(.k-validation-error);
+
+    right: 35px;
+}
+
+.password-requirement {
+    width: 100%;
+}
+
+.password-success {
+    color: #006900 !important;
+}
+
+.password-fail {
+    color: @CMError !important;
+}
+
+.password-required {
+    color: @CMError !important;
+}
+
+.password-required::before {
+    display: block;
+    margin-top: 10px;
+}
+
+// new validation
+.v-error {
+
+    i, span {
+        color: @Danger;
+    }
+    
+}
+
+.v-success {
+
+    i {
+        color: #006900;
+    }
+
+}
+
+.cm-error-message {
+    position: absolute;
+    top: 36px;
+    left: 0px;
+    color: @CMError;
+    font-size: 13px;
+    font-style: italic;
+}

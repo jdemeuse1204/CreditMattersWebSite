@@ -3,6 +3,7 @@ import { useView } from 'aurelia-framework';
 import {account} from '../common/repository';
 import {isEmpty} from 'lodash';
 import { PLATFORM } from 'aurelia-pal';
+import '../styles/home.less';
 /* beautify preserve:end */
 
 @useView(PLATFORM.moduleName('../views/home.html'))
