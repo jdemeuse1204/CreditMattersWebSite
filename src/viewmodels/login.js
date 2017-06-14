@@ -1,4 +1,6 @@
 /* beautify preserve:start */
+import 'font-awesome/css/font-awesome.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/index.less';
 import '../styles/validation.less';
 import '../styles/login.less';
