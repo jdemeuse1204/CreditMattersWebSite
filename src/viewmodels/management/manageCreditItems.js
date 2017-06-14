@@ -1,5 +1,7 @@
 /* beautify preserve:start */
 import 'bootstrap';
+import '../../styles/index.less';
+import '../../styles/management/manageCreditItems.less';
 import { useView } from 'aurelia-framework';
 import { Grid } from '../../controllers/manageCreditItems/grid';
 import { inject } from 'aurelia-dependency-injection';

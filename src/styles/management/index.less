@@ -1,0 +1,219 @@
+.credit-bureau-filter-buttons {
+    div {
+        background-color: @CMLightGreen;
+        margin-bottom: 8px;
+    }
+}
+
+.mobile-mcr-buttons {
+    div {
+        background-color: @CMLightGreen;
+        margin-bottom: 1px;
+    }
+}
+
+.mobile-mcr-buttons,
+.credit-bureau-filter-buttons {
+    margin: 0 15px;
+    div {
+        padding: 5px 0;
+        color: white;
+    }
+    div:nth-child(2) {
+        border-left: 1px solid white;
+        border-right: 1px solid white;
+    }
+    span,
+    a {
+        display: block;
+        cursor: pointer;
+        color: white;
+    }
+    a:hover,
+    a:active {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.buttons-header {
+    display: block;
+    width: inherit;
+    background-color: @CMDarkGreen;
+    padding: 3px 0;
+    color: white;
+    font-size: 16px;
+}
+
+.btn-help {
+    position: absolute;
+    right: 15px;
+    top: 76px;
+}
+
+.credit-items-page {
+    .mobile-mcr-buttons {
+        div:nth-child(3) {
+            border-right: 1px solid white;
+        }
+    }
+    .cm-swipable-status {
+        position: absolute;
+        font-size: 18px;
+        font-weight: bold;
+        bottom: 0;
+        right: 12px;
+    }
+    .cm-swipable-status-deleted {
+        color: rgba(255, 1, 1, .5);
+    }
+    .cm-swipable-status-positive {
+        color: rgba(18, 112, 31, 0.50);
+    }
+    .dataTables_wrapper>div:nth-child(2) {
+        .cm-swipable.drag-left {
+            .cm-swipable-right-action {
+                display: none;
+            }
+            .cm-swipable-left-action {
+                display: block;
+            }
+        }
+        .cm-swipable.drag-right {
+            .cm-swipable-left-action {
+                display: none;
+            }
+            .cm-swipable-right-action {
+                display: block;
+            }
+        }
+        .cm-swipable.no-drag {
+            .cm-swipable-left-action {
+                display: none;
+            }
+            .cm-swipable-right-action {
+                display: none;
+            }
+        }
+        .cm-swipable-deleted {
+            .cm-swipable-drag-overlay {
+                background-color: #ffdbdb !important;
+                input {
+                    background-color: #ffdbdb !important;
+                }
+            }
+        }
+        .cm-swipable-positive {
+            .cm-swipable-drag-overlay {
+                background-color: #cfffcb !important;
+                input {
+                    background-color: #cfffcb !important;
+                }
+            }
+        }
+        .cm-swipable {
+            padding: 15px;
+            margin: 0;
+            width: 100%;
+            height: 75px;
+            position: relative;
+            .cm-swipable-drag-overlay {
+                position: absolute;
+                background-color: white;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0;
+                padding: 10px 15px;
+                width: 100%;
+                height: 75px;
+                span {
+                    position: absolute;
+                    height: 30px;
+                    width: 30px;
+                    top: 8px;
+                    right: 12px;
+                    input[type='checkbox'] {
+                        height: inherit;
+                    }
+                }
+            }
+            .cm-swipable-left-action {
+                background-color: @CMDarkGreen;
+            }
+            .cm-swipable-left-action>div {
+                width: 25%;
+                margin: 22px 0 0 2px;
+                font-size: 14px;
+                color: white;
+                padding: 0 4px;
+            }
+            .cm-swipable-right-action>div {
+                width: 25%;
+                margin: 22px 0 0 2px;
+                font-size: 14px;
+                color: white;
+                padding: 0 4px;
+            }
+            .cm-swipable-right-action {
+                background-color: @CMOrange;
+            }
+            .cm-swipable-left-action,
+            .cm-swipable-right-action {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                height: 75px;
+            }
+            .row {
+                margin: 0;
+            }
+        }
+        .cm-swipable>div.row:nth-child(1) {
+            font-size: 18px;
+        }
+        .cm-swipable div.row>div:nth-child(1) {
+            float: left;
+        }
+        .cm-swipable div.row>div:nth-child(2) {
+            float: right;
+        }
+    }
+}
+
+.profile-card-header {
+    font-size: 20px;
+    background-color: @CMLightGreen;
+    padding: 5px 15px;
+    color: white;
+    border: 1px solid @CMLightGreen;
+}
+
+.profile-card-body {
+    ul {
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        li {
+            cursor: pointer;
+            margin: 0;
+            padding: 7px;
+            width: 100%;
+            border-left: 1px solid #eaeaea;
+            border-right: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+            span.glyphicon-chevron-right {
+                float: right;
+                margin-right: 10px;
+            }
+        }
+    }
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075),
+    0 0 8px rgba(0, 0, 0, .075);
+}

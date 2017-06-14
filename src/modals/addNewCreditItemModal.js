@@ -1,4 +1,5 @@
 /* beautify preserve:start */
+import '../styles/modals/addNewCreditItemModal.less';
 import { inject } from 'aurelia-dependency-injection';
 import { DialogController } from 'aurelia-dialog';
 import { find } from 'lodash';

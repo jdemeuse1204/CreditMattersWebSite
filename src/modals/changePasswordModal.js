@@ -6,6 +6,7 @@ import { CMRenderer } from '../common/cmRenderer';
 import { account } from '../common/repository';
 import * as validate from '../common/cmValidate';
 import * as loadingScreen from '../common/loadingScreen';
+import '../styles/modals/changePasswordModal.less';
 /* beautify preserve:end */
 
 @inject(DialogController, ValidationControllerFactory)

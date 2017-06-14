@@ -5,6 +5,8 @@ import { TransUnionGrid } from '../../controllers/manageCreditItems/transUnionGr
 import { inject } from 'aurelia-dependency-injection';
 import * as loadingScreen from '../../common/loadingScreen';
 import { PLATFORM } from 'aurelia-pal';
+import '../../styles/index.less';
+import '../../styles/management/transUnionCreditItems.less';
 /* beautify preserve:end */
 
 @useView(PLATFORM.moduleName('../../views/management/transUnionCreditItems.html'))
@@ -18,7 +20,6 @@ export class TransUnionCreditItems {
   }
 
   attached() {
-
     loadingScreen.show();
 
     this.grid.load().then(() => {
@@ -27,7 +28,6 @@ export class TransUnionCreditItems {
   }
 
   createLetter() {
-
     if (this.grid.anyItemsSelected() === false) {
       return;
     }

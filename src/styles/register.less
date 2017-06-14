@@ -1,0 +1,35 @@
+@import './colors.less';
+
+#register-window {
+    color: white;
+    height: inherit;
+
+    .row {
+        padding: 8px;
+    }
+
+    .container {
+        margin-bottom: 50px;
+    }
+
+    .register-card {
+
+        .register-header {
+            background-color: @CMLightGreen;
+            border: 1px solid @CMLightGreen;
+            font-size: 16px;
+        }
+
+        .register-body {
+            margin-bottom: 25px;
+            box-shadow: rgba(0, 0, 0, .5) 0 1px 2px 1px;
+            background-color: rgba(43, 47, 47, 0.7);
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .register-card {
+        margin: 0 20px 0 20px;
+    }
+}

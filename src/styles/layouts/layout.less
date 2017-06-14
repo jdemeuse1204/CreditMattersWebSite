@@ -1,72 +1,202 @@
-#main-layout-page-nav {
-
-    div[data-class=login-buttons] {
-        padding-right: 22px;
+#main-layout-page {
+    min-height: 100%;
+    height: initial;
+    #main-layout-content {
+        min-height: 100vh;
+        height: auto;
+        background-color: white;
     }
-
-    a[data-class=nav-main-button] {
-        font-size: 18px;
-        font-weight: 400;
+    .log-out {
+        margin-top: 50px;
     }
-
-    span[data-class=current-user] {
-        padding-left: 18px;
-        font-weight: 600;
-    }
-
-    a {
-        color: black !important;
-    }
-
-    a[data-class=nav-main-button]:hover {
-        color: @CMLightGreen !important;
-    }
-
-    .btn {
-        color: white;
-    }
-
-    .navbar-header {
-        a {
-            margin: 5px 0 0 0;
-            background-image: url(http://gocreditmatters.com/Images/Logo-Master.png);
-            height: 100px;
-            width: 200px;
-            background-repeat: no-repeat;
+    .profile-message {
+        cursor: pointer;
+        span {
+            margin-left: 10px;
+            color: #c88421;
         }
-
-        button {
-            margin-top: 32px;
+        i {
+            color: #c88421;
+            padding-left: 35px;
+        }
+        margin-bottom: 15px;
+    }
+    .active-selection:before {
+        content: "\00a0\f111";
+        font-family: FontAwesome;
+        color: @CMLightGreen;
+        padding-right: 10px;
+        margin-left: -26px;
+        margin-bottom: -10px;
+    }
+    #drawer-trigger:hover {
+        cursor: pointer;
+    }
+    #drawer-trigger {
+        background-color: transparent;
+        position: fixed;
+        top: 20px;
+        left: 15px;
+        width: 40px;
+        z-index: 999;
+        cursor: pointer;
+        .drawer-line {
+            height: 2px;
+            background-color: @CMFontAlt;
+            line-height: 2px;
+        }
+        div:nth-child(1) {
+            margin-top: 0;
+            padding: 0;
+        }
+        div:nth-child(2) {
+            margin-top: 7px;
+            padding: 0;
+        }
+        div:nth-child(3) {
+            margin-top: 7px;
+            padding: 0;
         }
     }
-
-    ul[data-class=nav-links] {
-        padding-top: 30px;
-    }
-
-    #user-options {
-        padding-top: 12px;
-
-        button[data-class=buy-now] {
-            width: 100%;
+    .drawer-header {
+        height: 125px;
+        margin: 15px 0 0 0;
+        .drawer-header-name {
+            font-size: 32px;
+            color: white;
+        }
+        .drawer-header-account-type {
+            color: white;
         }
     }
-
-    #logged-in-user-options {
-        padding-top: 30px;
-
-        a:hover {
-            cursor: pointer;
+    .drawer {
+        background-color: rgb(55, 76, 93);
+        min-height: 100vh;
+        width: 260px;
+        float: left;
+        div[data-role='content'] {
+            background-color: inherit;
         }
-    }
-
-    .dropdown-menu {
-        border-radius: 5px;
-    }
-
-    #main-videos-dropdown {
         ul {
-            width: 230px !important;
+            list-style: none;
+            list-style-image: none;
+            line-height: 1.6;
+            display: block;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            li {
+                width: 100%;
+                padding: 5px 0 5px 35px;
+                height: auto;
+                border-top: 1px solid rgb(36, 50, 61);
+                border-bottom: 1px solid rgb(63, 86, 106);
+                box-shadow: inset -1px 0 2px .5px rgb(34, 50, 62);
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: 400;
+                color: white;
+                a,
+                a:hover,
+                a:active {
+                    text-decoration: none;
+                    color: white;
+                }
+            }
+            li:hover {
+                cursor: pointer;
+                background-color: @CMDarkGreen;
+            }
         }
+    }
+}
+
+.page-header-row-desktop {
+    display: block;
+    overflow: hidden;
+    right: 0;
+    left: 260px;
+    padding: 0;
+    position: fixed;
+    height: 70px;
+    box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, .1);
+    background-color: @CMHeader;
+    .desktop-button {
+        float: right;
+        width: 120px;
+        display: block;
+        height: 70px;
+        padding: 0;
+        cursor: pointer;
+        color: @CMFontAlt;
+        border-bottom: 3px solid rgba(0, 133, 62, 0.44);
+        margin-right: 3px;
+        i {
+            margin-top: 0px;
+            color: @CMFontAlt;
+        }
+    }
+    .desktop-label {
+        color: white;
+        margin: 3px;
+    }
+}
+
+.page-header-row-mobile {
+    display: block;
+    overflow: hidden;
+    right: 0;
+    left: 0;
+    padding: 0;
+    position: fixed;
+    height: 60px;
+    box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, .1);
+    background-color: @CMHeader;
+    z-index: 998;
+    i {
+        color: @CMFontAlt;
+    }
+    .header-button-mobile {
+        float: right;
+        width: 60px;
+        display: block;
+        height: 100%;
+        padding: 6px 8px 3px 8px;
+        cursor: pointer;
+        color: @CMFontAlt;
+        border-bottom: 3px solid rgba(0, 133, 62, 0.44);
+        margin-right: 3px;
+    }
+    .header-button-no-border {
+        float: right;
+        width: 60px;
+        display: block;
+        height: 100%;
+        padding: 6px 8px 3px 8px;
+        cursor: pointer;
+        color: @CMFontAlt;
+    }
+}
+
+#user-emails-wizard-modal {
+
+    .row {
+        margin: 15px 0;
+    }
+
+    .modal-body {
+        padding: 15px 0;
+    }
+
+    input {
+        width: 100%;
+    }
+}
+
+.manage-credit-items-response-row-action {
+    span {
+        display: block !important;
+        padding: 2px 16px;
+        cursor: pointer;
     }
 }

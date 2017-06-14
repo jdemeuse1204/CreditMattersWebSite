@@ -1,4 +1,6 @@
 import 'bootstrap';
+import '../../styles/index.less';
+import '../../styles/management/resolvingCDS.less';
 import { useView } from 'aurelia-framework';
 import { Grid } from '../../controllers/resolvingCDS/grid';
 import { inject } from 'aurelia-dependency-injection';

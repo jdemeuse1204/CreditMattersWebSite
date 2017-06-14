@@ -6,6 +6,7 @@ import * as loadingScreen from '../common/loadingScreen';
 import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation';
 import { CMRenderer } from '../common/cmRenderer';
 import { validateMultiple } from '../common/cmValidate';
+import '../styles/modals/editSecurityQuestionsModal.less';
 /* beautify preserve:end */
 
 @inject(DialogController, ValidationControllerFactory)

@@ -6,6 +6,7 @@ import * as loadingScreen from '../common/loadingScreen';
 import { getTemplateHtml } from '../common/utils';
 import * as constants from '../constants';
 import { find } from 'lodash';
+import '../styles/modals/createDisputeLetterFromManageCreditItemsModal.less';
 /* beautify preserve:end */
 
 @inject(DialogController)

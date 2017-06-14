@@ -1,4 +1,7 @@
 /* beautify preserve:start */
+import '../styles/index.less';
+import '../styles/validation.less';
+import '../styles/login.less';
 import { useView } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
 import { inject } from 'aurelia-dependency-injection';
@@ -78,7 +81,7 @@ export class Login {
     };
 
     this.dialogService.open({
-      viewModel: 'modals/forgotUsernameModal',
+      viewModel: PLATFORM.moduleName('modals/forgotUsernameModal'),
       model: modalModel
     });
   }

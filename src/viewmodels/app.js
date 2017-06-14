@@ -3,6 +3,7 @@ import { Redirect } from 'aurelia-router';
 import { account } from '../common/repository';
 import { includes } from 'lodash';
 import { PLATFORM } from 'aurelia-pal';
+import '../styles/app.less';
 
 @useView(PLATFORM.moduleName('../views/app.html'))
 export class App {
@@ -40,7 +41,7 @@ export class App {
       { route: 'Management/ExperianCreditItems', name: 'ExperianCreditItems', moduleId: PLATFORM.moduleName('./management/experianCreditItems'), nav: true, title: 'Experian Credit Items', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } },
 
       // admin
-      { route: 'Management/Admin', name: 'Admin', moduleId: './management/admin', nav: true, title: 'Admin', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
+      { route: 'Management/Admin', name: 'Admin', moduleId: PLATFORM.moduleName('./management/admin'), nav: true, title: 'Admin', layoutView: 'views/layouts/layout.html', layoutViewModel: 'viewmodels/layouts/layout', settings: { auth: true } }
     ]);
 
     config.mapUnknownRoutes('./home');

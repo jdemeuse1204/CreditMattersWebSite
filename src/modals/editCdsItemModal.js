@@ -3,6 +3,7 @@ import { inject } from 'aurelia-dependency-injection';
 import {DialogController} from 'aurelia-dialog';
 import * as loadingScreen from '../common/loadingScreen';
 import { lookup, management } from '../common/repository';
+import '../styles/modals/editCdsItemModal.less';
 /* beautify preserve:end */
 
 @inject(DialogController)

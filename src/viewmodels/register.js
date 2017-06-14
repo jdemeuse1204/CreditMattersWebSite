@@ -9,6 +9,9 @@ import * as validate from '../common/cmValidate';
 import * as loadingScreen from '../common/loadingScreen';
 import { routes } from '../constants';
 import { PLATFORM } from 'aurelia-pal';
+import '../styles/index.less';
+import '../styles/validation.less';
+import '../styles/register.less';
 /* beautify preserve:end */
 
 @inject(ValidationControllerFactory, DialogService)

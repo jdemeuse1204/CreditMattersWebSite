@@ -1,0 +1,12 @@
+.page-host {
+    min-height: 100%;
+}
+
+.page-host > router-view > div {
+    // make sure page is full browser height
+    min-height: 100vh;
+
+    #blank-layout-content, #blank-layout-content > div {
+        height: inherit;
+    }
+}

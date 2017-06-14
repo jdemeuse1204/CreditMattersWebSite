@@ -9,6 +9,7 @@ import { getUserInformation } from '../../common/dataFetchService';
 import * as constants from '../../constants';
 import { find, isEmpty } from 'lodash';
 import { PLATFORM } from 'aurelia-pal';
+import '../../styles/index.less';
 /* beautify preserve:end */
 
 @useView(PLATFORM.moduleName('../../views/management/myProfile.html'))

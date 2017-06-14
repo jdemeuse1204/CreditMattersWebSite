@@ -1,5 +1,7 @@
 /* beautify preserve:start */
 import 'bootstrap';
+import '../../styles/index.less';
+import '../../styles/management/experianCreditItems.less';
 import { useView } from 'aurelia-framework';
 import { ExperianGrid } from '../../controllers/manageCreditItems/experianGrid';
 import { inject } from 'aurelia-dependency-injection';

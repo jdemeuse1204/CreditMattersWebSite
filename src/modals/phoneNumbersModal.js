@@ -10,6 +10,7 @@ import { isNumeric } from '../common/utils';
 import { validate } from '../common/cmValidate';
 import { isEmpty } from 'lodash';
 import * as constants from '../constants';
+import '../styles/modals/phoneNumbersModal.less';
 /* beautify preserve:end */
 
 @inject(DialogController, ValidationControllerFactory)

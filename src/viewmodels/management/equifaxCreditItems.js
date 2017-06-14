@@ -1,5 +1,7 @@
 /* beautify preserve:start */
 import 'bootstrap';
+import '../../styles/index.less';
+import '../../styles/management/equifaxCreditItems.less';
 import { useView } from 'aurelia-framework';
 import { EquifaxGrid } from '../../controllers/manageCreditItems/equifaxGrid';
 import { inject } from 'aurelia-dependency-injection';
