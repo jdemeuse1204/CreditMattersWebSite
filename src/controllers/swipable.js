@@ -2,199 +2,184 @@
 import '../../node_modules/kendo-ui-core/js/kendo.touch';
 
 export default function(cmSwipableSelector, _onRightAction, _onLeftAction, _onTapAction) {
+  const _leftActionClick = function(e) {
+      if ($.isFunction(_onLeftAction)) {
+        e.direction = 'left';
 
-    const _leftActionClick = function(e) {
+        _onLeftAction(e);
 
-            if ($.isFunction(_onLeftAction)) {
+        _reset($(cmSwipableSelector), $(_overlaySelector));
+      }
+    },
+    _rightActionClick = function(e) {
+      if ($.isFunction(_onRightAction)) {
+        e.direction = 'right';
 
-                e["direction"] = "left";
+        _onRightAction(e);
 
-                _onLeftAction(e);
+        _reset($(cmSwipableSelector), $(_overlaySelector));
+      }
+    },
+    _onTap = function(e) {
+      if ($.isFunction(_onTapAction)) {
+        // needed so click event
+        // doesnt bubble to dialog
+        e.preventDefault();
+        _onTapAction(e);
 
-                _reset($(cmSwipableSelector), $(_overlaySelector));
-            }
-        },
-        _rightActionClick = function(e) {
+        _reset($(cmSwipableSelector), $(_overlaySelector));
+      }
+    },
+    _overlaySelector = cmSwipableSelector + ' .cm-swipable-drag-overlay',
+    _leftActionSelector = cmSwipableSelector + ' .cm-swipable-left-action',
+    _rightActionSelector = cmSwipableSelector + ' .cm-swipable-right-action',
+    _reset = function(parent, overlay) {
+      parent.addClass('no-drag');
+      parent.removeClass('drag-right');
+      parent.removeClass('drag-left');
+      overlay.css('left', 0);
+    };
 
-            if ($.isFunction(_onRightAction)) {
+  // call left action
+  $(_leftActionSelector).unbind('click');
+  $(_leftActionSelector).on('click', _leftActionClick);
 
-                e["direction"] = "right";
+  // call right action
+  $(_rightActionSelector).unbind('click');
+  $(_rightActionSelector).on('click', _rightActionClick);
 
-                _onRightAction(e);
+  $(cmSwipableSelector)
+    .find('.cm-swipable-drag-overlay')
+    .kendoTouch({
+      wasDragging: '',
+      dragStartXPosition: 0,
+      drag: function(e) {
+        const left = e.sender.element.position().left,
+          parent = e.sender.element.parent();
 
-                _reset($(cmSwipableSelector), $(_overlaySelector));
-            }
+        if (left > 0) {
+          // dragging-left
+          if (parent.hasClass('no-drag')) {
+            parent.removeClass('no-drag');
+          }
 
-        },
-        _onTap = function(e) {
+          if (!parent.hasClass('drag-left')) {
+            parent.addClass('drag-left');
+          }
 
-            if ($.isFunction(_onTapAction)) {
+          if (parent.hasClass('drag-right')) {
+            parent.removeClass('drag-right');
+          }
+        }
 
-                // needed so click event
-                // doesnt bubble to dialog
-                e.preventDefault();
-                _onTapAction(e);
+        //drag-right
+        if (left < 0) {
+          // dragging right
+          if (parent.hasClass('no-drag')) {
+            parent.removeClass('no-drag');
+          }
 
-                _reset($(cmSwipableSelector), $(_overlaySelector));
-            }
+          if (!parent.hasClass('drag-right')) {
+            parent.addClass('drag-right');
+          }
 
-        },
-        _overlaySelector = cmSwipableSelector + " .cm-swipable-drag-overlay",
-        _leftActionSelector = cmSwipableSelector + " .cm-swipable-left-action",
-        _rightActionSelector = cmSwipableSelector + " .cm-swipable-right-action",
-        _reset = function(parent, overlay) {
-            parent.addClass("no-drag");
-            parent.removeClass("drag-right");
-            parent.removeClass("drag-left");
-            overlay.css("left", 0);
-        };
+          if (parent.hasClass('drag-left')) {
+            parent.removeClass('drag-left');
+          }
+        }
 
-    // call left action
-    $(_leftActionSelector).unbind("click");
-    $(_leftActionSelector).on("click", _leftActionClick);
+        e.sender.element.css('left', left + e.touch.x.delta);
+      },
+      tap: function(e) {
+        if (!$(e.event.target).is('div')) {
+          return;
+        }
 
-    // call right action
-    $(_rightActionSelector).unbind("click");
-    $(_rightActionSelector).on("click", _rightActionClick);
+        const $currentTarget = $(e.event.currentTarget).parent(),
+          didDrag = this.wasDragging;
 
-    $(cmSwipableSelector)
-        .find(".cm-swipable-drag-overlay")
-        .kendoTouch({
-            wasDragging: "",
-            dragStartXPosition: 0,
-            drag: function(e) {
+        if ($currentTarget.hasClass('drag-right') ||
+          $currentTarget.hasClass('drag-left') ||
+          didDrag === true) {
+          e.preventDefault();
+          return;
+        }
 
-                const left = e.sender.element.position().left,
-                    parent = e.sender.element.parent();
+        // element was tapped only
+        _onTap(e);
+      },
+      dragend: function(e) {
+        let mainContainerWidth = $(_overlaySelector).css('width'),
+          parsedWidth = parseInt(mainContainerWidth.replace('px', '')),
+          left = e.sender.element.position().left,
+          movePercentage = (left / parsedWidth),
+          parent = e.sender.element.parent(),
+          setDrag = function() {
+            $(_overlaySelector).data('kendoTouch').wasDragging = false;
+          };
 
-                if (left > 0) {
-                    // dragging-left
-                    if (parent.hasClass("no-drag")) {
-                        parent.removeClass("no-drag");
-                    }
+        if (left !== 0) {
+          this.wasDragging = true;
 
-                    if (!parent.hasClass("drag-left")) {
-                        parent.addClass("drag-left");
-                    }
+          setTimeout(setDrag, 100);
+        }
 
-                    if (parent.hasClass("drag-right")) {
-                        parent.removeClass("drag-right");
-                    }
-                }
+        // negative - right is showing, 25% show button, 50% perform action
+        // positive - left is showing, 25% show button, 50% perform action
 
-                //drag-right
-                if (left < 0) {
-                    // dragging right
-                    if (parent.hasClass("no-drag")) {
-                        parent.removeClass("no-drag");
-                    }
+        if (movePercentage < 0.25 && movePercentage > 0) {
+          // reset
+          _reset(parent, e.sender.element);
+          return;
+        }
 
-                    if (!parent.hasClass("drag-right")) {
-                        parent.addClass("drag-right");
-                    }
+        if (movePercentage > -0.25 && movePercentage < 0) {
+          // reset
+          _reset(parent, e.sender.element);
+          return;
+        }
 
-                    if (parent.hasClass("drag-left")) {
-                        parent.removeClass("drag-left");
-                    }
-                }
+        if (movePercentage >= 0.25 && movePercentage < 0.5) {
+          // show done action
+          e.sender.element.css('left', (parsedWidth * 0.25));
 
-                e.sender.element.css("left", left + e.touch.x.delta);
-            },
-            tap: function(e) {
+          return;
+        }
 
-                if (!$(e.event.target).is("div")) {
-                    return;
-                }
+        if (movePercentage >= 0.5) {
+          // perform left action
 
-                const $currentTarget = $(e.event.currentTarget).parent(),
-                    didDrag = this.wasDragging;
+          if ($.isFunction(_onLeftAction)) {
+            e.direction = 'left';
 
-                if ($currentTarget.hasClass("drag-right") ||
-                    $currentTarget.hasClass("drag-left") ||
-                    didDrag === true) {
-                    e.preventDefault();
-                    return;
-                }
+            _onLeftAction(e);
 
-                // element was tapped only
-                _onTap(e);
-            },
-            dragend: function(e) {
+            _reset(parent, e.sender.element);
+          }
 
-                let mainContainerWidth = $(_overlaySelector).css("width"),
-                    parsedWidth = parseInt(mainContainerWidth.replace("px", "")),
-                    left = e.sender.element.position().left,
-                    movePercentage = (left / parsedWidth),
-                    parent = e.sender.element.parent(),
-                    setDrag = function() {
-                        $(_overlaySelector).data("kendoTouch").wasDragging = false;
-                    };
+          return;
+        }
 
-                if (left !== 0) {
+        if (movePercentage <= -0.25 && movePercentage > -0.5) {
+          // show send to CDS action
+          e.sender.element.css('left', -(parsedWidth * 0.25));
 
-                    this.wasDragging = true;
+          return;
+        }
 
-                    setTimeout(setDrag, 100);
-                }
+        if (movePercentage <= -0.5) {
+          // perform right action
 
-                // negative - right is showing, 25% show button, 50% perform action
-                // positive - left is showing, 25% show button, 50% perform action
+          if ($.isFunction(_onRightAction)) {
+            e.direction = 'right';
 
-                if (movePercentage < .25 && movePercentage > 0) {
-                    // reset
-                    _reset(parent, e.sender.element);
-                    return;
-                }
+            _onRightAction(e);
 
-                if (movePercentage > -.25 && movePercentage < 0) {
-                    // reset
-                    _reset(parent, e.sender.element);
-                    return;
-                }
+            _reset(parent, e.sender.element);
+          }
 
-                if (movePercentage >= .25 && movePercentage < .5) {
-                    // show done action
-                    e.sender.element.css("left", (parsedWidth * .25));
-
-                    return;
-                }
-
-                if (movePercentage >= .5) {
-                    // perform left action
-
-                    if ($.isFunction(_onLeftAction)) {
-
-                        e["direction"] = "left";
-
-                        _onLeftAction(e);
-
-                        _reset(parent, e.sender.element);
-                    }
-
-                    return;
-                }
-
-                if (movePercentage <= -.25 && movePercentage > -.5) {
-                    // show send to CDS action
-                    e.sender.element.css("left", -(parsedWidth * .25));
-
-                    return;
-                }
-
-                if (movePercentage <= -.5) {
-                    // perform right action
-
-                    if ($.isFunction(_onRightAction)) {
-
-                        e["direction"] = "right";
-
-                        _onRightAction(e);
-
-                        _reset(parent, e.sender.element);
-                    }
-
-                    return;
-                }
-            }
-        });
-};
+          return;
+        }
+      }
+    });
+}

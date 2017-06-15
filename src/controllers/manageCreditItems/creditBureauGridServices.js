@@ -1,7 +1,5 @@
 /* beautify preserve:start */
-import { management } from '../../common/repository';
 import * as loadingScreen from '../../common/loadingScreen';
-import creditBureauEntry from '../../models/creditBureauEntry';
 import { inject } from 'aurelia-dependency-injection';
 import { DialogService } from 'aurelia-dialog';
 /* beautify preserve:end */

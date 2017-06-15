@@ -10,7 +10,7 @@ import { CMRenderer } from '../common/cmRenderer';
 import { validateMultiple } from '../common/cmValidate';
 import disputeReason from '../models/disputeReason';
 import creditBureauEntry from '../models/creditBureauEntry';
-import { isGuidEmpty, isNumeric } from '../common/utils';
+import { isNumeric } from '../common/utils';
 import * as constants from '../constants';
 /* beautify preserve:end */
 

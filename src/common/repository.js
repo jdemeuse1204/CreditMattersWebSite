@@ -1,8 +1,6 @@
 /* beautify preserve:start */
 import q from 'q';
-import aspnet_user from '../models/aspnet_user';
 import creditBureauEntry from '../models/creditBureauEntry';
-import states from '../models/state';
 import creditBureau from '../models/creditBureau';
 import creditBureauStatus from '../models/creditBureauStatus';
 import * as constants from '../constants';

@@ -14,7 +14,16 @@ export function isGuidEmpty(guid) {
 }
 
 export function isNumeric(value) {
+  if (typeof value === 'string') {
+    const convertedValue = replaceAll(value, ',', '');
+    return !isNaN(parseFloat(convertedValue)) && isFinite(convertedValue);
+  }
+
   return !isNaN(parseFloat(value)) && isFinite(value);
+}
+
+export function replaceAll(string, oldValue, newValue) {
+  return string.replace(new RegExp(oldValue, 'g'), newValue);
 }
 
 export function isNullOrEmpty(value) {

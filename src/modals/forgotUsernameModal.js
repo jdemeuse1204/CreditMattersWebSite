@@ -7,6 +7,9 @@ import { ValidationControllerFactory, ValidationRules } from 'aurelia-validation
 import { CMRenderer } from '../common/cmRenderer';
 import { validate } from '../common/cmValidate';
 import '../styles/index.less';
+import '../styles/modals/index.less';
+import 'font-awesome/css/font-awesome.css';
+import 'bootstrap/dist/css/bootstrap.css';
 /* beautify preserve:end */
 
 @inject(DialogController, ValidationControllerFactory)

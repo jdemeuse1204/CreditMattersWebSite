@@ -1,7 +1,6 @@
 /* beautify preserve:start */
 import { account } from './repository';
 import { loginResults } from '../constants';
-import moment from 'moment';
 import { isEmpty } from 'lodash';
 import ls from './localStorage';
 import * as environment from '../environment';

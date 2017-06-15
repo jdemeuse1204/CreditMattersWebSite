@@ -1,216 +1,209 @@
+/* beautify preserve:start */
 // Scope require
-import "bootstrap";
-import "../../../Scripts/DataTables/datatables.min";
+import 'bootstrap';
+import '../../../Scripts/DataTables/datatables.min';
 
 // Module require
-import swipable from "../../controllers/swipable";
-import { management } from "../../common/repository";
-import * as constants from "../../constants";
-import { getTemplateHtml, getTemplate } from "../../common/utils";
-import * as loadingScreen from "../../common/loadingScreen";
-import { find } from 'lodash';
+import swipable from '../../controllers/swipable';
+import { management } from '../../common/repository';
+import * as constants from '../../constants';
+import { getTemplateHtml, getTemplate } from '../../common/utils';
 import { inject } from 'aurelia-dependency-injection';
 import { GridServices } from './creditBureauGridServices';
+/* beautify preserve:end */
 
 @inject(GridServices)
 export class ExperianGrid {
 
-    gridServices = null;
-    itemModal = null;
-    table = null;
-    data = [];
+  gridServices = null;
+  itemModal = null;
+  table = null;
+  data = [];
 
-    constructor(gridServices) {
-        this.gridServices = gridServices;
-    }
+  constructor(gridServices) {
+    this.gridServices = gridServices;
+  }
 
-    load() {
+  load() {
+    const that = this;
+    const gridHelpers = {
+      makeRowsResponsive: function(items) {
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
 
-        const that = this;
-        const gridHelpers = {
-            makeRowsResponsive: function (items) {
+          if (i === 6) {
+            // mobile row
+            $(item).addClass('hidden-lg').addClass('hidden-md');
+            $(item).css('border-left', 'none').css('border-right', 'none');
+            continue;
+          }
 
-                for (let i = 0; i < items.length; i++) {
-                    const item = items[i];
+          // desktop
+          $(item).addClass('hidden-sm').addClass('hidden-xs');
+        }
+      },
+      gridInitComplete: function() {
+        const getId = (e) => {
+          return !!e.sender ?
+            $(e.sender.element).data('id') :
+            $(e.delegateTarget).parent().find('.cm-swipable-drag-overlay').data('id');
+        };
+        const onRightAction = function(e) {
+          management.changeCreditItemResponse(constants.creditBureaus.experian, constants.creditBureauStatuses.positive, getId(e)).then(() => {
+            that.load();
+          });
+        };
+        const onLeftAction = function(e) {
+          management.changeCreditItemResponse(constants.creditBureaus.experian, constants.creditBureauStatuses.deleted, getId(e)).then(() => {
+            that.load();
+          });
+        };
+        const onTap = function(e) {
+          const id = $(e.sender.element).data('id');
 
-                    if (i === 6) {
-
-                        // mobile row
-                        $(item).addClass("hidden-lg").addClass("hidden-md");
-                        $(item).css("border-left", "none").css("border-right", "none");
-                        continue;
-                    }
-
-                    // desktop
-                    $(item).addClass("hidden-sm").addClass("hidden-xs");
-                }
-
-            },
-            gridInitComplete: function () {
-
-                const getId = (e) => {
-                    return !!e.sender
-                        ? $(e.sender.element).data("id")
-                        : $(e.delegateTarget).parent().find(".cm-swipable-drag-overlay").data("id");
-                },
-                    onRightAction = function (e) {
-                        management.changeCreditItemResponse(constants.creditBureaus.experian, constants.creditBureauStatuses.positive, getId(e)).then(() => {
-                            that.load();
-                        });
-                    },
-                    onLeftAction = function (e) {
-                        management.changeCreditItemResponse(constants.creditBureaus.experian, constants.creditBureauStatuses.deleted, getId(e)).then(() => {
-                            that.load();
-                        });
-                    },
-                    onTap = function (e) {
-
-                        const id = $(e.sender.element).data("id");
-
-                        that.gridServices.openModal(id, constants.creditBureaus.experian).then(response => {
-
-                            if (response.wasCancelled === false) {
-                                that.load();
-                            }
-                        });
-
-                    };
-
-                swipable("#manage-credit-items-experian-table_wrapper .cm-swipable",
-                    onRightAction,
-                    onLeftAction,
-                    onTap);
-
-                //#region Desktop
-                $("#manage-credit-items-experian-table_wrapper a[data-action=\"edit\"]").unbind("click");
-                $("#manage-credit-items-experian-table_wrapper a[data-action=\"edit\"]").click(function (e) {
-
-                    const id = $(e.delegateTarget).parent().data("id");
-
-                    openModal(id);
-
-                });
-                //#endregion
+          that.gridServices.openModal(id, constants.creditBureaus.experian).then(response => {
+            if (response.wasCancelled === false) {
+              that.load();
             }
+          });
         };
 
-        return new Promise((resolve, reject) => {
+        swipable('#manage-credit-items-experian-table_wrapper .cm-swipable',
+          onRightAction,
+          onLeftAction,
+          onTap);
 
-            let mobileTemplate = kendo.template(getTemplateHtml("#mobile-credit-item-experian"));
+        //#region Desktop
+        $('#manage-credit-items-experian-table_wrapper a[data-action="edit"]').unbind('click');
+        $('#manage-credit-items-experian-table_wrapper a[data-action="edit"]').click(function(e) {
+          const id = $(e.delegateTarget).parent().data('id');
 
-            if (that.table) {
-
-                if ($("#manage-credit-items-experian-table_wrapper").length === 0) {
-                    that.table.destroy();
-                    $("#manage-credit-items-experian-table").removeData();
-                    $("#manage-credit-items-experian-table").empty();
-                } else {
-                    management.getCreditItems(constants.creditBureaus.experian).then(function (refreshResponse) {
-
-                        that.data = refreshResponse.Data.result;
-
-                        // if table is already drawn, do not redraw
-                        that.table.clear();
-                        that.table.rows.add(that.data);
-                        that.table.draw();
-                        gridHelpers.gridInitComplete();
-
-                    }).catch(() => {
-                        reject();
-                    });
-                    return;
-                }
-            }
-
-            management.getCreditItems(constants.creditBureaus.experian).then(function (initResponse) {
-
-                that.data = initResponse.Data.result;
-
-                that.table = $("#manage-credit-items-experian-table").DataTable({
-                    data: that.data,
-                    columns: [
-                        {
-                            title: "",
-                            data: "Id",
-                            width: "300px",
-                            render: function (e) {
-
-                                const model = { dataId: e };
-
-                                return getTemplate("#desktop-manage-credit-items-actions-experian", model);
-                            }
-                        },
-                        { title: "Creditor", data: "Creditor.Name" },
-                        { title: "Account Number", data: "AccountNumber" },
-                        { title: "Type", data: "AdverseType.Type" },
-                        { title: "Dispute Reason", data: "Dispute.Reason" },
-                        {
-                            title: "Credit Bureau's",
-                            data: "Id",
-                            width: "300px",
-                            render: function (e) {
-
-                                return e;
-                            }
-                        },
-                        {
-                            title: "Items",
-                            data: "Id",
-                            render: function (e) {
-
-                                const item = _.find(that.data, function (i) { return i.Id === e; }),
-                                    deleted = item.ExperianResponseStatusId === 4,
-                                    positive = item.ExperianResponseStatusId === 3;
-
-                                item.Balance = kendo.toString(item.Balance, "c2");
-                                item.Status = deleted === true ? 1 : positive === true ? 2 : 0;
-
-                                return mobileTemplate(item);
-                            }
-                        }
-                    ],
-                    scrollY: '50vh',
-                    scrollCollapse: true,
-                    paging: false,
-                    initComplete: function () {
-
-                        gridHelpers.gridInitComplete();
-
-                        resolve();
-                    },
-                    headerCallback: function (e) {
-                        const ths = $(e).find("th");
-                        gridHelpers.makeRowsResponsive(ths);
-                    },
-                    createdRow: function (e) {
-
-                        // set the id for the row so we know what data its linked to
-                        //$(e).data("id", e);
-                        const tds = $(e).find("td");
-                        gridHelpers.makeRowsResponsive(tds);
-
-                    }
-                });
-
-                // modify table
-                const items = $("#manage-credit-items-experian-table_wrapper > div.row .col-sm-6");
-
-                // remove search bar
-                $(items[0]).remove();
-                $(items[1]).remove();
-
-            }).catch(() => {
-                reject();
-            });
+          openModal(id);
         });
-    }
+        //#endregion
+      }
+    };
 
-    anyItemsSelected() {
-        // distinguish between desktop and mobile check boxes
-        // clicking one CB should check both desktop and mobile
+    return new Promise((resolve, reject) => {
+      let mobileTemplate = kendo.template(getTemplateHtml('#mobile-credit-item-experian'));
 
-        const items = $("input[data-type=\"mobile-checkbox\"]:checked").data("id");
+      if (that.table) {
+        if ($('#manage-credit-items-experian-table_wrapper').length === 0) {
+          that.table.destroy();
+          $('#manage-credit-items-experian-table').removeData();
+          $('#manage-credit-items-experian-table').empty();
+        } else {
+          management.getCreditItems(constants.creditBureaus.experian).then(function(refreshResponse) {
+            that.data = refreshResponse.Data.result;
 
-        return items != null && items.length !== 0;
-    }
+            // if table is already drawn, do not redraw
+            that.table.clear();
+            that.table.rows.add(that.data);
+            that.table.draw();
+            gridHelpers.gridInitComplete();
+          }).catch(() => {
+            reject();
+          });
+          return;
+        }
+      }
+
+      management.getCreditItems(constants.creditBureaus.experian).then(function(initResponse) {
+        that.data = initResponse.Data.result;
+
+        that.table = $('#manage-credit-items-experian-table').DataTable({
+          data: that.data,
+          columns: [{
+            title: '',
+            data: 'Id',
+            width: '300px',
+            render: function(e) {
+              const model = {
+                dataId: e
+              };
+
+              return getTemplate('#desktop-manage-credit-items-actions-experian', model);
+            }
+          },
+          {
+            title: 'Creditor',
+            data: 'Creditor.Name'
+          },
+          {
+            title: 'Account Number',
+            data: 'AccountNumber'
+          },
+          {
+            title: 'Type',
+            data: 'AdverseType.Type'
+          },
+          {
+            title: 'Dispute Reason',
+            data: 'Dispute.Reason'
+          },
+          {
+            title: "Credit Bureau's",
+            data: 'Id',
+            width: '300px',
+            render: function(e) {
+              return e;
+            }
+          },
+          {
+            title: 'Items',
+            data: 'Id',
+            render: function(e) {
+              const item = _.find(that.data, function(i) {
+                return i.Id === e;
+              });
+              const deleted = item.ExperianResponseStatusId === 4;
+              const positive = item.ExperianResponseStatusId === 3;
+
+              item.Balance = kendo.toString(item.Balance, 'c2');
+              item.Status = deleted === true ? 1 : positive === true ? 2 : 0;
+
+              return mobileTemplate(item);
+            }
+          }
+          ],
+          scrollY: '50vh',
+          scrollCollapse: true,
+          paging: false,
+          initComplete: function() {
+            gridHelpers.gridInitComplete();
+
+            resolve();
+          },
+          headerCallback: function(e) {
+            const ths = $(e).find('th');
+            gridHelpers.makeRowsResponsive(ths);
+          },
+          createdRow: function(e) {
+            // set the id for the row so we know what data its linked to
+            //$(e).data("id", e);
+            const tds = $(e).find('td');
+            gridHelpers.makeRowsResponsive(tds);
+          }
+        });
+
+        // modify table
+        const items = $('#manage-credit-items-experian-table_wrapper > div.row .col-sm-6');
+
+        // remove search bar
+        $(items[0]).remove();
+        $(items[1]).remove();
+      }).catch(() => {
+        reject();
+      });
+    });
+  }
+
+  anyItemsSelected() {
+    // distinguish between desktop and mobile check boxes
+    // clicking one CB should check both desktop and mobile
+
+    const items = $('input[data-type="mobile-checkbox"]:checked').data('id');
+
+    return items != null && items.length !== 0;
+  }
 }

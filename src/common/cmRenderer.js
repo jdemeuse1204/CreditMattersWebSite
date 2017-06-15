@@ -1,8 +1,3 @@
-/* beautify preserve:start */
-import { ValidationRenderer, RenderInstruction, ValidationError } from 'aurelia-validation';
-import { includes } from 'lodash';
-/* beautify preserve:end */
-
 export class CMRenderer {
   render(instruction) {
     if (instruction.kind === 'reset') {

@@ -1,4 +1,6 @@
+/* beautify preserve:start */
 import {customElement, useView, bindable, bindingMode} from 'aurelia-framework';
+/* beautify preserve:end */
 
 @customElement('file-picker')
 @useView('./file-picker.html')
@@ -17,7 +19,7 @@ export class FilePicker {
   }
 
   clearSelection() {
-      this.input.type = '';
-      this.input.type = 'file';
+    this.input.type = '';
+    this.input.type = 'file';
   }
 }

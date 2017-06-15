@@ -1,6 +1,6 @@
 /* beautify preserve:start */
 import { inject } from 'aurelia-dependency-injection';
-import {DialogController} from 'aurelia-dialog';
+import { DialogController } from 'aurelia-dialog';
 import { routes } from '../constants';
 /* beautify preserve:end */
 
