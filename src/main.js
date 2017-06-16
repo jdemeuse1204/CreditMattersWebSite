@@ -3,6 +3,7 @@ import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'babel-polyfill';
 import 'whatwg-fetch';
+import 'kendo-ui-core';
 import * as Bluebird from 'bluebird';
 import { PLATFORM } from 'aurelia-pal';
 
