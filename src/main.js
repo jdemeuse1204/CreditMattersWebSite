@@ -26,7 +26,6 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 9999;
     })
     .plugin('aurelia-validation')
-    //.plugin('nprogress')
     //.plugin('aurelia-kendoui-bridge')
     .feature(PLATFORM.moduleName('resources/index'));
 
