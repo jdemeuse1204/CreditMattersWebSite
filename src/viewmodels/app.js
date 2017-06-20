@@ -3,15 +3,18 @@ import { Redirect } from 'aurelia-router';
 import { account } from '../common/repository';
 import { includes } from 'lodash';
 import { PLATFORM } from 'aurelia-pal';
+import * as webApi from '../common/webApi';
 import '../styles/app.less';
 
 @useView(PLATFORM.moduleName('../views/app.html'))
 export class App {
 
   csrf = '';
+  api = undefined;
 
   constructor() {
     this.csrf = window.csrf;
+    this.api = webApi;
   }
 
   configureRouter(config, router) {

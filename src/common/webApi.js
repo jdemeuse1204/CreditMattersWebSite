@@ -7,7 +7,10 @@ import { merge } from 'lodash';
 import { routes } from '../constants';
 /* beautify preserve:end */
 
+export let isLoading = false;
+
 export function post(url, payload, options) {
+  isLoading = true;
   let httpClient = new FetchClient();
 
   //const _xsrfToken = $(":hidden[name=\"__RequestVerificationToken\"]").val();
@@ -36,14 +39,22 @@ export function post(url, payload, options) {
     return httpClient.fetch(url, {
       method: 'POST',
       body: json(payload)
-    }).then(response => response.json()).catch(error => {
+    }).then(response => {
+      isLoading = false;
+      return response.json();
+    }).catch(error => {
+      isLoading = false;
       httpErrorHandler(error, shouldRedirect);
     });
   }
 
   return httpClient.fetch(url, {
     method: 'POST'
-  }).then(response => response.json()).catch(error => {
+  }).then(response => {
+    isLoading = false;
+    return response.json();
+  }).catch(error => {
+    isLoading = false;
     httpErrorHandler(error, shouldRedirect);
   });
 }
@@ -63,8 +74,10 @@ export function get(url, payload) {
       .withParams(payload)
       .send()
       .then(response => {
+        isLoading = false;
         return response && response.response ? JSON.parse(response.response) : undefined;
       }).catch(error => {
+        isLoading = false;
         httpErrorHandler(error, true);
       });
   }
@@ -72,8 +85,10 @@ export function get(url, payload) {
   return partialClient
     .send()
     .then(response => {
+      isLoading = false;
       return response && response.response ? JSON.parse(response.response) : undefined;
     }).catch(error => {
+      isLoading = false;
       httpErrorHandler(error, true);
     });
 }
