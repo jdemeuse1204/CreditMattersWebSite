@@ -8,8 +8,10 @@ import '../styles/app.less';
 @useView(PLATFORM.moduleName('../views/app.html'))
 export class App {
 
-  constructor() {
+  csrf = '';
 
+  constructor() {
+    this.csrf = window.csrf;
   }
 
   configureRouter(config, router) {

@@ -1,5 +1,8 @@
 <template>
   <div class="page-host">
-    <router-view class="${router.isNavigating ? 'navigating' : ''}"></router-view>
+    <input type="hidden" name="_csrf" value.bind="csrf"/>
+    <!--<loading-screen loading.bind="router.isNavigating || api.isRequesting"></loading-screen>-->
+    <loading-screen loading.bind="router.isNavigating"></loading-screen>
+    <router-view></router-view>
   </div>
 </template>

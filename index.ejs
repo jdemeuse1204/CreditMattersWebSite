@@ -9,10 +9,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
   <!-- imported CSS are concatenated and added automatically -->
-  <script>
-    window.csrf = "<%=csrfToken %>";
+  <% if (htmlWebpackPlugin.options.metadata.server) { %>
+    <script>
+      window.csrf = "Test";
 
-  </script>
+    </script>
+    <% }  else { %>
+      <script>
+        window.csrf = "<%=csrfToken %>";
+
+      </script>
+      <% } %>
 </head>
 
 <body aurelia-app="main">
@@ -26,7 +33,6 @@
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>
     <% } %>
-      <!--<script type="text/javascript" src="//cdn.auth0.com/js/lock-9.js"></script>-->
 </body>
 
 </html>

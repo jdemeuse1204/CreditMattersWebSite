@@ -95,7 +95,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       'window.jQuery': 'jquery'
     }),
     new ModuleDependenciesPlugin({
-      'aurelia-framework': [ 'aurelia-validation', 'aurelia-dialog', 'aurelia-validatejs' ]
+      'aurelia-framework': [ 'aurelia-validation', 'aurelia-dialog']
     }),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
